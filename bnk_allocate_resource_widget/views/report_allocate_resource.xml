@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--report allocate-->
+    <record id="report_allocate_resource_form" model="ir.ui.view">
+        <field name="name">report.allocate.resource.form</field>
+        <field name="model">report.allocate.resource</field>
+        <field name="arch" type="xml">
+            <form create="false" delete="false">
+                <div col="4" colspan="4">
+                    <button name="previous_month" style="width: 3%%; min-width: 30px;"
+                        type="object" string="" icon="fa-step-backward"/>
+                    <field name="month" nolabel="1" style="width: 8%%; min-width: 70px;"/>
+                    <button name="next_month" type="object" string="" style="width: 3%%; min-width: 30px;"
+                            icon="fa-step-forward"/>
+                </div>
+                <br/>
+                <div col="4" colspan="4">
+                    <label for="date_from" col="1" colspan="1" style="width: 4%%; min-width: 70px;"/>
+                    <field name="date_from" col="1" string="From" colspan="1" style="width: 7.5%%; min-width: 75px;"/>
+                    <b style="width: 1%%; min-width: 20px;"> to </b>
+                    <field name="date_to" col="1" colspan="1" nolabel="1" style="width: 7%%; min-width: 75px;"/>
+                </div>
+
+                <group col="8">
+                    <group col="4" colspan="4">
+                        <field name="project_ids" widget="many2many_tags" col="2" style="min-width: 70px; max-width: 50%;"/>
+                        <field name="billable" col="2" style="min-width: 70px; max-width: 50%;"/>
+                        <field name="employee_ids" widget="many2many_tags" col="2" style="min-width: 70px; max-width: 50%;"/>
+                        <field name="ot" col="2" style="min-width: 70px; max-width: 50%;"/>
+                    </group>
+                    <group col="4" colspan="4">
+                        <field name="site_ids" widget="many2many_tags" col="2" style="min-width: 70px; max-width: 50%;"/>
+                        <field name="company_ids" widget="many2many_tags" col="2" style="min-width: 70px; max-width: 50%;"/>
+                        <field name="show_detail" col="2" invisible="1"/>
+                        <field name="group_by_project" col="2"/>
+                    </group>
+                </group>
+                <group>
+                    <div col="3">
+                        <div>
+                            <button name="ok" type="object" string="OK"
+                                class="oe_highlight" icon="fa-check-square"
+                                style="width: 20%%; max-width:100px; margin-right: 10px;"/>
+                            <button name="action_print_xlsx" type="object" string="Export"
+                                class="oe_highlight" icon="fa-file-excel-o"
+                                style="width: 20%%; max-width:100px; margin-left: 10px;"/>
+                        </div>
+                    </div>
+                </group>
+                <field name="id" widget="allocate_resource"
+                       options='{"always_reload": True, "reload_on_button": True}'/>
+            </form>
+        </field>
+    </record>
+
+    <record id="report_allocate_resource_action" model="ir.actions.act_window">
+        <field name="name">Allocate resource report</field>
+        <field name="res_model">report.allocate.resource</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="context">{'default_type': 'normal'}</field>
+    </record>
+
+    <record id="report_allocate_resource_action_form" model="ir.actions.act_window.view">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="report_allocate_resource_form"/>
+        <field name="act_window_id" ref="report_allocate_resource_action"/>
+    </record>
+
+    <menuitem action="report_allocate_resource_action"
+              id="menu_report_allocate_resource_action"
+              parent="project.menu_project_report" sequence="20"/>
+
+    <!--report allocate group-->
+    <record id="report_allocate_resource_group_form" model="ir.ui.view">
+        <field name="name">report.allocate.resource.group.form</field>
+        <field name="model">report.allocate.resource</field>
+        <field name="arch" type="xml">
+            <form create="false" delete="false">
+                    <div></div>
+                    <div  col="4" colspan="4">
+                        <button name="previous_month" style="width: 3%%; min-width: 30px;"
+                            type="object" string="" icon="fa-step-backward"/>
+                        <field name="month" nolabel="1" style="width: 8%%; min-width: 70px;"/>
+                        <button name="next_month" type="object" string="" style="width: 3%%; min-width: 30px;"
+                                icon="fa-step-forward"/>
+                    </div>
+                <br/>
+                    <div col="4" colspan="4">
+                        <label for="date_from" col="1" colspan="1" style="width: 4%%; min-width: 70px;"/>
+                        <field name="date_from" col="2" string="From" colspan="1" style="width: 7.5%%; min-width: 75px;"/><b> to </b>
+                        <field name="date_to" col="1" colspan="1" nolabel="1" style="width: 7%%; min-width: 75px;"/>
+                    </div>
+                <group col="8">
+                    <group col="4" colspan="4">
+                        <field name="project_ids" widget="many2many_tags" col="2" style="min-width: 70px; max-width: 50%;"/>
+                        <field name="billable" col="2" style="min-width: 70px; max-width: 50%;"/>
+                        <field name="employee_ids" widget="many2many_tags" col="2" style="min-width: 70px; max-width: 50%;"/>
+                        <field name="ot" col="2" style="min-width: 70px; max-width: 50%;"/>
+
+                    </group>
+                    <group col="4" colspan="4">
+                        <field name="site_ids" widget="many2many_tags" col="2" style="min-width: 70px; max-width: 50%;"/>
+                        <field name="company_ids" widget="many2many_tags" col="2" style="min-width: 70px; max-width: 50%;"/>
+                        <field name="group_by" col="2" required="4" style="min-width: 50px; max-width: 50%;"/>
+                    </group>
+
+                </group>
+                <group>
+                    <div col="3">
+                        <button name="ok" type="object" string="OK" class="oe_highlight" icon="fa-check-square"
+                                style="width: 20%%; max-width:100px;"/>
+                    </div>
+                </group>
+                <field name="id" widget="allocate_resource_group"/>
+            </form>
+        </field>
+    </record>
+
+    <record id="report_allocate_resource_group_action" model="ir.actions.act_window">
+        <field name="name">Allocate resource group report</field>
+        <field name="res_model">report.allocate.resource</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="context">{}</field>
+    </record>
+
+    <record id="report_allocate_resource_group_action_form" model="ir.actions.act_window.view">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="report_allocate_resource_group_form"/>
+        <field name="act_window_id" ref="report_allocate_resource_group_action"/>
+    </record>
+
+    <menuitem action="report_allocate_resource_group_action"
+              id="menu_report_allocate_resource_group_action"
+              parent="project.menu_project_report" sequence="30"/>
+
+    <record model="ir.ui.menu" id="project.menu_project_report">
+        <field name="groups_id" eval="[(4,ref('bnk_project.group_allocate_resource_pm'))]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="project.menu_project_report">
+        <field name="groups_id" eval="[(4,ref('bnk_project.group_allocate_resource_sm'))]"/>
+    </record>
+
+    <!--report to excel-->
+    <report
+        id="export_allocate_resource_detail_xlsx"
+        model="report.allocate.resource"
+        string="Allocate resource detail excel"
+        report_type="xlsx"
+        name="bnk_allocate.allocate_resource_detail_xlsx"
+        file="bnk_allocate.allocate_resource_detail_xlsx"
+        />
+
+</odoo>

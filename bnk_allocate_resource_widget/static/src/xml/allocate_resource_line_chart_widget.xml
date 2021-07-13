@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates xml:space="preserve">
+
+    <t t-name="AllocateResourceLineChartTemplate">
+        <div class="allocate-resource-line-chart-main col-md-12">
+            <canvas id="allocate-resource-line-chart" class="col-md-12"></canvas>
+        </div>
+    </t>
+
+</templates>

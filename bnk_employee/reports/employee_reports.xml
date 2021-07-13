@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<odoo>
+    <record id="employees_excel_wizard_form_view" model="ir.ui.view">
+        <field name="name">employees_excel_wizard_form_view</field>
+        <field name="model">employee.excel.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Export Employees Data">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="department_ids" widget="many2many_tags"/>
+                            <field name="site_ids" widget="many2many_tags"/>
+                        </group>
+                        <field name="employee_ids"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="export_employees_data_xlsx" string="Export" class="btn-primary" type="object"/>
+                    <button special="cancel" string="Back" class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="employees_excel_wizard_act_window" model="ir.actions.act_window">
+        <field name="name">Export Employees Data</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">employee.excel.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_type">form</field>
+        <field name="target">new</field>
+    </record>
+    <menuitem name="Reports" id="submenu_employees_data_report" parent="hr.menu_hr_root" sequence="6"
+              groups="hr.group_hr_manager"/>
+    <menuitem name="Employees Data Excel Report" id="employees_excel_wizard_menu" parent="submenu_employees_data_report"
+              groups="hr.group_hr_manager" action="employees_excel_wizard_act_window"/>
+    <report id="employees_data_export_excel" model="employee.excel.wizard" string="Export Employees Data"
+            report_type="xlsx" name="bnk_employee.export_employees_data_xlsx" file="export_employees_data_xlsx"/>
+</odoo>

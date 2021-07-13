@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ot_salary_id,access_ot_salary,model_hr_ot,hr_payroll.group_hr_payroll_manager,1,1,1,1
+access_ot_line_salary_id,access_ot_line_salary,model_hr_ot_line,hr_payroll.group_hr_payroll_manager,1,1,1,1

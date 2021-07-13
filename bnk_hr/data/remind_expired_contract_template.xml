@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record id="remind_expired_contract_template" model="mail.template">
+            <field name="name">Remind Expired Contract</field>
+            <field name="model_id" ref="bnk_hr.model_hr_contract"></field>
+            <field name="email_from"></field>
+            <field name="subject">Remind Expired Contract</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p>--name employee--'s contract will be expired at --end date--</p>
+                    <p>Please contact with your employee to talk about this</p>
+                    <p>BnK Solution</p>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

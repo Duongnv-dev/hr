@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="item_check_tree_view" model="ir.ui.view">
+        <field name="name">item.check.tree.view</field>
+        <field name="model">item.check</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="item_check_category_tree_view" model="ir.ui.view">
+        <field name="name">item.check.category.tree.view</field>
+        <field name="model">item.check.category</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="item_check_category_form_view" model="ir.ui.view">
+        <field name="name">item.check.category.form.view</field>
+        <field name="model">item.check.category</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="department_id" required="1" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                    <notebook name="item_check_line">
+                        <page string="List">
+                             <field name="item_check_line_ids">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="item_check_category" model="ir.actions.act_window">
+        <field name="name">Item Checklist</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">item.check.category</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem id="item_check_category_menu"
+              name="Checklist Template"
+              action="item_check_category"
+              sequence="2"
+              groups="hr.group_hr_user"
+              parent="bnk_hr.onboarding_menu_dropdown"/>
+</odoo>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<odoo>
+    <record id="hr_employee_inherited_view_employee_resigned" model="ir.ui.view">
+        <field name="name">hr_employee_inherited_view_employee_resigned</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="priority" eval="100"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='join_date']" position="after">
+                <field name="is_resign"/>
+                <field name="resigned_date" attrs="{'invisible': [('is_resign','!=',True)], 'required': [('is_resign','=',True)]}"/>
+            </xpath>
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <button string="Approve" type="object" name="action_approve"
+                        class="oe_highlight" groups="hr.group_hr_manager"
+                        attrs="{'invisible': [('state', '=', 'approved')]}"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+            </xpath>
+            <field name="work_phone" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="coach_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <xpath expr="//field[@name='address_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

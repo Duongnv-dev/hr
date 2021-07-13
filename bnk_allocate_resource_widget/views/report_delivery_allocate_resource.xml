@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--general delivery report    -->
+    <record id="general_delivery_report_form" model="ir.ui.view">
+        <field name="name">general_delivery_report_form</field>
+        <field name="model">report.delivery.allocate.resource</field>
+        <field name="arch" type="xml">
+            <form create="false" delete="false">
+                    <div></div>
+                    <div  col="4" colspan="4">
+                        <button name="previous_year" style="width: 3%%; min-width: 30px;"
+                            type="object" string="" icon="fa-step-backward"/>
+                        <field name="year" nolabel="1" style="width: 8%%; min-width: 70px;"/>
+                        <button name="next_year" type="object" string="" style="width: 3%%; min-width: 30px;"
+                                icon="fa-step-forward"/>
+                    </div>
+                <br/>
+
+                <div col="4" colspan="4">
+                    <label for="date_from" col="1" colspan="1" style="width: 4%%; min-width: 70px;"/>
+                    <field name="date_from" col="2" string="From" colspan="1" style="width: 7.5%%; min-width: 75px;"/><b> to </b>
+                    <field name="date_to" col="1" colspan="1" nolabel="1" style="width: 7%%; min-width: 75px;"/>
+                </div>
+
+                <div col="4" colspan="4">
+                    <label for="project_ids" col="1" colspan="1" style="width: 4%%; min-width: 70px;"/>
+                    <field name="project_ids" widget="many2many_tags" col="2" colspan="2" style="width: 8%%; min-width: 220px;"/>
+                </div>
+
+                <group>
+                    <div col="3">
+                        <button name="ok" type="object" string="OK" class="oe_highlight" icon="fa-check-square"
+                                style="width: 20%%; max-width:100px;"/>
+                    </div>
+                </group>
+
+                <field name="id" widget="general_delivery_report" colspan="8"/>
+            </form>
+        </field>
+    </record>
+
+    <record id="general_delivery_report_action" model="ir.actions.act_window">
+        <field name="name">General delivery report</field>
+        <field name="res_model">report.delivery.allocate.resource</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="context">{}</field>
+    </record>
+
+    <!--<record id="general_delivery_report_action_form" model="ir.actions.act_window.view">-->
+        <!--<field eval="1" name="sequence"/>-->
+        <!--<field name="view_mode">form</field>-->
+        <!--<field name="view_id" ref="general_delivery_report_form"/>-->
+        <!--<field name="act_window_id" ref="general_delivery_report_action"/>-->
+    <!--</record>-->
+
+    <menuitem action="general_delivery_report_action"
+              id="menu_general_delivery_report"
+              parent="project.menu_project_report" sequence="40"/>
+
+
+</odoo>

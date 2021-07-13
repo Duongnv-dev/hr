@@ -1,0 +1,7 @@
+deploy-test:
+  script:
+    - cd /home/luxie/demo/bnk-erp/
+    - sudo -u luxie git pull
+    - sudo systemctl restart bnk-erp
+  only:
+    - master

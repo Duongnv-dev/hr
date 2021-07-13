@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_hr_payslip_inherit_form3" model="ir.ui.view">
+            <field name="name">view_hr_payslip_inherit_form3</field>
+            <field name="model">hr.payslip</field>
+            <field name="priority" eval="55"/>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='work100']" position="before">
+                    <field name="salary_gross" invisible="1"/>
+                    <field name="salary_net" invisible="1"/>
+                    <field name="insurances" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_payslip_graph_view" model="ir.ui.view">
+            <field name="name">hr_payslip_graph_view</field>
+            <field name="model">hr.payslip</field>
+            <field name="arch" type="xml">
+                <graph string="Payroll">
+                    <field name="salary_gross" type="measure"/>
+                    <field name="salary_net" type="measure"/>
+                    <field name="salary_net" type="measure"/>
+                    <field name="work100" type="row"/>
+<!--                    <field name="department_id"/>-->
+                </graph>
+            </field>
+        </record>
+
+        <record id="hr_payslip_report_act_window" model="ir.actions.act_window">
+            <field name="name">Payroll</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.payslip</field>
+            <field name="view_mode">graph</field>
+            <field name="context">{"search_default_group_month": 1}</field>
+        </record>
+
+        <menuitem name="Payroll Chart" id="hr_payslip_chart_menu" parent="payslip_report_menu" action="hr_payslip_report_act_window"/>
+
+    </data>
+</odoo>

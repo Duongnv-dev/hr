@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_site_tree" model="ir.ui.view">
+        <field name="name">hr.site.tree</field>
+        <field name="model">hr.site</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="name"/>
+                <field name="description"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_site_action" model="ir.actions.act_window">
+        <field name="name">Site</field>
+        <field name="res_model">hr.site</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem action="hr_site_action"
+              id="menu_hr_site_action"
+              parent="hr.menu_human_resources_configuration"
+              groups="hr.group_hr_user"
+              sequence="10"/>
+
+</odoo>

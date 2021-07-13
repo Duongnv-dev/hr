@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="email_notify_approve_ot_template" model="mail.template">
+            <field name="name">Notify Approve Overtime Request</field>
+            <field name="model_id" ref="bnk_hr.model_hr_ot"/>
+            <field name="email_to">Nguyen.Cao@bnksolution.com</field>
+            <field name="email_from">system@bnksolution.com</field>
+            <field name="subject">Notify Approve Overtime Request</field>
+        </record>
+    </data>
+</odoo>

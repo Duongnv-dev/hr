@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="0">
+        <record id="email_template_job_onboard_date" model="mail.template">
+            <field name="name">Onboard Date: Send by email</field>
+            <field name="model_id" ref="bnk_recruitment.model_hr_applicant"/>
+            <field name="email_from">noreply@bnksolution.com</field>
+            <field name="email_to">${(object.email_from)}</field>
+            <field name="reply_to">${object.contact_point.mail_contact}</field>
+            <field name="subject">[B&amp;K Software] Welcome Onboard &amp; Instructions</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                         % set date_onboard = format_tz(object.onboard_date,tz=user.tz,format='%d/%m/%Y')
+
+                        Gửi bạn:
+                        % if object.partner_name:
+                            ${object.partner_name}!
+                        % else:
+                            ${object.name}!
+                        % endif
+                        Theo như Offer Letter Công ty đã gửi tới bạn , một lần nữa chúc mừng bạn sẽ gia nhập gia
+                        <br></br>
+                        đình B&amp;K với vị trí ${object.job_id.name}/ Bộ phận ${object.department_id.name}
+                        <br></br>
+                        Rec &amp; HR Team xin cung cấp cho bạn một số thông tin cơ bản để hỗ trợ bạn có ngày đầu tiên đi làm
+                        <br></br>
+                        diễn ra thuận lợi nhất.
+                        <br></br>
+                            + Thời gian onboard: 8h30 sáng
+                        <br></br>
+                            + Ngày onboard: Ngày ${date_onboard}
+                        <br></br>
+                            + Địa điểm: ${object.site_id.name}
+                        <br></br>
+                            + Người liên hệ: ${object.contact_point.name}/SĐT:${object.contact_phone}
+                        <br></br>
+                            + Leader phụ trách: ${object.user_id.name}
+                        <br></br>
+                            + Chuẩn bị Hồ sơ cá nhân : có thể hoàn thành hồ sơ và nộp lại cho HR Team trong tuần đầu
+                            tiên sau khi onboard.
+                        <br></br>
+                            + Chuẩn bị phương tiện làm việc: máy tính thiết bị???
+                        <br></br>
+                            + Trang phục: thoải mái và lịch sự (Công ty không có quy định cụ thể bắt buộc về trang
+                            phục).
+                        <br></br>
+                        Cảm ơn ${object.partner_name} đã lựa chọn B&amp;K, chúng tôi rất hoan nghênh sự gia nhập của bạn vào Công ty. Hy vọng
+                        <br></br>
+                        B&amp;K sẽ đem lại cho bạn những trải nghiệm tuyệt vời nhất khi làm việc tại đây và chúng ta sẽ có một
+                        <br></br>
+                        sự hợp tác tốt đẹp, lâu bền!
+                        <br></br>
+                        Trân trọng,
+                    </p>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

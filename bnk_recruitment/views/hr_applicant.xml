@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!--Add Filter View Applicant-->
+    <record id="hr_applicant_view_crm_case_jobs_filter_inherit" model="ir.ui.view">
+        <field name="name">hr.applicant.search.view.inherit</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.view_crm_case_jobs_filter"/>
+        <field name="priority" eval="100"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='job_id']" position="after">
+                <field name="emp_id"/>
+            </xpath>
+            <xpath expr="//group/filter[@name='stage']" position="after">
+                <filter string="Age" name="age" domain="[]" context="{'group_by': 'age'}"/>
+                <filter string="Years Of Experience" name="age" domain="[]"
+                        context="{'group_by': 'years_experience'}"/>
+                <filter string="Gender" name="age" domain="[]" context="{'group_by': 'gender'}"/>
+                <filter string="Confirm Interview" name="interview_schedule_confirmed" domain="[]" context="{'group_by': 'interview_schedule_confirmed'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!--Hide button Create Employee with group BUL-->
+<!--    <record id="hide_create_employee" model="ir.ui.view">-->
+<!--        <field name="model">hr.applicant</field>-->
+<!--        <field name="inherit_id" ref="hr_recruitment.crm_case_form_view_job"/>-->
+<!--        <field name="groups_id" eval="[(6,0, [ref('bnk_employee.group_officer_bul')])]"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr='//button[@name="create_employee_from_applicant"]' position='attributes'>-->
+<!--                <attribute name="invisible">1</attribute>-->
+<!--            </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
+
+    <!--Edit View Kanban Applicant: import image avatar-->
+    <record id="hr_kanban_view_cv_applicant_inherit" model="ir.ui.view">
+        <field name="name">hr_kanban_view_cv_applicant_inherit</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_kanban_view_applicant"/>
+        <field name="priority" eval="100"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_name']" position="inside">
+                <field name="image_medium" invisible="1"/>
+            </xpath>
+            <xpath expr="//div[@class='oe_kanban_content']" position="replace">
+                <div style="width: 400px; height:97px">
+                    <div style="width:100px; height:97px; float:left;">
+                        <field name="image_medium" widget="image" class="oe_avatar"/>
+                    </div>
+                    <div style="width:300px; height:97px; float:right; margin:10px 0px 10px 0px;">
+                        <div class="o_kanban_record_top">
+                            <div class="o_kanban_record_headings" style="margin-left:10px;">
+                                <b class="o_kanban_record_title mt8" t-if="record.partner_name.raw_value" style="font-weight: bold;">
+                                    <field name="partner_name"/><br/>
+                                </b>
+                                <t t-else="1">
+                                    <i class="o_kanban_record_title">
+                                        <field name="name"/>
+                                    </i>
+                                    <br/>
+                                </t>
+                                <div class="o_kanban_record_subtitle"
+                                     invisible="context.get('search_default_job_id', False)">
+                                    <field name="job_id"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-left:10px;">
+                            <field name="categ_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            <t t-if="record.partner_mobile.raw_value">
+                                <i class="fa fa-mobile mr4" role="img" aria-label="Mobile" title="Mobile"/>
+                                <field name="partner_mobile"/><br/>
+                            </t>
+                        </div>
+                        <div class="o_kanban_record_bottom mt4" style="margin-left:10px;">
+                            <div class="oe_kanban_bottom_left">
+                                <div class="float-left mr4" groups="base.group_user">
+                                    <field name="priority" widget="priority"/>
+                                </div>
+                                <div class="o_kanban_inline_block mr8">
+                                    <field name="activity_ids" widget="kanban_activity"/>
+                                </div>
+                                <t t-if="record.message_needaction_counter.raw_value">
+                                    <span role="alert" class='oe_kanban_mail_new mr4' title='Unread Messages'>
+                                        <i class='fa fa-comments' role="img" aria-label="Unread messages"/>
+                                        <t t-raw="record.message_needaction_counter.raw_value"/>
+                                    </span>
+                                </t>
+                                <div class="oe_kanban_bottom_right" style="margin-left:20px;">
+                                    <a name="action_get_attachment_tree_view" type="object">
+                                        <span title='Documents'>
+                                            <i class='fa fa-book' role="img" aria-label="Documents"/>
+                                            <t t-esc="record.attachment_number.raw_value"/>
+                                        </span>
+                                    </a>
+                                    <div class="o_kanban_state_with_padding">
+                                        <field name="kanban_state" widget="kanban_state_selection"/>
+                                        <field name="legend_normal" invisible="1"/>
+                                        <field name="legend_blocked" invisible="1"/>
+                                        <field name="legend_done" invisible="1"/>
+                                    </div>
+                                    <img t-att-src="kanban_image('res.users', 'image_small', record.user_id.raw_value)"
+                                         t-att-title="record.user_id.value" t-att-alt="record.user_id.value" width="30"
+                                         height="30" class="oe_kanban_avatar"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <!--Edit View Form Applicant-->
+    <record id="hr_applicant_inherit_form_view" model="ir.ui.view">
+        <field name="name">hr.applicant.form.view.inherit</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.crm_case_form_view_job"/>
+        <field name="priority" eval="100"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">>
+                <field name="has_send_mail_offer" invisible="1"/>
+                <field name="has_send_mail_thankyou_refuse" invisible="1"/>
+                <field name="hide_interview_button" invisible="1"/>
+                <field name="hide_offer_button" invisible="1"/>
+
+                <button name="action_send_by_email_interview" string="Send Email Interview" type="object" class="oe_highlight"
+                        groups="hr_recruitment.group_hr_recruitment_user"
+                        attrs="{'invisible':['|',('interview_schedule_confirmed','!=',False), ('hide_interview_button','=',True)]}"/>
+
+                <button name="action_send_by_email_thankyou_refuse" string="Send Email Thank You" type="object" class="oe_highlight"
+                        groups="hr_recruitment.group_hr_recruitment_user"
+                        attrs="{'invisible':['|',('has_send_mail_thankyou_refuse','!=',False),('hide_reason','=',True)]}"/>
+
+                <button name="action_send_by_email_offer" string="Send Mail Offer" type="object" class="oe_highlight"
+                        groups="hr_recruitment.group_hr_recruitment_user"
+                        attrs="{'invisible':['|',('has_send_mail_offer','!=',False),('hide_offer_button','=',True)]}"/>
+
+            </xpath>
+            <xpath expr="//button[@name='toggle_active']" position="attributes">
+                <attribute name="attrs"></attribute>
+            </xpath>
+            <xpath expr="//button[@name='create_employee_from_applicant']" position="attributes">
+                <attribute name="context">{'applicant_id': id, 'recruitment_request_id': recruitment_request_id}
+                </attribute>
+            </xpath>
+            <xpath expr="//button[@name='archive_applicant']" position="attributes">
+                <attribute name="groups">hr_recruitment.group_hr_recruitment_user</attribute>
+                <attribute name="attrs">{'invisible':[('hide_reason','=',False)]}</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_makeMeeting']" position="before">
+                <button name="public_cv" type="object" class="oe_stat_button" icon="fa-bars" groups="hr_recruitment.group_hr_recruitment_manager">
+                    <label for="public_cv" attrs="{'invisible':[('public', '=', False)]}" string="Public"/>
+                    <label for="public_cv" attrs="{'invisible':[('public','=',True)]}" string="Private"/>
+                </button>
+                <button name="toggle_interview_schedule_confirmed" type="object" class="oe_stat_button" icon="fa-archive">
+                    <label for="toggle_interview_schedule_confirmed" attrs="{'invisible':[('interview_schedule_confirmed', '=', False)]}" string="Confirmed"/>
+                    <label for="toggle_interview_schedule_confirmed" attrs="{'invisible':[('interview_schedule_confirmed','=',True)]}" string="Not Confirm"/>
+                </button>
+            </xpath>
+            <xpath expr="//field[@name='kanban_state']" position="before">
+                <field name="image_medium" widget='image' class="oe_avatar" options='{"preview_image":"image_medium"}'
+                       style="margin-right: 10px"/>
+            </xpath>
+            <xpath expr="//field[@name='email_from']" position="before">
+                <field name="public" invisible="1"/>
+                <field name="cv_path" invisible="1"/>
+                <field name="hide_reason" invisible="1"/>
+                <field name="refuse_reason_id" attrs="{'invisible': [('hide_reason', '=', True)]}"/>
+                <field name="cv_file_name" invisible="1" widget="binary_preview"/>
+                <field name="cv_data" filename="cv_file_name"/>
+            </xpath>
+            <xpath expr="//field[@name='source_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='cv_data']" position="after">
+                <field name="source_id"/>
+            </xpath>
+            <xpath expr="//label[@for='name']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//label[@for='categ_ids']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='categ_ids']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='partner_phone']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='type_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='user_id']" position="before">
+                <field name="categ_ids" widget="many2many_tags"
+                       options="{'color_field': 'color', 'no_create_edit': True}"/>
+            </xpath>
+            <xpath expr="//field[@name='years_experience']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='medium_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='reference']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='priority']" position="after">
+                <field name="level_id"/>
+            </xpath>
+            <xpath expr="//group[1]/group[3]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//group[1]/group[4]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//separator" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='description']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='description']" position="after">
+                <notebook>
+                    <page string="Job">
+                        <group>
+                            <group>
+                                <field name="job_id"/>
+                                <field name="department_id"/>
+                                <field name="contact_point"/>
+                                <field name="contact_phone"/>
+                                <field name="contact_email"/>
+                            </group>
+                            <group>
+                                <field name="apply_date"/>
+                                <field name="interview_date"/>
+                                <field name="offer_date"/>
+                                <field name="onboard_date"/>
+                                <field name="notify_date_onboard" invisible="1"/>
+                                <field name="site_id"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Interview">
+                        <group>
+                            <group>
+                                <field name="recruitment_request_id" invisible="1"/>
+                                <field name="time_interview_schedule"/>
+                                <field name="interview_schedule_confirmed" invisible="1"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Private Information">
+                        <group>
+                            <group>
+                                <field name="dob"/>
+                                <field name="age"/>
+                            </group>
+                            <group>
+                                <field name="gender"/>
+                                <field name="partner_phone"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Contract">
+                        <group>
+                            <label for="salary_expected"/>
+                            <div>
+                                <field name="salary_expected" class="oe_inline"/>
+                                <span class="oe_inline" attrs="{'invisible':[('salary_expected_extra','=',False)]}">+
+                                </span>
+                                <field name="salary_expected_extra" class="oe_inline" placeholder="Extra advantages..."/>
+                            </div>
+                            <label for="salary_proposed"/>
+                            <div>
+                                <field name="salary_proposed" class="oe_inline"/>
+                                <span class="oe_inline" attrs="{'invisible':[('salary_proposed_extra','=',False)]}">+
+                                </span>
+                                <field name="salary_proposed_extra" class="oe_inline" placeholder="Extra advantages..."/>
+                            </div>
+                            <label for="salary_final"/>
+                            <div>
+                                <field name="salary_final" class="oe_inline"/>
+                                <span class="oe_inline" attrs="{'invisible':[('salary_final_extra','=',False)]}">+
+                                </span>
+                                <field name="salary_final_extra" class="oe_inline" placeholder="Extra advantages..."/>
+                            </div>
+                            <label for="targeted_additional_pay"/>
+                            <div>
+                                <field name="targeted_additional_pay" invisible="1"/>
+                            </div>
+                        </group>
+                        <group></group>
+                    </page>
+                    <page string="Tracking Review" groups="hr.group_hr_manager">
+                        <field name="hr_applicant_evaluate_ids">
+                            <tree editable="bottom">
+                                <field name="user_id"/>
+                                <field name="date"/>
+                                <field name="name" string="Subject"/>
+                                <field name="note"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="hr_applicant_resumes_cv">
+        <field name="name">All Curriculum Vitae</field>
+        <field name="res_model">hr.applicant</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+    <record id="hr_recruitment_archived_applications" model="ir.actions.act_window">
+        <field name="name">Archived Applications</field>
+        <field name="res_model">hr.applicant</field>
+        <field name="view_mode">kanban,tree,form,pivot,graph</field>
+        <field name="domain">[('active', '=', False)]</field>
+    </record>
+
+    <!--Hide Menu Resumes And Letters-->
+    <record model="ir.ui.menu" id="hr_recruitment.menu_crm_case_categ0_act_job02">
+        <field name="action" eval="False"/>
+    </record>
+
+    <!--Add Menu All Curriculum Vitae-->
+    <menuitem
+            name="All Curriculum Vitae"
+            parent="hr_recruitment.menu_crm_case_categ0_act_job"
+            id="hr_recruitment.menu_crm_case_categ_all_app" action="hr_applicant_resumes_cv" sequence="2" groups="hr_recruitment.group_hr_recruitment_user,bnk_employee.group_officer_bul"/>
+
+    <!--Add Menu Archived Applicant-->
+    <menuitem
+            name="Archived Applications"
+            parent="hr_recruitment.menu_crm_case_categ0_act_job"
+            id="menu_archive_applications" action="hr_recruitment_archived_applications" sequence="3"/>
+
+</odoo>

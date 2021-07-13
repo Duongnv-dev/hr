@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_hr_payslip_inherit_form2" model="ir.ui.view">
+        <field name="name">view_hr_payslip_inherit_form2</field>
+        <field name="model">hr.payslip</field>
+        <field name="priority" eval="50"/>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='quantity']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='rate']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='amount']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//form/group/field[@name='quantity']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//form/group/field[@name='rate']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//form/group/field[@name='amount']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='credit_note']" position="before">
+                <field name="has_insurance" invisible="0"/>
+                <field name="work100" invisible="1"/>
+                <field name="bank_account_id" invisible="1"/>
+                <field name="personal_tax_number" invisible="1"/>
+            </xpath>
+<!--            permission payroll manager-->
+            <xpath expr="//button[@name='action_payslip_done']" position="attributes">
+                <attribute name="groups">hr_payroll.group_hr_payroll_manager</attribute>
+            </xpath>
+            <xpath expr="//button[@name='refund_sheet']" position="attributes">
+                <attribute name="groups">hr_payroll.group_hr_payroll_manager</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_payslip_draft']" position="attributes">
+                <attribute name="groups">hr_payroll.group_hr_payroll_manager</attribute>
+            </xpath>
+            <xpath expr="//button[@name='compute_sheet']" position="attributes">
+                <attribute name="groups">hr_payroll.group_hr_payroll_manager</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_payslip_cancel']" position="attributes">
+                <attribute name="groups">hr_payroll.group_hr_payroll_manager</attribute>
+            </xpath>
+
+<!--            add description-->
+<!--            <xpath expr="//field[@name='line_ids']" position="after">-->
+<!--                <group string="Details">-->
+<!--                    <field name="notes" nolabel="1"/>-->
+<!--                </group>-->
+<!--            </xpath>-->
+
+            <xpath expr="//field[@name='contract_id']" position="after">
+                <field name="site_id" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_payroll.action_view_hr_payslip_form" model="ir.actions.act_window">
+        <field name="domain">[]</field>
+    </record>
+
+    <record id="view_hr_payslip_tree_extend" model="ir.ui.view">
+        <field name="name">view_hr_payslip_tree_extend</field>
+        <field name="model">hr.payslip</field>
+        <field name="priority" eval="50"/>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree/field[@name='number']" position="before">
+                <field name="month" invisible="1"/>
+                <field name="mon_str"/>
+            </xpath>
+            <xpath expr="//tree" position="attributes">
+                <attribute name="default_order">mon_str desc</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_hr_payslip_search" model="ir.ui.view">
+        <field name="name">view_hr_payslip_search</field>
+        <field name="model">hr.payslip</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search/field[@name='employee_id']" position="after">
+                <field name="mon_str"/>
+                <field name="department_id"/>
+                <field name="site_id"/>
+            </xpath>
+            <xpath expr="//search/group/filter[@name='employee_id']" position="after">
+                <filter string="Months" name="group_month" context="{'group_by': 'mon_str'}"/>
+                <filter string="Departments" name="department_id" context="{'group_by':'department_id'}"/>
+                <filter string="Site" name="group_site" context="{'group_by':'site_id'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_payroll.action_view_hr_payslip_form" model="ir.actions.act_window">
+        <field name="context">{'search_default_group_month': 1}</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_base_language_update_form" model="ir.ui.view">
+            <field name="name">view.base.language.update.form</field>
+            <field name="model">base.language.update</field>
+            <field name="arch" type="xml">
+                <form string="Update language">
+                    <group>
+                        <field name="lang" string="Language"/>
+                        <field name="module_upgrade" widget="many2many_tags"/>
+                    </group>
+                    <footer>
+                        <button name="update_language" string="Apply"
+                                type="object" class="btn-primary"/>
+                        <button special="cancel" string="Cancel"
+                                class="btn-default"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_view_base_language_update"
+                model="ir.actions.act_window">
+            <field name="name">Quick Translate</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">base.language.update</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem
+                name="Quick Translate"
+                action="action_view_base_language_update"
+                id="menu_action_view_base_language_update"
+                parent="base.menu_translation" sequence="10"/>
+    </data>
+</odoo>
+

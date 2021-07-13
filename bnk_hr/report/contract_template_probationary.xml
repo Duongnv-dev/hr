@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <template id="report_probationary_contract">
+            <body>
+                <t t-call="web.html_container">
+                    <t t-foreach="docs" t-as="doc">
+                        <t t-call="web.external_layout">
+                            <div class="page"
+                                 style="color: black;font-size: 21px;font-family: Times New Roman;text-align: justify">
+<!--                                <link rel="stylesheet" type="text/css"-->
+<!--                                      href="/bnk_hr/static/src/css/list_style_type_property.css"/>-->
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div>
+                                            <b>
+                                                <span>CÔNG TY TNHH PHẦN MỀM B&amp;K
+                                                    <br/>
+                                                </span>
+                                                <i>
+                                                    <span>Số: ...../2019/HĐTV-B&amp;K</span>
+                                                </i>
+                                            </b>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="text-center">
+                                            <span>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+                                                <br/>
+                                            </span>
+                                            <b>
+                                                <span>Độc lập - Tự do - Hạnh phúc
+                                                    <br/>
+                                                </span>
+                                            </b>
+                                            <span>------o0o-----</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h2 class="text-center">
+                                    HỢP ĐỒNG THỬ VIỆC
+                                </h2>
+                                <div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <span>
+                                                Chúng tôi, một bên là
+                                                <br/>
+                                                Ông:
+                                            </span>
+                                        </div>
+                                        <div class="col-8">
+                                            <span>
+                                                ĐẶNG VĂN THÀNH  <![CDATA[&ensp;&ensp;&nbsp;&nbsp;&nbsp;&nbsp;]]> Quốc
+                                                tịch: Việt Nam
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <span>
+                                                Chức vụ:
+                                            </span>
+                                        </div>
+                                        <div class="col-8">
+                                            <span>GIÁM ĐỐC</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <span>
+                                                Đại diện cho:
+                                            </span>
+                                        </div>
+                                        <div class="col-8">
+                                            <span>
+                                                CÔNG TY TNHH PHẦN MỀM B&amp;K
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <span>
+                                                Địa chỉ:
+                                            </span>
+                                        </div>
+                                        <div class="col-8">
+                                            <span>
+                                                Lầu 10, số 195 Điện Biên Phủ, phường 15, quận Bình Thạnh, thành phố Hồ
+                                                Chí Minh, Việt Nam
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <span>
+                                                Điện thoại:
+                                            </span>
+                                        </div>
+                                        <div class="col-8">
+                                            <span>
+                                                0522919323
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <span>
+                                                Và một bên là Ông:
+                                            </span>
+                                        </div>
+                                        <div class="col-8">
+                                            <span>
+                                                <t t-esc="doc.employee_id.name"/>
+                                                <![CDATA[&ensp;&ensp;&nbsp;&nbsp;&nbsp;&nbsp;]]>
+                                                Quốc tịch:
+                                                <t t-esc="doc.employee_id.country_id"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <span>
+                                                Địa chỉ thường trú:
+                                            </span>
+                                        </div>
+                                        <div class="col-8">
+                                            <span>
+                                                <t t-if="doc.employee_id.address_home_id.street"><span t-field="doc.employee_id.address_home_id.street"/></t>
+                                                <t t-if="doc.employee_id.address_home_id.street2 and doc.employee_id.address_home_id.street">/</t>
+                                                <t t-if="doc.employee_id.address_home_id.street2"><span t-field="doc.employee_id.address_home_id.street2"/></t>
+                                                <t t-if="doc.employee_id.address_home_id.city and doc.employee_id.address_home_id.street2 or doc.employee_id.address_home_id.city and doc.employee_id.address_home_id.street">-</t>
+                                                <t t-if="doc.employee_id.address_home_id.city"><span t-field="doc.employee_id.address_home_id.city"/></t>
+                                                <t t-if="doc.employee_id.address_home_id.state_id and doc.employee_id.address_home_id.city or doc.employee_id.address_home_id.state_id and doc.employee_id.address_home_id.street2 or doc.employee_id.address_home_id.state_id and doc.employee_id.address_home_id.street">-</t>
+                                                <t t-if="doc.employee_id.address_home_id.state_id"><span t-field="doc.employee_id.address_home_id.state_id.name"/></t>
+                                                <t t-if="doc.employee_id.address_home_id.country_id and doc.employee_id.address_home_id.state_id or doc.employee_id.address_home_id.country_id and doc.employee_id.address_home_id.city or doc.employee_id.address_home_id.country_id and doc.employee_id.address_home_id.street2 or doc.employee_id.address_home_id.country_id and doc.employee_id.address_home_id.street">-</t>
+                                                <t t-if="doc.employee_id.address_home_id.country_id"><span t-field="doc.employee_id.address_home_id.country_id.name"/></t>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <span>
+                                                Địa chỉ tạm trú:
+                                            </span>
+                                        </div>
+                                        <div class="col-8">
+                                            <span>
+                                                ...................
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <span>
+                                                Điện thoại DĐ:
+                                            </span>
+                                        </div>
+                                        <div class="col-8">
+                                            <span>
+                                                <t t-if="doc.employee_id.mobile_phone"/><span t-field="doc.employee_id.mobile_phone"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                            <span>Số</span>
+                                            <t t-set="choice" t-value="'CMND'"/>
+                                            <t t-if="doc.employee_id.passport_id" t-set="choice" t-value="'Passport'"/>
+                                            <t t-if="doc.employee_id.identification_id" t-set="choice" t-value="'CMND'"/>
+                                            <span t-esc="choice"/>
+
+                                    </div>
+                                    <div class="col-8">
+                                        <t t-if="choice=='CMND'"/><span t-field="doc.employee_id.identification_id"/><span>, Cấp ngày:</span><span t-field="doc.employee_id.identification_date"/><span>, Tại:</span><span t-field="doc.employee_id.issued_by"/>
+                                        <t t-if="choice=='Passport'"/><span t-field="doc.employee_id.passport_id"/>
+                                    </div>
+                                </div>
+                                <p>Cùng thỏa thuận ký kết hợp đồng thử việc và cam kết làm đúng những điều khoản sau
+                                    đây:
+                                </p>
+                                <div name="dieu1">
+                                    <strong>Điều 1: Thời hạn công việc theo hợp đồng:
+                                    </strong>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <span>
+                                                - Loại hợp đồng:
+                                            </span>
+                                        </div>
+                                        <div class="col-8">
+                                            <span>
+                                                Hợp đồng thử việc
+                                                <br/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <span>
+                                                - Từ ngày:
+                                            </span>
+                                        </div>
+                                        <div class="col-8">
+                                            <span><t t-esc="doc.get_date_time(doc.date_start)"/> đến <t t-esc="doc.get_date_time(doc.date_end)"/>
+                                                <br/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <span>
+                                                - Địa điểm làm việc:
+                                            </span>
+                                        </div>
+                                        <div class="col-8">
+                                            <span>
+                                                CÔNG TY TNHH PHẦN MỀM B&amp;K
+                                                <br/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <span>
+                                                - Chức danh chuyên môn:
+                                            </span>
+                                        </div>
+                                        <div class="col-8">
+                                            <span>
+                                                ..........
+                                                <br/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <span>
+                                                - Công việc phải làm:
+                                            </span>
+                                        </div>
+                                        <div class="col-8">
+                                            <span>
+                                                Theo sự phân công của phụ trách bộ phận và Ban Giám Đốc
+                                                <br/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div name="dieu2">
+                                    <strong>Điều 2: Chế độ làm việc:</strong>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <span>
+                                                - Thời gian làm việc:
+                                            </span>
+                                        </div>
+                                        <div class="col-8">
+                                            <span>
+                                                8:30 - 17:30 từ Thứ 2 đến Thứ 6, không quá 48h/tuần
+                                                <br/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <span>
+                                                - Thời gian nghỉ ngơi:
+                                            </span>
+                                        </div>
+                                        <div class="col-8">
+                                            <span>
+                                                12:00 - 13:00
+                                                <br/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <span>
+                                                - Làm việc ngoài giờ:
+                                            </span>
+                                        </div>
+                                        <div class="col-8">
+                                            <span>
+                                                Không quá 50% số giờ làm việc bình thường trong 01 ngày, không quá 4
+                                                giờ/ngày, 200 giờ/ năm
+                                                <br/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <p>- Được cấp phát những dụng cụ làm việc phù hợp với công việc được phân công: máy
+                                        vi
+                                        tính, chỗ ngồi làm việc,...
+                                    </p>
+                                    <p>- Điều kiện an toàn và vệ sinh lao động tại nơi làm việc theo quy định hiện hành
+                                        của nhà nước.
+                                    </p>
+                                </div>
+                                <div name="dieu3">
+                                    <strong>Điều 3: Nghĩa vụ, quyền hạn và quyền lợi của người lao động</strong>
+                                    <ol>
+                                        <b>
+                                            1.Quyền lợi:
+                                            <br/>
+                                        </b>
+                                        <b>
+                                            <span>- Phương tiện đi lại, làm việc:</span>
+                                        </b>
+                                        <span>
+                                            Tự túc
+                                        </span>
+                                        <br/>
+                                        <b>
+                                            <span>- Mức lương thử việc:</span>
+                                        </b>
+                                        <span>
+                                            <t t-esc="doc.wage"/>
+                                        </span>
+                                        <br/>
+                                        <b>
+                                            <span>
+                                                - Hình thức trả lương:
+                                            </span>
+                                        </b>
+                                        <span>
+                                            Chuyển khoản thông qua ngân hàng
+                                        </span>
+                                        <br/>
+                                        <b>
+                                            <span>
+                                                - Thời gian trả lương:
+                                            </span>
+                                        </b>
+                                        <span>
+                                            Được trả lương 1 lần vào các ngày cuối tháng (từ ngày 25 đến 30
+                                            hàng tháng).
+                                        </span>
+                                        <br/>
+
+                                        <b>
+                                            <span>
+                                                - Chế độ nghỉ ngơi:
+                                            </span>
+                                        </b>
+                                        <span>
+                                            Nghỉ ngơi hàng tuần (thứ bảy và chủ nhật), lễ tết và không có ngày nghỉ phép
+                                            năm.
+                                            <br/>
+                                        </span>
+
+                                        <ul class="a" style="list-style-type: lower-alpha;">
+                                            <li>
+                                                Tết Dương lịch 01 ngày (ngày 01 tháng 01 dương lịch);
+                                            </li>
+                                            <li>
+                                                Tết Âm lịch 05 ngày;
+                                            </li>
+                                            <li>
+                                                Ngày Chiến thắng 01 ngày (ngày 30 tháng 4 dương lịch);
+                                            </li>
+                                            <li>
+                                                Ngày Quốc tế lao động 01 ngày (ngày 01 tháng 5 dương lịch);
+                                            </li>
+                                            <li>
+                                                Ngày Quốc khánh 01 ngày (ngày 02 tháng 9 dương lịch)
+                                            </li>
+                                            <li>
+                                                Ngày Giỗ Tổ Hùng Vương 01 ngày (ngày 10 tháng 3 âm lịch);
+                                            </li>
+                                            <li>
+                                                Nếu những ngày nghỉ theo quy định trùng vào ngày nghỉ hàng
+                                                tuần, thì
+                                                người lao động được nghỉ bù vào ngày kế tiếp.
+                                            </li>
+                                        </ul>
+                                        <b>
+                                            <span>
+                                                - Chế độ đào tạo:
+                                            </span>
+                                        </b>
+                                        <span>
+                                            Do Ban giám đốc thông báo vào từng thời điểm.
+                                        </span>
+                                        <br/>
+                                        <b>
+                                            <span>
+                                                - Những thỏa thuận khác:
+                                            </span>
+                                        </b>
+                                        <span>
+                                            Trong vòng 15 ngày (làm việc) kể từ ngày ký kết hợp đồng thử
+                                            việc này, vì
+                                            bất cứ lý do gì mà người lao động không tiếp tục cộng tác với
+                                            công ty (kể cả
+                                            trong trường hợp công ty thông báo chấm dứt hợp đồng thử việc
+                                            trước thời
+                                            hạn) thì người lao động cam kết sẽ không yêu cầu công ty phải
+                                            thanh toán bất
+                                            cứ chế độ và quyền lợi nào của người lao động trong thời gian
+                                            nêu trên.
+                                        </span>
+                                        <br/>
+                                        <b>
+                                            <span>
+                                                - Thuế thu nhập cá nhân:
+                                            </span>
+                                        </b>
+                                        <span>
+                                            Theo quy định Nhà nước.
+                                        </span>
+                                        <br/>
+                                        <b>
+                                            2.Nghĩa vụ:
+                                        </b>
+                                        <p>
+                                            - Hoàn thành những công việc đã cam kết trong hợp đồng.
+                                        </p>
+                                        <p>
+                                            - Chấp hành lệnh điều hành sản xuất kinh doanh, nội quy, kỷ luật, an toàn
+                                            lao động.
+                                        </p>
+                                        <p>
+                                            - Bồi thường vi phạm và vật chất:
+                                        </p>
+                                        <p>
+                                            * Người lao động làm hư hỏng dụng cụ, thiết bị hoặc có hành vi khác gây
+                                            thiệt hại tài sản của người sử dụng lao động thì phải bồi thường theo quy
+                                            định của pháp luật (không quá 10 tháng lương tối thiểu vùng).
+                                        </p>
+                                    </ol>
+                                </div>
+                                <div name="dieu4">
+                                    <strong>
+                                        Điều 4: Người sử dụng lao động có nghĩa vụ và quyền hạn sau:
+                                    </strong>
+                                    <ol>
+                                        <li>
+                                            <b>
+                                                Nghĩa vụ:
+                                            </b>
+                                        </li>
+                                        <p>
+                                            - Bảo đảm việc làm và thực hiện đầy đủ những điều đã cam kết trong hợp đồng.
+                                            - Thanh toán đầy đủ, đúng thời hạn các chế độ và quyền lợi cho người lao
+                                            động
+                                            theo
+                                            hợp
+                                            đồng,
+                                            thỏa ước lao động tập thể (nếu có).
+                                        </p>
+                                        <li>
+                                            <b>
+                                                Quyền hạn:
+                                            </b>
+                                        </li>
+                                        <p>
+                                            - Điều hành người lao động hoàn thành công việc theo hợp đồng (bố trí, điều
+                                            chuyển,tạm
+                                            ngưng
+                                            việc...)
+                                            - Tạm hoãn, chấm dứt hợp đồng lao động, kỷ luật lao động theo quy định của
+                                            pháp
+                                            luật
+                                            và
+                                            nội
+                                            qui lao động của doanh nghiệp.
+                                        </p>
+                                    </ol>
+                                </div>
+                                <div name="dieu5">
+                                    <strong>
+                                        Điều 5: Điều khoản thi hành
+                                    </strong>
+                                    <p>
+                                        - Những vấn đề về lao động không ghi trong hợp đồng này thì áp dụng quy định của
+                                        pháp luật Lao động
+                                        <br/>
+                                        - Hợp đồng thử việc này được làm thành 02 (hai) bản có giá trị như nhau, mỗi Bên
+                                        giữ
+                                        01 (một) bản và có hiệu lực kể từ ngày ký.
+                                        <br/>
+                                        - Hợp đồng này làm tại
+                                        <b>CÔNG TY TNHH PHẦN MỀM B&amp;K</b>
+                                    </p>
+                                </div>
+                                <div name="sign_part">
+                                    <div class="row">
+                                        <div class="col-6">
+                                        </div>
+                                        <div class="col-6 text-center">
+                                            Ngày ..... tháng ..... năm.....
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 text-center">
+                                            <strong>NGƯỜI LAO ĐỘNG</strong>
+                                        </div>
+                                        <div class="col-6 text-center">
+                                            <strong>NGƯỜI SỬ DỤNG LAO ĐỘNG</strong>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                        </div>
+                                        <div class="col-6 text-center">
+                                            <span>GIÁM ĐỐC</span>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-6">
+                                        </div>
+                                        <div class="col-6 text-center">
+                                            <span>
+                                                ĐẶNG VĂN THÀNH
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </t>
+                </t>
+            </body>
+        </template>
+
+        <report
+                id="account_probationary_contract_action"
+                model="hr.contract"
+                string="Probationary Contract"
+                report_type="qweb-pdf"
+                name="bnk_hr.report_probationary_contract"
+                file="bnk_hr.report_probationary_contract"
+                paperformat="paperformat_A4"
+                menu="False"
+        />
+    </data>
+</odoo>

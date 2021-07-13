@@ -1,0 +1,17 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+hr_send_jd_logs,hr_send_jd_logs,model_send_jd_logs,base.group_user,1,1,1,1
+jd_template_all,jd_template_all,model_jd_template,,1,0,0,0
+jd_template_user,jd_template_user,model_jd_template,hr_recruitment.group_hr_recruitment_user,1,1,1,1
+access_hr_recruitment_request,access_hr_recruitment_request,model_hr_recruitment_request,hr.group_hr_user,1,1,1,1
+access_hr_recruitment_request_bul,access_hr_recruitment_request_bul,model_hr_recruitment_request,bnk_employee.group_officer_bul,1,1,1,1
+access_hr_request_job_line,access_hr_request_job_line,model_hr_request_job_line,hr.group_hr_user,1,1,1,1
+access_hr_request_job_line_bul,access_hr_request_job_line_bul,model_hr_request_job_line,bnk_employee.group_officer_bul,1,1,1,1
+access_hr_recruitment_stage_user,hr.recruitment.stage.user,model_hr_recruitment_stage,hr.group_hr_user,1,0,0,0
+access_hr_recruitment_stage_bul,hr.recruitment.stage.bul,model_hr_recruitment_stage,bnk_employee.group_officer_bul,1,1,1,1
+access_hr_job_bul,hr.job.bul,model_hr_job,bnk_employee.group_officer_bul,1,1,1,1
+access_hr_applicant_level,access_hr_applicant_level,model_hr_applicant_level,hr_recruitment.group_hr_recruitment_user,1,1,1,1
+access_hr_applicant_level_bul,access_hr_applicant_level_bul,model_hr_applicant_level,bnk_employee.group_officer_bul,1,1,1,1
+access_hr_request_job_report,access_hr_request_job_report,model_hr_request_job_report,hr_recruitment.group_hr_recruitment_user,1,1,1,1
+access_hr_contact_point,access_hr_contact_point,model_contact_point,hr_recruitment.group_hr_recruitment_user,1,1,1,1
+access_hr_recruitment_refuse_reason,hr.applicant.refuse.reason,model_hr_applicant_refuse_reason,hr_recruitment.group_hr_recruitment_user,1,1,1,1
+access_applicant_get_refuse_reason,access.applicant.get.refuse.reason,model_applicant_get_refuse_reason,hr_recruitment.group_hr_recruitment_user,1,1,1,0

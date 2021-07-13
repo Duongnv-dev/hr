@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="customer_offer_letter_attach_pdf">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="line">
+                    <div class="page">
+                    <div class="row mt64 mb32">
+                            <div class="col-md-12">
+                                <h2 class="text-center">
+
+                                    <style>
+                                            table, td, th {
+                                              border: 0px;
+                                            }
+
+                                            #table {
+                                              border-collapse: collapse;
+                                            }
+                                    </style>
+
+                                    <table id="table" width="60%">
+                                        <tr>
+                                            <td>
+                                                <img t-if="line.company_id.logo" t-att-src="image_data_uri(line.company_id.logo)" style="width: 55px" class="float-left" alt="Logo"/>
+                                            </td>
+                                            <td>
+                                                <strong>B&amp;K SOFTWARE</strong>
+                                                <br></br>
+                                                <p style="font-size:13px; font-weight:bold">
+                                                    362/19 Ung Van Khiem, Ward 25, Binh Thanh District, Ho Chi Minh City
+                                                    <br></br>
+                                                    Level 3, AC Building, No. 3 Lane 78 Duy Tan, Dich Vong Hau, Cau Giay, Ha Noi.
+                                                </p>
+                                                <p style="font-size:12px; font-weight:bold">
+                                                    Tel: (+84) 2873013318 &#160;&#160;&#160;&#160;&#160; Email: bnk@bnksolution.com
+                                                </p>
+                                            </td>
+                                        </tr>
+                                        </table>
+
+                                    <br></br>
+
+                                     <div style="margin: 0pxl padding: 0px;">
+                                            <p style="margin: 0px; padding: 0px; font-size: 13px;">
+
+                                                <table style="border:0" width="70%">
+                                                    <tr>
+                                                        <th style="border:0"></th>
+                                                        <th style="border:0"></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="font-weight:bold; border:0">
+                                                            To:
+                                                        </td>
+                                                        <td style="font-weight:bold; border:0">
+                                                            <span t-field="line.partner_name"/>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td style="font-weight:bold; border:0">
+                                                            Email:
+                                                        </td>
+                                                        <td style="font-weight:bold; border:0">
+                                                            <span t-field="line.email_from"/>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td style="font-weight:bold; border:0">
+                                                            Cellphone:
+                                                        </td>
+                                                        <td style="font-weight:bold; border:0">
+                                                            <span t-field="line.partner_mobile"/>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td style="font-weight:bold; border:0">
+                                                            Date:
+                                                        </td>
+                                                        <td style="font-weight:bold; border:0">
+                                                            <span t-field="line.offer_date"/>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td style="font-weight:bold; border:0">
+                                                            Subject:
+                                                        </td>
+                                                        <td style="font-weight:bold; border:0">
+                                                            Offer Letter
+                                                        </td>
+                                                    </tr>
+
+                                                </table>
+                                                <br></br>
+
+                                                &#160;&#160;<strong>Dear:</strong> <span t-field="line.partner_name"/>,
+                                                <br></br>
+                                                &#160;&#160; Thank you very much for your interest in working for <strong>B&amp;K Software Co., Ltd </strong>(“Company”). We are pleased to offer you to a position of
+                                                &#160;&#160;&#160;<span t-field="line.job_id.name"/>. We trust that your knowledge, skills &amp; experiences will be among our most valuable assets.
+                                                <br></br>
+                                                &#160;&#160; 1.&#160;&#160;<strong>Job descriptions:</strong>
+                                                <br></br>
+                                                &#160;&#160;&#160;&#160;&#160; - Working with customers under assignment from management board.
+                                                <br></br>
+                                                &#160;&#160;&#160;&#160;&#160; - Working onsite if any.
+                                                <br></br>
+                                                &#160;&#160; 2.&#160;&#160;<strong>Report to:</strong> Line Manager
+                                                <br></br>
+                                                &#160;&#160; 3.&#160;&#160;<strong>Offered contract:</strong>  Probation Contract (2 months)
+                                                <br></br>
+                                                &#160;&#160; -&#160;&#160;<strong>Targeted monthly income: <span t-field="line.salary_final"/> VND (Gross).</strong>. The monthly income includes:
+                                                <br></br>
+                                                &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>· Basic salary: 4,729,400 VND </strong>
+                                                <br></br>
+                                                &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>· Targeted additional pay: <span t-field="line.targeted_additional_pay"/> VND </strong>
+                                                <br></br>
+                                                &#160;&#160; -&#160;&#160;<strong>The 13th month income:</strong>One month of monthly income proportional to the number of working months and followed by B&amp;K Software’s
+                                                <br></br>
+                                                &#160;&#160;&#160;&#160;&#160;&#160;&#160;applicable policy, applicable from the official employment date.
+                                                <br></br>
+                                                &#160;&#160; -&#160;&#160;<strong>Annual performance based income:</strong> basing on the Company’s policy.
+                                                <br></br>
+                                                &#160;&#160; -&#160;&#160;<strong>Benefits:</strong>
+                                                <br></br>
+                                                &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>· Mandatory Insurances:</strong> basing on B&amp;K Software’s policy.
+                                                <br></br>
+                                                &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>· Annual Health Check:</strong> sponsored by the Company.
+                                                <br></br>
+                                                &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160;&#160;&#160;<strong>· Annual vacation:</strong> basing on the Company’s policy, applying for those who have been in the official employment period before the
+                                                <br></br>
+                                                &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160;&#160;&#160;date issuing the vacation policy.
+                                                <br></br>
+                                                &#160;&#160;&#160;&#160;&#160;<strong>· Team building:</strong> basing on the Company’s policy.
+                                                <br></br>
+                                                &#160;&#160;&#160;&#160;&#160;-<strong>Performance review:</strong> basing on the Company’s policy
+                                                <br></br>
+                                                &#160;&#160;&#160;&#160;&#160;-<strong>Working hours:</strong> standard 44 hours/week policy.
+                                                <br></br>
+                                                &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160;&#160;&#160;<strong>· In Viet Nam: </strong> Monday to Friday;
+                                                <br></br>
+                                                &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160;&#160;&#160;&#160;&#160;Site HN: 08H30 - 12H00; 13H00 – 17H30
+                                                <br></br>
+                                                &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160;&#160;&#160;&#160;&#160;Site HCM: 9H00 - 12H00; 13H00 – 18H00
+                                                <br></br>
+                                                <strong>&#160;&#160;&#160;&#160;&#160;· Other places: </strong> By local branch’s regulations.
+                                                <br></br>
+                                                &#160;&#160; 4.&#160;&#160;<strong>Expected commencing working date2:</strong>
+                                                <br></br>
+                                                &#160;&#160;&#160;&#160;&#160;This Offer letter constitutes the full understanding between you &amp; B&amp;K Software concerning your employment, and replaces any prior
+                                                <br></br>
+                                                &#160;&#160;&#160;&#160;&#160;agreements or understandings, whether in oral or written format, between you and the Company.
+                                                <br /><br />
+                                                <paraStyle name="terp_default_Italic" rightIndent="0.0" leftIndent="20.0"
+                                                                           fontName="Helvetica-Oblique" fontSize="17.0" leading="10"
+                                                                           alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+                                                <para style="terp_default_Italic; font-weight:bold;">
+                                                    &#160;&#160;&#160;&#160;<i>Notes:</i><strong>Documents to be prepared for your working at B&amp;K SOFTWARE: </strong>
+                                                </para>
+                                                <br></br>
+                                                <para style="terp_default_Italic">
+                                                    &#160;&#160;&#160;&#160;<i>2 Notarized copy of ID Card, 02 3x4 size photos (soft &amp; hard copy), 01 Notarized copy of Birth certificate, Copy of Household registration
+                                                    <br></br>
+                                                    &#160;&#160;&#160;&#160;book, 01 Copy of University/College Diploma, Certificate of Temporary graduation, Other certificates, diplomas (if any), Social Insurance
+                                                    &#160;&#160;&#160;&#160;book of your ex-company (if any).</i>
+                                                </para>
+                                                <br /><br />
+                                                &#160;&#160;&#160;&#160;&#160;Please bring all the documents together with you to the Company on your first working day for our contract signing. In case you cannot
+                                                &#160;&#160;&#160;&#160;&#160;prepare all of them on time,
+                                                <br></br>
+                                                &#160;&#160;&#160;&#160;&#160;please let us know at the soonest.
+                                                <br></br>
+                                                &#160;&#160;&#160;&#160;&#160;We look forward to welcoming you to B&amp;K Software.
+                                                 <br /><br />
+                                                <table style="border:0" width="110%">
+                                                    <tr>
+                                                        <th style="font-weight:bold; border:0">
+                                                            <span>On behalf of B&amp;K SOFTWARE</span>
+                                                        </th>
+                                                        <th style="font-weight:bold; border:0">
+                                                            <span>Applicant’s Signature</span>
+                                                        </th>
+                                                    </tr>
+
+                                                    <tr>
+                                                    <td style="border:0"></td>
+                                                    <td style="border:0; text-align:center">I hereby certify that I have read, understood
+                                                        <br></br>
+                                                        and accept the Offer letter's content. I confirm
+                                                        <br></br>
+                                                        that I will be able to start working at
+                                                        <br></br>
+                                                        B&amp;K Software.
+                                                    </td>
+                                                    </tr>
+
+                                                </table>
+
+                                                <br /><br />
+                                                <br /><br />
+
+                                                <table style="border:0" width="85%">
+                                                    <tr>
+                                                        <th style="font-weight:bold;border:0; text-align:center;">
+                                                            DANG VAN THANH
+                                                        </th>
+                                                        <th style="font-weight:bold;border:0; text-align:right;">
+                                                            <span t-field="line.partner_name"/>
+                                                    </th>
+                                                    </tr>
+                                                </table>
+                                                <br /><br />
+                                                ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                                <br></br>
+                                                &#160;&#160;&#160;&#160;&#160;1: including: society, medical insurances, bonus, allowances, etc.
+                                                <br></br>
+                                                &#160;&#160;&#160;&#160;&#160;2: the date which new-comer starts to work.
+                                                <br></br>
+                                                &#160;&#160;&#160;&#160;&#160;<strong>Note:</strong> Please keep all information of this offer letter as confidential, or you will take the entire responsibility.
+                                            </p>
+                                        </div>
+
+                                </h2>
+                            </div>
+                        </div>
+                </div>
+                </t>
+            </t>
+        </template>
+
+        <report
+           id="offer_letter_attach_pdf_send_mail_offer"
+           model="hr.applicant"
+           string="Offer Letter Attachment"
+           report_type="qweb-pdf"
+           name="bnk_recruitment.customer_offer_letter_attach_pdf"
+           file="bnk_recruitment.customer_offer_letter_attach_pdf"
+           menu="False"
+           print_report_name = "((object.number or 'Offer Letter').replace('/','')+'.pdf')"
+        />
+    </data>
+</odoo>

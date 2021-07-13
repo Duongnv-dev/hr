@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value
+                    eval="[('module', '=', 'hr_recruitment'),
+                    ('name', 'in', ['stage_job1', 'stage_job2', 'stage_job3', 'stage_job4', 'stage_job5'])]"
+            />
+        </function>
+        <value eval="{'noupdate': False}"/>
+    </function>
+    <data>
+        <record model="hr.recruitment.stage" id="hr_recruitment.stage_job1">
+            <field name="name">Scan CV</field>
+            <field name="sequence">1</field>
+        </record>
+        <record model="hr.recruitment.stage" id="hr_recruitment.stage_job2">
+            <field name="name">Interview</field>
+            <field name="template_id" ref=""/>
+            <field name="sequence">2</field>
+        </record>
+        <record model="hr.recruitment.stage" id="hr_recruitment.stage_job3">
+            <field name="name">Interview Passed</field>
+            <field name="sequence">3</field>
+        </record>
+        <record model="hr.recruitment.stage" id="hr_recruitment.stage_job4">
+            <field name="name">Fail</field>
+            <field name="sequence">4</field>
+        </record>
+        <record model="hr.recruitment.stage" id="hr_recruitment.stage_job5">
+            <field name="name">Offer</field>
+            <field name="sequence">5</field>
+            <field name="fold" eval="False"/>
+        </record>
+        <record model="hr.recruitment.stage" id="stage_job6">
+            <field name="name">Accepted</field>
+            <field name="sequence">6</field>
+        </record>
+        <record model="hr.recruitment.stage" id="stage_job7">
+            <field name="name">Reject</field>
+            <field name="sequence">7</field>
+        </record>
+        <record model="hr.recruitment.stage" id="stage_job8">
+            <field name="name">Onboarded</field>
+            <field name="sequence">8</field>
+        </record>
+
+        <!-- applicant refuse reason -->
+        <record id="refuse_reason_1" model="hr.applicant.refuse.reason">
+            <field name="name">Doesn't fit the job requirements</field>
+        </record>
+        <record id="refuse_reason_2" model="hr.applicant.refuse.reason">
+            <field name="name">The applicant is not interested anymore</field>
+        </record>
+        <record id="refuse_reason_3" model="hr.applicant.refuse.reason">
+            <field name="name">The applicant gets a better offer</field>
+        </record>
+    </data>
+</odoo>

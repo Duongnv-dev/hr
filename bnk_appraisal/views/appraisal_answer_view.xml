@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="appraisal_answer_tree_view" model="ir.ui.view">
+        <field name="name">appraisal.answer.tree.view</field>
+        <field name="model">survey.user_input</field>
+        <field name="inherit_id" ref="survey.survey_user_input_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='survey_id']" position="after">
+                <field name="answerer_id"/>
+            </xpath>
+        </field>
+
+    </record>
+
+    <record id="appraisal_answer_form_view" model="ir.ui.view">
+        <field name="name">appraisal.answer.form.view</field>
+        <field name="model">survey.user_input</field>
+        <field name="inherit_id" ref="survey.survey_user_input_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='survey_id']" position="after">
+                <field name="answerer_id"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

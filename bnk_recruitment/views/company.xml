@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="company_form_view_inherit" model="ir.ui.view">
+        <field name="name">company_form_view_inherit</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="priority" eval="30"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='social_media']" position="after">
+                <group string="Company Description">
+                    <field name="description" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

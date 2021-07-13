@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<odoo>
+    <record id="hr_employee_move_tree_view" model="ir.ui.view">
+        <field name="name">hr_employee_move_tree_view</field>
+        <field name="model">hr.employee.move</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="department_id"/>
+                <field name="department_loc"/>
+                <field name="manager_id"/>
+                <field name="resource_calendar_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_employee_move_form_view" model="ir.ui.view">
+        <field name="name">hr_employee_move_form_view</field>
+        <field name="model">hr.employee.move</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button string="Submit" type="object" name="action_waiting_for_approval"
+                            class="oe_highlight" groups="hr.group_hr_manager"
+                            attrs="{'invisible': [('state', 'in', ('waiting_for_approval', 'done'))]}"/>
+                    <button string="Done" type="object" name="action_done"
+                            class="oe_highlight" groups="hr.group_hr_manager"
+                            attrs="{'invisible': [('state', 'in', ('done', 'draft'))]}"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <div class="oe_title">
+                                <h1>
+                                    <field name="name"/>
+                                </h1>
+                            </div>
+                            <field name="employee_id"/>
+                            <field name="date"/>
+                        </group>
+                        <group colspan="2">
+                            <group string="Old Assignment">
+                                <field name="old_department_id" readonly="1" force_save="1"/>
+                                <field name="old_department_loc" readonly="1" force_save="1"/>
+                                <field name="old_manager_id" readonly="1" force_save="1"/>
+                                <field name="old_resource_calendar_id" readonly="1" force_save="1"/>
+                            </group>
+                            <group string="New Assignment">
+                                <field name="department_id" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                                <field name="department_loc" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                                <field name="manager_id" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                                <field name="resource_calendar_id" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                            </group>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hr_employee_move" model="ir.actions.act_window">
+        <field name="name">Employee Move</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.employee.move</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem id="submenu_hr_employee_move"
+              name="Employee Move"
+              action="action_hr_employee_move"
+              sequence="5"
+              groups="hr.group_hr_user"
+              parent="hr.menu_hr_root"/>
+</odoo>

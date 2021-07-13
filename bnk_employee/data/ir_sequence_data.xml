@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<odoo>
+    <data noupdate="1">
+        <record id="seq_hp_employee_move" model="ir.sequence">
+            <field name="name">Employee Move Sequence</field>
+            <field name="code">hp.employee.move</field>
+            <field name="prefix">HPEM</field>
+            <field name="padding">5</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+        </record>
+        <record id="seq_id_attendance_employee" model="ir.sequence">
+            <field name="name">ID Attendance Sequence</field>
+            <field name="code">id.attendance.employee</field>
+            <field name="prefix"></field>
+            <field name="padding">5</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+        </record>
+    </data>
+</odoo>

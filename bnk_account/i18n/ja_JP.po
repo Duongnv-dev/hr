@@ -1,0 +1,425 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* bnk_account
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-09-23 09:10+0000\n"
+"PO-Revision-Date: 2019-09-23 16:26+0700\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: ja_JP\n"
+"X-Generator: Poedit 2.2.3\n"
+
+#. module: bnk_account
+#: model:mail.template,report_name:bnk_account.email_template_edit_invoice
+msgid ""
+"\n"
+"                Invoice_${(object.number or '').replace('/','_')}${object.state == 'draft' and '_draft' or ''}\n"
+"            "
+msgstr ""
+"\n"
+"                請求書_${(object.number or '').replace('/','_')}${object.state == 'draft' and '_draft' or ''}\n"
+"            "
+
+#. module: bnk_account
+#: model:mail.template,subject:bnk_account.email_template_edit_invoice
+msgid "${object.company_id.name} Invoice (Ref ${object.number or 'n/a'})"
+msgstr "${object.company_id.name} 請求書 (Ref ${object.number or 'n/a'})"
+
+#. module: bnk_account
+#: model:mail.template,body_html:bnk_account.email_template_edit_invoice
+msgid ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                        Dear Mr./Mrs.${object.partner_id.name}\n"
+"                        % if object.partner_id.parent_id:\n"
+"                        (${object.partner_id.parent_id.name})\n"
+"                        % endif\n"
+"                        <br/>\n"
+"                        <br/>\n"
+"                        ${object.company_id.name} would like to send you invoices in ${(object.date_invoice)}.<br/>\n"
+"                        Please kindly see attached file for detail and confirm if you agree with the content of those invoices.<br/>\n"
+"                        We hope receiving payment before ${(object.date_due)}.\n"
+"                        <br/>\n"
+"                        <br/>\n"
+"                        If you have any comment, feel free to send back to us.\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
+msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                        ${object.partner_id.name} 様<br/>\n"
+"                         いつもお世話になっております。<br/>\n"
+"                        % if object.partner_id.parent_id:\n"
+"                        (${object.partner_id.parent_id.name})\n"
+"                        % endif\n"
+"                        <br/>\n"
+"                         ${object.company_id.name}ソリューションの経理担当の${object.convert_name(object.user_id.name)}と申します。<br/>\n"
+"                         ${(object.date_invoice)} 月分の御請求書を作成いたしましたので、<br/>\n"
+"                         添付にて送り致します。<br/>\n"
+"                        ご多忙中とは存じますが、ご確認の程よろしくお願いいたします。<br/>\n"
+"                        お返事をお待ちしております。<br/>\n"
+"                         宜しくお願い致します。<br/>\n"
+"                        <br/>\n"
+"                         <br/>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
+
+#. module: bnk_account
+#: model_terms:ir.ui.view,arch_db:bnk_account.report_invoice_document
+msgid "<span groups=\"account.group_show_line_subtotals_tax_excluded\">Amount</span>"
+msgstr "<span groups=\"account.group_show_line_subtotals_tax_excluded\">単価</span>"
+
+#. module: bnk_account
+#: model_terms:ir.ui.view,arch_db:bnk_account.report_invoice_document
+msgid "<span>B and K Software Company Limited</span>"
+msgstr ""
+
+#. module: bnk_account
+#: model_terms:ir.ui.view,arch_db:bnk_account.report_invoice_document
+msgid "<span>Description</span>"
+msgstr "<span>詳細</span>"
+
+#. module: bnk_account
+#: model_terms:ir.ui.view,arch_db:bnk_account.report_invoice_document
+msgid "<span>Part No.</span>"
+msgstr "<span>番号</span>"
+
+#. module: bnk_account
+#: model_terms:ir.ui.view,arch_db:bnk_account.report_invoice_document
+msgid "<span>Quantity</span>"
+msgstr "<span>数量</span>"
+
+#. module: bnk_account
+#: model_terms:ir.ui.view,arch_db:bnk_account.report_invoice_document
+msgid "<span>Total Price</span>"
+msgstr "<span>請求金額</span>"
+
+#. module: bnk_account
+#: model_terms:ir.ui.view,arch_db:bnk_account.report_invoice_document
+msgid ""
+"<strong>\n"
+"                                    <span>Address:</span>\n"
+"                                </strong>"
+msgstr ""
+"<strong>\n"
+"                                    <span>住所:</span>\n"
+"                                </strong>"
+
+#. module: bnk_account
+#: model_terms:ir.ui.view,arch_db:bnk_account.report_invoice_document
+msgid ""
+"<strong>\n"
+"                                    <strong>Contract Date:</strong>\n"
+"                                </strong>"
+msgstr ""
+"<strong>\n"
+"                                    <strong>契約日:</strong>\n"
+"                                </strong>"
+
+#. module: bnk_account
+#: model_terms:ir.ui.view,arch_db:bnk_account.report_invoice_document
+msgid "<strong>Address:</strong>"
+msgstr "<strong>住所:</strong>"
+
+#. module: bnk_account
+#: model_terms:ir.ui.view,arch_db:bnk_account.report_invoice_document
+msgid "<strong>BFTVVNVX037</strong>"
+msgstr ""
+
+#. module: bnk_account
+#: model_terms:ir.ui.view,arch_db:bnk_account.report_invoice_document
+msgid "<strong>Beneficiary:</strong>"
+msgstr "<strong>口座名義人:</strong>"
+
+#. module: bnk_account
+#: model_terms:ir.ui.view,arch_db:bnk_account.report_invoice_document
+msgid "<strong>Contract No:</strong>"
+msgstr "<strong>ご契約の証券番号:</strong>"
+
+#. module: bnk_account
+#: model_terms:ir.ui.view,arch_db:bnk_account.report_invoice_document
+msgid "<strong>Customer:</strong>"
+msgstr "<strong>お客様:</strong>"
+
+#. module: bnk_account
+#: model_terms:ir.ui.view,arch_db:bnk_account.report_invoice_document
+msgid "<strong>Date:</strong>"
+msgstr "<strong>ご請求書作成日:</strong>"
+
+#. module: bnk_account
+#: model_terms:ir.ui.view,arch_db:bnk_account.report_invoice_document
+msgid "<strong>Description of Goods and/or Services:</strong>"
+msgstr "<strong>ご契約内容:</strong>"
+
+#. module: bnk_account
+#: model_terms:ir.ui.view,arch_db:bnk_account.report_invoice_document
+msgid "<strong>In words:</strong>"
+msgstr ""
+
+#. module: bnk_account
+#: model_terms:ir.ui.view,arch_db:bnk_account.report_invoice_document
+msgid "<strong>No:</strong>"
+msgstr "<strong>請求No:</strong>"
+
+#. module: bnk_account
+#: model_terms:ir.ui.view,arch_db:bnk_account.report_invoice_document
+msgid "<strong>Our Bank Name:</strong>"
+msgstr "<strong>金融機関:</strong>"
+
+#. module: bnk_account
+#: model_terms:ir.ui.view,arch_db:bnk_account.report_invoice_document
+msgid "<strong>Payment Terms:</strong>"
+msgstr "<strong>締め日:</strong>"
+
+#. module: bnk_account
+#: model_terms:ir.ui.view,arch_db:bnk_account.report_invoice_document
+msgid "<strong>SWIFT code:</strong>"
+msgstr ""
+
+#. module: bnk_account
+#: model_terms:ir.ui.view,arch_db:bnk_account.report_invoice_document
+msgid "<strong>Telephone:</strong>"
+msgstr "<strong>電話番号:</strong>"
+
+#. module: bnk_account
+#: model_terms:ir.ui.view,arch_db:bnk_account.report_invoice_document
+msgid "<strong>To:</strong>"
+msgstr "<strong>ご請求先:</strong>"
+
+#. module: bnk_account
+#: model_terms:ir.ui.view,arch_db:bnk_account.report_invoice_document
+msgid "<strong>Total:</strong>"
+msgstr "<span>請求金額</span>"
+
+#. module: bnk_account
+#: code:addons/bnk_account/models/export_invoice_excel.py:294
+#, python-format
+msgid "Address:"
+msgstr "住所:"
+
+#. module: bnk_account
+#: code:addons/bnk_account/models/export_invoice_excel.py:179
+#: code:addons/bnk_account/models/export_invoice_excel.py:182
+#, python-format
+msgid "Address: "
+msgstr "住所: "
+
+#. module: bnk_account
+#: code:addons/bnk_account/models/export_invoice_excel.py:220
+#, python-format
+msgid "Amount"
+msgstr "単価"
+
+#. module: bnk_account
+#: code:addons/bnk_account/models/export_invoice_excel.py:297
+#, python-format
+msgid "Beneficiary:"
+msgstr "口座名義人:"
+
+#. module: bnk_account
+#: model_terms:ir.ui.view,arch_db:bnk_account.report_invoice_document
+msgid "Cancelled Invoice"
+msgstr "キャンセル済請求書"
+
+#. module: bnk_account
+#: model:ir.model.fields,field_description:bnk_account.field_account_invoice__contract_date
+msgid "Contract Date"
+msgstr "契約日"
+
+#. module: bnk_account
+#: code:addons/bnk_account/models/export_invoice_excel.py:202
+#: code:addons/bnk_account/models/export_invoice_excel.py:205
+#, python-format
+msgid "Contract Date: "
+msgstr "契約日: "
+
+#. module: bnk_account
+#: model:ir.model.fields,field_description:bnk_account.field_account_invoice__contract_no
+msgid "Contract No"
+msgstr "ご契約の証券番号"
+
+#. module: bnk_account
+#: code:addons/bnk_account/models/export_invoice_excel.py:195
+#: code:addons/bnk_account/models/export_invoice_excel.py:198
+#, python-format
+msgid "Contract: "
+msgstr "ご契約の証券番号: "
+
+#. module: bnk_account
+#: model_terms:ir.ui.view,arch_db:bnk_account.report_invoice_document
+msgid "Credit Note"
+msgstr "クレジットノート"
+
+#. module: bnk_account
+#: code:addons/bnk_account/models/export_invoice_excel.py:170
+#: code:addons/bnk_account/models/export_invoice_excel.py:173
+#, python-format
+msgid "Customer: "
+msgstr "お客様: "
+
+#. module: bnk_account
+#: code:addons/bnk_account/models/export_invoice_excel.py:165
+#: code:addons/bnk_account/models/export_invoice_excel.py:168
+#, python-format
+msgid "Date: "
+msgstr "ご請求書作成日: "
+
+#. module: bnk_account
+#: code:addons/bnk_account/models/export_invoice_excel.py:214
+#, python-format
+msgid "Description"
+msgstr "詳細"
+
+#. module: bnk_account
+#: model:ir.model.fields,field_description:bnk_account.field_account_invoice__description_of_goods
+msgid "Description Of Goods"
+msgstr "ご契約内容"
+
+#. module: bnk_account
+#: code:addons/bnk_account/models/export_invoice_excel.py:208
+#, python-format
+msgid "Description of Goods and/or Services:"
+msgstr "ご契約内容:"
+
+#. module: bnk_account
+#: model:ir.model.fields,field_description:bnk_account.field_report_bnk_invoice_export_invoice__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: bnk_account
+#: model_terms:ir.ui.view,arch_db:bnk_account.report_invoice_document
+msgid "Draft Invoice"
+msgstr "ドラフト請求書"
+
+#. module: bnk_account
+#: model:ir.model.fields,field_description:bnk_account.field_report_bnk_invoice_export_invoice__id
+msgid "ID"
+msgstr ""
+
+#. module: bnk_account
+#: code:addons/bnk_account/models/export_invoice_excel.py:159
+#, python-format
+msgid "INVOICE"
+msgstr "請求書"
+
+#. module: bnk_account
+#: code:addons/bnk_account/models/export_invoice_excel.py:250
+#, python-format
+msgid "In Words:"
+msgstr ""
+
+#. module: bnk_account
+#: model:ir.model,name:bnk_account.model_account_invoice
+#: model_terms:ir.ui.view,arch_db:bnk_account.report_invoice_document
+msgid "Invoice"
+msgstr "請求書"
+
+#. module: bnk_account
+#: model:ir.actions.report,name:bnk_account.account_invoices
+msgid "Invoices PDF"
+msgstr ""
+
+#. module: bnk_account
+#: model:ir.model.fields,field_description:bnk_account.field_report_bnk_invoice_export_invoice____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: bnk_account
+#: code:addons/bnk_account/models/export_invoice_excel.py:190
+#: code:addons/bnk_account/models/export_invoice_excel.py:192
+#, python-format
+msgid "No: "
+msgstr "請求No: "
+
+#. module: bnk_account
+#: code:addons/bnk_account/models/export_invoice_excel.py:295
+#, python-format
+msgid "Our Account No.:"
+msgstr "口座番号.:"
+
+#. module: bnk_account
+#: code:addons/bnk_account/models/export_invoice_excel.py:293
+#, python-format
+msgid "Our Bank  Name:"
+msgstr "金融機関:"
+
+#. module: bnk_account
+#: code:addons/bnk_account/models/export_invoice_excel.py:211
+#, python-format
+msgid "Part No"
+msgstr "番号"
+
+#. module: bnk_account
+#: code:addons/bnk_account/models/export_invoice_excel.py:292
+#, python-format
+msgid "Payment Term:"
+msgstr "締め日:"
+
+#. module: bnk_account
+#: model:ir.actions.report,name:bnk_account.export_invoice_xlsx
+msgid "Print Invoice Excel"
+msgstr "請求書 Excel"
+
+#. module: bnk_account
+#: code:addons/bnk_account/models/export_invoice_excel.py:217
+#, python-format
+msgid "Quantity"
+msgstr "数量"
+
+#. module: bnk_account
+#: code:addons/bnk_account/models/export_invoice_excel.py:296
+#, python-format
+msgid "SWIFT code: "
+msgstr "SWIFTコード: "
+
+#. module: bnk_account
+#: code:addons/bnk_account/models/export_invoice_excel.py:152
+#: code:addons/bnk_account/models/export_invoice_excel.py:156
+#: code:addons/bnk_account/models/export_invoice_excel.py:185
+#: code:addons/bnk_account/models/export_invoice_excel.py:188
+#, python-format
+msgid "Telephone: "
+msgstr "電話番号: "
+
+#. module: bnk_account
+#: code:addons/bnk_account/models/export_invoice_excel.py:175
+#, python-format
+msgid "To: "
+msgstr "ご請求先: "
+
+#. module: bnk_account
+#: code:addons/bnk_account/models/export_invoice_excel.py:236
+#, python-format
+msgid "Total"
+msgstr "請求金額"
+
+#. module: bnk_account
+#: code:addons/bnk_account/models/export_invoice_excel.py:223
+#, python-format
+msgid "Total({})"
+msgstr "請求金額({})"
+
+#. module: bnk_account
+#: model_terms:ir.ui.view,arch_db:bnk_account.report_invoice_document
+msgid "Vendor Bill"
+msgstr "仕入先請求書"
+
+#. module: bnk_account
+#: model_terms:ir.ui.view,arch_db:bnk_account.report_invoice_document
+msgid "Vendor Credit Note"
+msgstr "仕入先クレジットノート"
+
+#. module: bnk_account
+#: model:ir.model,name:bnk_account.model_report_bnk_invoice_export_invoice
+msgid "report.bnk_invoice.export_invoice"
+msgstr ""

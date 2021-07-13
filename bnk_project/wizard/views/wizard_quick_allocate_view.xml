@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="wizard_quick_allocate_line_tree" model="ir.ui.view">
+        <field name="name">wizard.quick.allocate.line.tree</field>
+        <field name="model">wizard.quick.allocate.line</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom" decoration-danger="employee_id==False" decoration-warning="billable!='billable'">
+                <field name="employee_id"/>
+                <field name="from_date"/>
+                <field name="to_date"/>
+                <field name="percent"/>
+                <field name="billable"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="wizard_quick_allocate_form" model="ir.ui.view">
+        <field name="name">wizard.quick.allocate.form</field>
+        <field name="model">wizard.quick.allocate</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="project_id" invisible="1"/>
+                </group>
+                <notebook>
+                    <page string="Allocate Detail">
+                        <field name="allocate_line_ids"/>
+                    </page>
+                </notebook>
+                <footer>
+                    <button name="generate_allocate_resource" type="object"  class="oe_highlight"
+                            string="Allocate"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_wizard_quick_allocate">
+        <field name="name">Quick allocate</field>
+        <field name="res_model">wizard.quick.allocate</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="context">{'default_project_id': active_id}</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

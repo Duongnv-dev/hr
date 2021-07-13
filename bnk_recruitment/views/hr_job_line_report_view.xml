@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<odoo>
+    <record model="ir.ui.view" id="hr_job_line_report_graph_view">
+        <field name="name">hr_recruitment_report_graph_view</field>
+        <field name="model">hr.request.job.report</field>
+        <field name="arch" type="xml">
+            <graph string="Report" stacked="False">
+                <field name="measure" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_job_line_report_tree_view">
+        <field name="name">hr_job_line_report_tree_view</field>
+        <field name="model">hr.request.job.report</field>
+        <field name="arch" type="xml">
+            <tree string="Report">
+                <field name="id"/>
+                <field name="job_id"/>
+                <field name="site_id"/>
+                <field name="user_id"/>
+                <field name="creation_date"/>
+                <field name="department_id"/>
+                <field name="measure"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_recruitment_report_view_search_01" model="ir.ui.view">
+        <field name="name">hr_recruitment_report_view_search</field>
+        <field name="model">hr.request.job.report</field>
+        <field name="priority">32</field>
+        <field name="arch" type="xml">
+            <search string="Recruitment Statistical">
+                <field name="job_id"/>
+                <field name="site_id"/>
+                <field name="user_id"/>
+                <field name="department_id"/>
+                <field name="creation_date"/>
+                <field name="type"/>
+                <group expand="1" string="Group By">
+                    <filter string="Responsible" name='User' context="{'group_by':'user_id'}"/>
+                    <filter string="Jobs" name="job" context="{'group_by':'job_id'}"/>
+                    <filter string="Department" name="department" context="{'group_by':'department_id'}"/>
+                    <filter string="Location" name="location" context="{'group_by':'site_id'}"/>
+                    <filter string="Creation Date" name="creation_month" context="{'group_by':'creation_date:month'}"
+                            help="Creation Date"/>
+                    <filter name="type" context="{'group_by':'type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="hr_job_line_report_graph_action">
+        <field name="name">Report</field>
+        <field name="res_model">hr.request.job.report</field>
+        <field name="view_mode">graph,tree</field>
+        <field name="search_view_id" ref="hr_recruitment_report_view_search_01"/>
+        <field name="context">{'group_by':['job_id', 'type']}</field>
+    </record>
+
+    <menuitem name="Recruitment Statistical by Request" id="hr_recruitment_statistical_menu_1"
+              parent="hr_recruitment.report_hr_recruitment"
+              sequence="70" action="hr_job_line_report_graph_action"/>
+</odoo>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="hr_employees_report_realtime_graph_view">
+        <field name="name">hr_employees_report_realtime_view</field>
+        <field name="model">hr.employee.report.realtime</field>
+        <field name="arch" type="xml">
+            <graph string="Employees Report Realtime" stacked="False">
+                <field name="measure" type="measure"/>
+            </graph>
+        </field>
+    </record>
+    <record id="hr_employees_report_by_date_search" model="ir.ui.view">
+        <field name="name">hr_employees_report_by_date_view_search</field>
+        <field name="model">hr.employee.report.realtime</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <search string="Report">
+                <field name="emp_type"/>
+                <field name="department_id"/>
+                <field name="date"/>
+                <filter string="This Week" name="this_week" domain="[('date', '&lt;=', ((context_today()+relativedelta(weeks=0, days=7, weekday=-1)).strftime('%Y-%m-%d'))),
+                                                                     ('date', '&gt;=', ((context_today()-relativedelta(weeks=1, weekday=0)).strftime('%Y-%m-%d')))]"/>
+                <filter string="This Month" name="this_month" domain="[('date','&lt;=',(context_today()+relativedelta(day=31)).strftime('%%Y-%%m-%%d')),
+                                                                       ('date','&gt;=',(context_today()-relativedelta(day=1)).strftime('%%Y-%%m-%%d'))]"/>
+                <group expand="1" string="Group By">
+                    <filter string="Department" name="department_id" context="{'group_by':'department_id'}"/>
+                    <filter string="Date" name="group_by_date" context="{'group_by':'date:day'}"/>
+                    <filter string="Employee Type" name="group_by_emp_type" context="{'group_by':'emp_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="hr_employees_report_by_date_tree">
+        <field name="name">Report Employees Realtime</field>
+        <field name="model">hr.employee.report.realtime</field>
+        <field name="arch" type="xml">
+            <tree string="Report Employees" delete="0" create="false" edit="false">
+                <field name='date'/>
+                <field name='emp_type'/>
+                <field name='department_id'/>
+                <field name='measure'/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="hr_employees_report_by_date">
+        <field name="name">Report Realtime</field>
+        <field name="res_model">hr.employee.report.realtime</field>
+        <field name="view_mode">graph,tree</field>
+        <field name="search_view_id" ref="hr_employees_report_by_date_search"/>
+        <field name="context">{'search_default_this_week':1,'search_default_group_by_date':1,'search_default_group_by_emp_type':1}</field>
+    </record>
+    <menuitem name="Employees Report Realtime" id="employees_report_realtime_menu" parent="bnk_employee.submenu_employees_data_report"
+              groups="hr.group_hr_manager" action="hr_employees_report_by_date" sequence="3"/>
+</odoo>

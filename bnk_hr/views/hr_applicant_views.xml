@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="wizard_suggest_cv_form_view" model="ir.ui.view">
+        <field name="name">wizard.suggest.cv.form.view</field>
+        <field name="model">wizard.suggest.cv</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="skills" widget="many2many_tags"/>
+                            <label for="name" string="Experience years"/>
+                            <div style="block-inline">
+                                <label for="name" string="From"/>
+                                <field name="years_experience_from" style="width:15%"/>
+                                <label for="name" string="To"/>
+                                <field name="years_experience_to" style="width:15%"/>
+                            </div>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="suggest" string="Suggest CV" type="object" icon="fa-search"/>
+                        <button special="cancel" string="Cancel" class="btn-secondary"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_wizard_suggest_cv" model="ir.actions.act_window">
+        <field name="name">Suggest CV from CVDB</field>
+        <field name="res_model">wizard.suggest.cv</field>
+        <field name="view_type" >form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="hr_applicant_evaluate_tree_view" model="ir.ui.view">
+        <field name="name">hr.applicant.evaluate.tree.view</field>
+        <field name="model">hr.applicant.evaluate</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="date"/>
+                <field name="note"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_applicant_evaluate_form_view" model="ir.ui.view">
+        <field name="name">hr.applicant.evaluate.form.view</field>
+        <field name="model">hr.applicant.evaluate</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="note"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hr_applicant_evaluate" model="ir.actions.act_window">
+        <field name="name">Hr applicant evaluate</field>
+        <field name="res_model">hr.applicant.evaluate</field>
+        <field name="view_type" >form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_applicant_inherit_view_form">
+        <field name="name">hr.applicant.inherit.view.form</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.crm_case_form_view_job"/>
+        <field name="arch" type="xml">
+            <xpath expr="//label[@for='categ_ids']" position="attributes">
+                <attribute name="string">Skills</attribute>
+            </xpath>
+            <xpath expr="//field[@name='department_id']" position="after">
+                <field name="apply" string="Interview"/>
+            </xpath>
+            <xpath expr="//field[@name='priority']" position="after">
+                <field name="years_experience" string="Years of experience"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!--    Rename search Tags to Skill and add search by name in search View-->
+    <record model="ir.ui.view" id="hr_applicant_inherit_view_search">
+        <field name="name">hr.applicant.inherit.view.search</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.view_crm_case_jobs_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='categ_ids']" position="attributes">
+                <attribute name="string">Skills</attribute>
+            </xpath>
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="partner_name" string="Applicant's Name"/>
+            </xpath>
+            <xpath expr="//field[@name='categ_ids']" position="after">
+                <field name="years_experience" invisible="1"/>
+                <field string="Year of experience less than or equal" name="years_experience" filter_domain="['|',('years_experience','=', False),('years_experience','&lt;=', self)]"/>
+                <field string="Year of experience greater than or equal" name="years_experience" filter_domain="[('years_experience','&gt;=', self)]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <data noupdate="0">
+        <record id="hr_applicant_category_action_2" model="ir.actions.act_window">
+            <field name="name">Skills</field>
+            <field name="res_model">hr.applicant.category</field>
+            <field name="view_type">form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Add a new skills
+                </p>
+            </field>
+        </record>
+
+        <!--Rename sub menu Applications to Manager Curriculum Vitae-->
+        <menuitem
+                name="Manager Curriculum Vitae"
+                parent="hr_recruitment.menu_hr_recruitment_root"
+                id="hr_recruitment.menu_crm_case_categ0_act_job" sequence="2"
+                groups="hr_recruitment.group_hr_recruitment_user,bnk_employee.group_officer_bul"/>
+        <menuitem
+                name="Skills"
+                parent="hr_recruitment.menu_crm_case_categ0_act_job"
+                id="skill_cv" action="bnk_hr.hr_applicant_category_action_2" sequence="4"/>
+    </data>
+</odoo>

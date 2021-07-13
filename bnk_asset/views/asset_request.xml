@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="asset_request_tree_view" model="ir.ui.view">
+        <field name="name">asset_request_tree_view</field>
+        <field name="model">asset.request</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="(type == 'return')">
+                <field name="name"/>
+                <field name="description"/>
+                <field name="user_id"/>
+                <field name="employee_id"/>
+                <field name="receiver"/>
+                <field name="type"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="asset_request_form_view" model="ir.ui.view">
+        <field name="name">asset_request_form_view</field>
+        <field name="model">asset.request</field>
+        <field name="arch" type="xml">
+            <form string="Asset Request">
+                <header>
+                    <button string="Submit" type="object" name="action_submit"
+                            class="oe_highlight" states="draft" groups="bnk_asset.group_asset_user"/>
+                    <button string="Cancel" type="object" name="action_cancel"
+                            class="btn btn-warning" states="waiting" groups="bnk_asset.group_asset_user"/>
+                    <button string="Confirm" type="object" name="action_confirm"
+                            class="oe_highlight" states="waiting" groups="bnk_asset.group_by_assets_manager"/>
+                    <button string="Confirm Request" type="object" name="action_get_asset"
+                            class="oe_highlight" states="approve" groups="bnk_asset.group_asset_user"/>
+                    <button string="Approve" type="object" name="action_approve"
+                            class="btn btn-success" states="confirm" groups="bnk_asset.group_by_assets_manager"/>
+                    <button string="Reject" type="object" name="action_reject"
+                            class="btn btn-danger" states="waiting" groups="bnk_asset.group_by_assets_manager"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" string="Asset Request" readonly="1"/>
+                            <field name="user_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="employee_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="receiver" attrs="{'readonly':[('state','!=','draft')]}" domain="[('groups_id','=',manager_group_id)]"/>
+                            <field name="type" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="manager_group_id" invisible="1"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                    <field name="description" required="1" attrs="{'readonly':[('state','!=','draft')]}"
+                           placeholder="Note ......."/>
+                    <notebook
+                            attrs="{'invisible':[('type','=','request'),('state','not in',['confirm','approve','done'])]}">
+                        <page string="Asset Request List">
+                            <field name="asset_request_line_ids"
+                                   attrs="{'readonly':[('state','not in',['draft','waiting','confirm'])]}">
+                                <tree editable="bottom">
+                                    <field name="asset_id" required="1"
+                                           domain="parent.type == 'request' and [('employee_id','=',False)] or parent.type == 'return' and [('employee_id','=', parent.employee_id)]"/>
+                                    <field name="note"/>
+                                    <field name="from_location" groups="bnk_asset.group_by_assets_manager"/>
+                                    <field name="to_location" groups="bnk_asset.group_by_assets_manager"/>
+                                    <field name="start_date"/>
+                                    <field name="end_date"/>
+                                    <field name="type" readonly="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="asset_request_search_view">
+        <field name="name">asset.request.search.view</field>
+        <field name="model">asset.request</field>
+        <field name="arch" type="xml">
+            <search>
+                <filter name="type" string="Group by type" context="{'group_by': 'type'}"/>
+                <filter name="type" string="Group by state" context="{'group_by': 'state'}"/>
+                <filter name="type" string="Group by employee" context="{'group_by': 'employee_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="asset_request_view">
+        <field name="name">Asset Request</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">asset.request</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="asset_request_menu" name="Asset Request"
+              action="asset_request_view"
+              parent="account.menu_finance_entries_management" sequence="104"
+              groups="base.group_user"
+    />
+
+</odoo>

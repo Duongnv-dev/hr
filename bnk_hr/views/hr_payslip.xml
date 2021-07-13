@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_hr_payslip_inherit_form2" model="ir.ui.view">
+        <field name="name">view_hr_payslip_inherit_form2</field>
+        <field name="model">hr.payslip</field>
+        <field name="priority" eval="50"/>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='credit_note']" position="before">
+                <field name="has_insurance" attrs="{'invisible': [('contract_id', '=', False)]}"/>
+                <field name="work100" invisible="0" readonly="1" force_save="1"/>
+            </xpath>
+            <xpath expr="//field[@name='credit_note']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='contract_id']" position="attributes">
+                <attribute name="domain">[('state', 'in', ['open', 'close', 'pending']), ('employee_id','=',employee_id),('date_start','&lt;=',date_to),'|',('date_end','&gt;=',date_from),('date_end','=',False)]</attribute>
+                <attribute name="options">{'no_create': True}</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[1]/separator[2]" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[1]/field[@name='input_line_ids']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='number']" position="attributes">
+                <attribute name="attrs">{'invisible': [('number', '=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="attrs">{'invisible': [('number', '=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//button[@name='refund_sheet']" position="after">
+                <button name="action_send_email_payslip" type="object" class="oe_highlight" string="Send Email" />
+            </xpath>
+            <xpath expr="//sheet/group[1]" position="after">
+                <group name="addition_bonus">
+                    <group>
+                        <field name="deduction" attrs="{'invisible': [('contract_id', '=', False)]}"/>
+                        <field name="reimburse" attrs="{'invisible': [('contract_id', '=', False)]}"/>
+                        <field name="adjustment_manual" attrs="{'invisible': [('contract_id', '=', False)]}"/>
+                    </group>
+                    <group>
+                        <field name="mon_allowance" attrs="{'invisible': [('contract_id', '=', False)]}"/>
+                        <field name="mon_bonus" attrs="{'invisible': [('contract_id', '=', False)]}"/>
+                    </group>
+                </group>
+            </xpath>
+            <xpath expr="//notebook/page[3]" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[4]" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='worked_days_line_ids']" position="attributes">
+                <attribute name="readonly">True</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='line_ids']" position="attributes">
+                <attribute name="readonly">True</attribute>
+            </xpath>
+
+            <xpath expr="//notebook/page[1]" position="after">
+                <page name="summary" string="Payslip Summary">
+                    <field name="payslip_summary_ids">
+                        <tree create="false" edit="false" detele="false" decoration-bf="is_title==True" decoration-it="is_line==True">
+                            <field name="number" style="background-color:gainsboro;"/>
+                            <field name="description" style="background-color:gainsboro;"/>
+                            <field name="amount_payable" style="background-color:gainsboro;"/>
+                            <field name="notes" style="background-color:gainsboro;"/>
+                            <field name="is_title" invisible="1"/>
+                            <field name="is_line" invisible="1"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_hr_payslip_tree_extend" model="ir.ui.view">
+        <field name="name">view_hr_payslip_tree_extend</field>
+        <field name="model">hr.payslip</field>
+        <field name="priority" eval="50"/>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree/field[@name='number']" position="before">
+                <field name="month" invisible="1"/>
+                <field name="mon_str"/>
+            </xpath>
+            <xpath expr="//tree" position="attributes">
+                <attribute name="default_order">mon_str desc</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_hr_payslip_search" model="ir.ui.view">
+        <field name="name">view_hr_payslip_search</field>
+        <field name="model">hr.payslip</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search/field[@name='employee_id']" position="after">
+                <field name="mon_str"/>
+                <field name="department_id"/>
+                <field name="site_id"/>
+                <field name="is_new_employee"/>
+                <field name="contract_type"/>
+            </xpath>
+            <xpath expr="//search/group/filter[@name='employee_id']" position="after">
+                <filter string="Months" name="group_month" context="{'group_by': 'mon_str'}"/>
+                <filter string="Departments" name="department_id" context="{'group_by':'department_id'}"/>
+                <filter string="Location (Sites)" name="group_location" context="{'group_by':'site_id'}"/>
+                <filter string="New Employees" name="group_new_employee" context="{'group_by':'is_new_employee'}"/>
+                <filter string="Contract Type" name="group_contract_type" context="{'group_by':'contract_type'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_payroll.action_view_hr_payslip_form" model="ir.actions.act_window">
+        <field name="context">{'search_default_group_month': 1}</field>
+    </record>
+
+</odoo>

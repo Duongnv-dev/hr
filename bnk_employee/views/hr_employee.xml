@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_employee_form_bnk_inherit" model="ir.ui.view">
+        <field name="name">view.employee.form.bnk.inherit</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='department_id']" position="attributes">
+                <attribute name="context">{'department_id':department_id}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='identification_id']" position="after">
+                <field name="identification_date" string="Issued Date" groups="hr.group_hr_user"/>
+                <field name="issued_by" groups="hr.group_hr_user"/>
+            </xpath>
+            <xpath expr="//field[@name='children']" position="after">
+                <field name="dependent_person" string="Number of Dependent"/>
+            </xpath>
+            <xpath expr="//page[@name='public']/group/group[2]" position="after">
+                <group string="Leaves">
+<!--                    <field name="day_off"/>-->
+                    <field name="remaining_legal_leaves"/>
+                    <field name="remaining_unpaid_leaves"/>
+                </group>
+            </xpath>
+            <xpath expr="//page[@name='personal_information']/group/group[1]/field[@name='bank_account_id']" position="after">
+                <field name="personal_tax_number" string="Personal Tax No."/>
+                <field name="social_insurance_number" string="Social Insurance No."/>
+            </xpath>
+            <xpath expr="//page[@name='personal_information']" position="attributes" >
+                <attribute name="groups">bnk_employee.group_officer_bul, hr.group_hr_user</attribute>
+            </xpath>
+            <xpath expr="//page[@name='hr_settings']" position="attributes" >
+                <attribute name="groups">bnk_employee.group_officer_bul, hr.group_hr_user</attribute>
+            </xpath>
+        </field>
+    </record>
+
+     <record id="hr_hr_employee_view_form2_inherit" model="ir.ui.view">
+        <field name="name">hr_hr_employee_view_form2_inherit</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr_contract.hr_hr_employee_view_form2"/>
+        <field name="priority" eval="100"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='%(hr_contract.act_hr_employee_2_hr_contract)d']" position="attributes">
+                <attribute name="groups">hr_contract.group_hr_contract_manager</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="invisible_chatter_user" model="ir.ui.view">
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="groups_id" eval="[(6,0, [ref('base.group_user')])]"/>
+        <field name="arch" type="xml">
+            <xpath expr='//div[@class="oe_chatter"]' position='replace'>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="show_chatter_hr_user" model="ir.ui.view">
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="groups_id" eval="[(6,0, [ref('bnk_employee.group_officer_bul'), ref('hr.group_hr_user')])]"/>
+        <field name="arch" type="xml">
+            <xpath expr='//sheet' position='after'>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_employee_tree_inherit" model="ir.ui.view">
+        <field name="name">view.employee.tree.inherit</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='parent_id']" position="after">
+                <field name="remaining_legal_leaves"/>
+                <field name="remaining_unpaid_leaves"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_employee_contract_filter" model="ir.ui.view">
+        <field name="name">view_employee_contract_filter</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='job_id']" position="after">
+                <field name="latest_contract"/>
+                <field name="latest_contract_state"/>
+                <field name="is_trial_15"/>
+                <filter string="Contract Available" name="contract_no_cancel"
+                        domain="[('latest_contract_state', '!=', 'cancel'), ('latest_contract', '!=', False), ('is_trial_15', '=', False)]"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<odoo>
+    <record id="hr_employee_inherited_view_hr_employee_move" model="ir.ui.view">
+        <field name="name">hr_employee_inherited_view_hr_employee_move</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='hr_settings']" position="before">
+                <page string="Movement" groups="bnk_employee.group_officer_bul, hr.group_hr_user">
+                    <field name="move_ids"/>
+                </page>
+            </xpath>
+            <xpath expr="//field[@name='bank_account_id']" position="replace">
+                <field name="bank_account_id"/>
+            </xpath>
+            <xpath expr="//field[@name='address_id']" position="after">
+                <field name="site_id" required="1"/>
+            </xpath>
+            <xpath expr="//field[@name='job_id']" position="replace">
+            </xpath>
+
+            <xpath expr="//page[@name='personal_information']/group/group[@name='work_permit']"
+                   position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='km_home_work']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='country_of_birth']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='place_of_birth']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='address_home_id']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='bank_account_id']" position="after">
+                <field name="perm_address"/>
+            </xpath>
+            <xpath expr="//field[@name='bank_account_id']" position="after">
+                <field name="temp_address"/>
+            </xpath>
+
+            <xpath expr="//field[@name='certificate']" position="before">
+                <field name="categ_ids" widget="many2many_tags"/>
+            </xpath>
+            <xpath expr="//field[@name='category_ids']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath >
+        </field>
+    </record>
+</odoo>

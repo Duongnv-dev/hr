@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="slider_config_search" model="ir.ui.view">
+        <field name="name">slider.config.search</field>
+        <field name="model">slider.config</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+
+                <filter name="use_true" string="In use" domain="[('use', '=', True)]"/>
+                <filter name="use_false" string="Do not use" domain="[('use', '=', False)]"/>
+                <filter name="priority_group" string="Priority group" context="{'group_by': 'priority'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="slider_config_form" model="ir.ui.view">
+        <field name="name">slider.config.form</field>
+        <field name="model">slider.config</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="use" widget="boolean_toggle"/>
+                    </group>
+                    <group>
+                        <field name="priority"/>
+                    </group>
+                </group>
+                <group>
+                    <field name="image" widget="image"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="slider_config_kanban_view" model="ir.ui.view">
+        <field name="name">slider.config.kanban</field>
+        <field name="model">slider.config</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="id"/>
+                <field name="name"/>
+                <field name="use"/>
+                <field name="priority"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_image">
+                                <img t-att-src="kanban_image('slider.config', 'image', record.id.raw_value)" alt="Slider image" class="o_image_64_contain"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title">
+                                    <field name="name"/>
+                                </strong>
+                                <!--<field name="use" widget="boolean_favorite"/>-->
+                                <field name="use" widget="boolean_toggle"/>
+                                <!--<field name="use" widget="boolean"/>-->
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="slider_config_action" model="ir.actions.act_window">
+        <field name="name">Home page slider</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">slider.config</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="context">{'search_default_priority_group': '1', 'search_default_use_true': '1'}</field>
+    </record>
+
+    <menuitem id="menu_home_page_slider_settings" name="Home page slider" sequence="85"
+        parent="website.menu_website_global_configuration"/>
+
+    <menuitem id="menu_slider_config_action"
+        action="slider_config_action"
+        parent="menu_home_page_slider_settings" sequence="10"/>
+</odoo>

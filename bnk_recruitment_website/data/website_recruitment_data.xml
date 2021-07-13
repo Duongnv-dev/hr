@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <function model="ir.model.fields" name="formbuilder_whitelist">
+            <value>hr.applicant</value>
+            <value eval="[
+            'dob',
+            'years_experience',
+            'gender',
+            'cv_data',
+            'categ_ids',
+            'site_id',
+            ]"/>
+        </function>
+    </data>
+</odoo>

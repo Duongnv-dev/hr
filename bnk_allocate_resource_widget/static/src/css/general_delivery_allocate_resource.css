@@ -1,0 +1,74 @@
+.element-popup {
+  position: absolute;
+  color: black;
+  padding: 7px;
+  border: solid 1px #ddd;
+  background: #04EAE8;
+  text-align: left;
+  min-width: 80px;
+  border-top-right-radius: 15%;
+  border-bottom-left-radius: 15%;
+  border-bottom-right-radius: 15%;
+
+  font-size: 13px !important;
+}
+
+.ul-element-popup li {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 12px;
+    padding-right: 0;
+    word-wrap: break-word;
+    flex-wrap: wrap;
+}
+
+.ul-element-popup li span {
+  position: relative;
+  left: -18px;
+}
+
+.ul-element-popup {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 15px;
+    padding-right: 0;
+}
+
+.delivery-report-table {
+  border-collapse: collapse;
+  font-size: 23px;
+  width: 1500px;
+}
+
+.delivery-report-table, .delivery-report-table th, .delivery-report-table td {
+  border: 1px solid white;
+}
+
+.delivery-report-table th {
+  width: 102px;
+}
+
+.first-col {
+    width: 200px !important;
+}
+
+.header-delivery-report-tr th {
+    background-color: #5B9BD5;
+}
+
+.even-tr .employee-td, .even-tr .open-employee-td{
+    background-color: #D1DEEF;
+}
+
+.odd-tr .employee-td, .odd-tr .open-employee-td {
+    background-color: #E9EFF6;
+}
+
+.not-employee-td {
+    background-color: #D0CECE;
+}
+
+.open-employee-td:active {
+    border: 6px solid white;
+    background-color: #eef2e4;
+}

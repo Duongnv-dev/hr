@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.ui.menu" id="base.menu_translation">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_system')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="base.menu_action_res_company_form">
+        <field name="groups_id" eval="[(6,0,[ref('base.group_system')])]"/>
+    </record>
+
+    <function name="hide_group_system_group_erp_manager_selection" model="res.users"/>
+</odoo>
+

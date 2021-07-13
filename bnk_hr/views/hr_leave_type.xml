@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+   <record id="hr_holiday_status_view_form_inherit2" model="ir.ui.view">
+        <field name="name">hr_holiday_status_view_form_inherit2</field>
+        <field name="model">hr.leave.type</field>
+        <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='unpaid']" position="after">
+                <field name="code" required="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

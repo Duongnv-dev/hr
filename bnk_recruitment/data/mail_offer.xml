@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="0">
+        <record id="email_template_offer" model="mail.template">
+            <field name="name">Mail Offer</field>
+            <field name="model_id" ref="bnk_recruitment.model_hr_applicant"/>
+            <field name="email_from">noreply@bnksolution.com</field>
+            <field name="email_to">${(object.email_from)}</field>
+            <field name="reply_to">${object.contact_point.mail_contact}</field>
+            <field name="subject">[B&amp;K Software]_Offer Letter_ ${object.partner_name}</field>
+            <field name="report_template" ref="bnk_recruitment.offer_letter_attach_pdf_send_mail_offer"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        <paraStyle name="terp_default_Italic" rightIndent="0.0" leftIndent="20.0"
+                                                   fontName="Helvetica-Oblique" fontSize="13.0" leading="10"
+                                                   alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+                        <para style="terp_default_Italic; font-weight:bold;">
+                            <br></br>
+                            <i>Gửi bạn:</i>
+                            % if object.partner_name:
+                                ${object.partner_name}!
+                            % else:
+                                ${object.name}!
+                            % endif
+                        </para>
+                        <br></br>
+                        Lời đầu tiên, chúng tôi xin chân thành cảm ơn sự quan tâm của bạn đối với Công ty cũng như
+                        vị trí công việc mà bạn đã ứng tuyển.
+                        <br></br>
+                        Qua buổi trao đổi, B&amp;K đã nhận thấy bạn có kỹ năng và kinh nghiệm rất phù hợp với vị trí
+                        ${object.job_id.name} mà chúng tôi đang tìm kiếm. Vì vậy B&amp;K xin chúc mừng bạn và trân
+                        trọng mời bạn vào làm việc tại Công ty đồng thời gửi đến bạn Offer Letter (đính kèm).
+                        <br></br>
+                        &#160;&#160;&#160;&#160;&#160;- Mức lương: ${object.salary_final} đồng gross (nhận 13 tháng lương, lương tháng 13 được tính theo số tháng làm việc chính thức tại Công ty).
+                        <br></br>
+                        &#160;&#160;&#160;&#160;&#160;- Bạn sẽ bắt đầu với 2 tháng thử việc, nhận 85% mức lương chính thức.
+                        <br></br>
+                        &#160;&#160;&#160;&#160;&#160;- Sau thời gian thử việc, bạn sẽ được review cân nhắc ký hợp đồng chính thức và tham gia Bảo hiểm cũng như được hưởng các chế độ phúc lợi khác của Công ty.
+                        <br></br>
+                        % set date_onboard = format_tz(object.onboard_date,tz=user.tz,format='%d/%m/%Y')
+                        &#160;&#160;&#160;&#160;&#160;- Ngày Onboard: Ngày ${date_onboard}
+                        <br></br>
+                        Tại địa chỉ: 3th Floor, AC Building, No. 3 Land 78 Duy Tan, Dich Vong Hau, Cau Giay, Ha Noi
+                        <br></br>
+                        Mọi thắc mắc về công việc và quyền lợi của nhân viên, bạn vui lòng liên hệ đến số điện thoại ${object.contact_phone} để được giải đáp.
+                        Để xác nhận đề nghị này, bạn vui lòng phản hồi lại email giúp Rec &amp; HR Team <strong>trong vòng 48h nhé</strong>. Hy vọng sớm nhận được phản hồi tích cực từ bạn!
+                        <br></br>
+                        Trân trọng,
+                    </p>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

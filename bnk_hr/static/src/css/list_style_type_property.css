@@ -1,0 +1,50 @@
+ol {
+      list-style-type: none;
+      counter-reset: item;
+      margin: 0;
+      padding: 0;
+    }
+
+ol > li {
+  display: table;
+  counter-increment: item;
+  margin-bottom: 0.6em;
+}
+
+ol > li:before {
+    font-weight: bold;
+    content: counters(item, ".") ". ";
+    display: table-cell;
+    padding-right: 0.6em;
+}
+
+li ol > li {
+  margin: 0;
+}
+
+li ol > li:before {
+    font-weight: bold;
+    content: counters(item, ".") " ";
+}
+
+ul {
+  margin: 0;
+}
+ul.dashed {
+    list-style-type: none;
+}
+ul.dashed > li {
+    text-indent: -40px;
+}
+ul.dashed > li:before {
+    content: "-";
+    text-indent: -5px;
+    margin-right: 1em;
+}
+
+ul.dashed >li > ul.a {
+    list-style-type:lower-alpha;
+text-indent: -5px;
+}
+
+

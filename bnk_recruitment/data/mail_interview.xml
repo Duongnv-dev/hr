@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="0">
+        <record id="email_template_job_interview" model="mail.template">
+            <field name="name">Job Interview Invitation</field>
+            <field name="model_id" ref="bnk_recruitment.model_hr_applicant"/>
+            <field name="email_from">noreply@bnksolution.com</field>
+            <field name="email_to">${(object.email_from)}</field>
+            <field name="reply_to">${object.contact_point.mail_contact}</field>
+            <field name="subject">[B&amp;K Software] Thư mời phỏng vấn</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        <paraStyle name="terp_default_Italic" rightIndent="0.0" leftIndent="20.0"
+                                                   fontName="Helvetica-Oblique" fontSize="17.0" leading="10"
+                                                   alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+                        <para style="terp_default_Italic; font-weight:bold;">
+                        </para>
+                        <br></br>
+                        Dear
+                        % if object.partner_name:
+                            ${object.partner_name}!
+                        % else:
+                            ${object.name}!
+                        % endif
+                        <br></br>
+                        Trước hết, cảm ơn sự quan tâm của bạn ${object.partner_name} giành cho B&amp;K Software. Sau khi xem CV
+                        của bạn, chúng tôi ấn tượng với kỹ năng và kinh nghiệm của bạn và muốn mời bạn tham
+                        gia phỏng vấn cho vị trí ${object.job_id.name} theo như lịch trình bên dưới.
+                        <br></br>
+                        % set time_interview = format_tz(object.interview_date,tz=user.tz,format='%H:%M')
+                        % set date_interview = format_tz(object.interview_date,tz=user.tz,format='%d/%m/%Y')
+                            <strong>&#160;&#160;&#160;&#160;&#160;·Thời gian: ${time_interview}</strong>
+                            <br></br>
+                            <strong>&#160;&#160;&#160;&#160;&#160;·Ngày phỏng vấn: ${date_interview}</strong>
+                            <br></br>
+                            <strong>&#160;&#160;&#160;&#160;&#160;·Địa chỉ: 3th Floor, AC Building, No. 3 Land 78 Duy Tan, Dich Vong Hau, Cau Giay, Ha Noi</strong>
+                            <br></br>
+                            <strong>&#160;&#160;&#160;&#160;&#160;·Người liên hệ: ${object.contact_point.name} / SĐT: ${object.contact_phone}</strong>
+                            <br></br>
+                        Bạn vui lòng phản hồi lại email này để xác nhận tham gia buổi phỏng vấn. Nếu có bất kì
+                        điều gì bất tiện, bạn vui lòng liên hệ qua email này.
+                        <br></br>
+                        Chúng tôi rất mong sớm được gặp và trao đổi cùng bạn!
+                        <br></br>
+                        Trân trọng,
+                    </p>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

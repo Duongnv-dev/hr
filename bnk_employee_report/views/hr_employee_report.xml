@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="hr_employees_report_graph_view">
+        <field name="name">hr_employees_report_view</field>
+        <field name="model">hr.employee.report</field>
+        <field name="arch" type="xml">
+            <graph string="Employees Report" stacked="False">
+                <field name="year" invisible="1"/>
+                <field name="measure" type="measure"/>
+            </graph>
+        </field>
+    </record>
+    <record id="hr_employees_report_by_month" model="ir.ui.view">
+        <field name="name">hr_employees_report_by_month_view_search</field>
+        <field name="model">hr.employee.report</field>
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+            <search string="Report">
+                <field name="emp_type"/>
+                <field name="department_id"/>
+                <field name="year"/>
+                <field name="month"/>
+                <filter string="This Year" name="this_year" domain="[('year','=', time.strftime('%%Y'))]"/>
+                <group expand="1" string="Group By">
+                    <filter string="Employee Type" name="emp_type" context="{'group_by':'emp_type'}"/>
+                    <filter string="Department" name="department_id" context="{'group_by':'department_id'}"/>
+                    <filter string="Year" name="year" context="{'group_by':'year'}"/>
+                    <filter string="Month" name='month' context="{'group_by':'month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="report_employee_by_month_tree">
+        <field name="name">Report Employees</field>
+        <field name="model">hr.employee.report</field>
+        <field name="arch" type="xml">
+            <tree string="Report Employees" delete="0" create="false" edit="false">
+                <field name='month'/>
+                <field name='emp_type'/>
+                <field name='department_id'/>
+                <field name='measure'/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="employees_report_by_month">
+        <field name="name">Report</field>
+        <field name="res_model">hr.employee.report</field>
+        <field name="view_mode">graph,tree</field>
+        <field name="search_view_id" ref="hr_employees_report_by_month"/>
+        <field name="context">{'group_by':['month', 'emp_type'], 'search_default_this_year':1}</field>
+    </record>
+    <menuitem name="Employees Report" id="employees_report_menu" parent="bnk_employee.submenu_employees_data_report"
+              groups="hr.group_hr_manager" action="employees_report_by_month" sequence="2"/>
+</odoo>

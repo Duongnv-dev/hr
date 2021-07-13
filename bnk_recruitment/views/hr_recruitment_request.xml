@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hr_recruitment_request_tree" model="ir.ui.view">
+        <field name="name">hr.recruitment.request.tree</field>
+        <field name="model">hr.recruitment.request</field>
+        <field name="arch" type="xml">
+            <tree string="Recruitment Requests">
+                <field name="name"/>
+                <field name="department_id"/>
+                <field name="job_ids" widget="many2many_tags" string="Job Position"/>
+                <field name="request_date"/>
+                <field name="user_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    <record id="hr_recruitment_request_form" model="ir.ui.view">
+        <field name="name">hr.recruitment.request.form</field>
+        <field name="model">hr.recruitment.request</field>
+        <field name="arch" type="xml">
+            <form string="Recruitment Request">
+                <header>
+                    <button name="action_confirm" states="draft" string="Submit to Manager" type="object"
+                            class="oe_highlight" groups="hr_recruitment.group_hr_recruitment_user,bnk_employee.group_officer_bul"/>
+                    <button name="action_accept" states="confirmed" string="Approve" type="object" class="oe_highlight"
+                            groups="hr_recruitment.group_hr_recruitment_manager"/>
+                    <button name="action_refuse" states="confirmed" string="Refuse" type="object"
+                            groups="hr_recruitment.group_hr_recruitment_manager"/>
+                    <button name="action_draft" states="confirmed,refused" string="Set to Draft" type="object"
+                            groups="hr_recruitment.group_hr_recruitment_user,bnk_employee.group_officer_bul"/>
+                    <button name="action_done" states="accepted" string="Done" type="object"
+                            groups="hr_recruitment.group_hr_recruitment_user,bnk_employee.group_officer_bul"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,accepted,done"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <label for="name"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </group>
+                        <group>
+                            <field name="user_id"/>
+                        </group>
+                        <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="department_id"/>
+                        </group>
+                        <group>
+                            <field name="request_date"/>
+                            <field name="end_date"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Information Detail">
+                            <field name="request_job_line_ids" context="{'department_id':department_id}">
+                                <tree editable="bottom">
+                                    <field name="job_id" string="Job Position"/>
+                                    <field name="applicant_level_id" string="Level"/>
+                                    <field name="no_of_recruitment" string="No of Employee"/>
+                                    <field name="employees_count"/>
+                                    <field name="site_id"/>
+                                    <field name="reason"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Applicants">
+                            <field name="applicant_ids" attrs="{'readonly': ['|', ('state', '=', 'accepted'),  ('state', '=', 'done')]}">
+                                <tree>
+                                    <field name="apply_date"/>
+                                    <field name="partner_name"/>
+                                    <field name="name"/>
+                                    <field name="job_id"/>
+                                    <field name="categ_ids" widget="many2many_tags"/>
+                                    <field name="site_id"/>
+                                    <field name="stage_id"/>
+                                    <field name="partner_mobile"/>
+                                    <field name="user_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Recruited Employees">
+                            <field name="employee_ids" attrs="{'readonly': ['|', ('state', '=', 'accepted'),  ('state', '=', 'done')]}">
+                                <tree>
+                                    <field name="join_date"/>
+                                    <field name="name"/>
+                                    <field name="department_id"/>
+                                    <field name="job_id"/>
+                                    <field name="site_id"/>
+                                    <field name="work_phone"/>
+                                    <field name="work_email"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="hr_recruitment_requests" model="ir.actions.act_window">
+        <field name="name">Recruitment Requests</field>
+        <field name="res_model">hr.recruitment.request</field>
+        <field name="view_mode">tree,form,graph,pivot</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No data yet!
+            </p>
+        </field>
+    </record>
+
+    <menuitem name="Recruitment Requests" id="requests_hr_recruitment" parent="hr_recruitment.menu_hr_recruitment_root"
+              sequence="98"/>
+    <menuitem name="Recruitment Requests" id="hr_recruitment_requests_menu" parent="requests_hr_recruitment"
+              sequence="50" action="hr_recruitment_requests"/>
+
+    <menuitem
+        name="Recruitment"
+        id="hr_recruitment.menu_hr_recruitment_root"
+        web_icon="hr_recruitment,static/description/icon.png"
+        groups="hr_recruitment.group_hr_recruitment_user,bnk_employee.group_officer_bul,bnk_employee.group_officer_bul"
+        sequence="80"/>
+</odoo>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="appraisal_button_count_view" model="ir.actions.act_window">
+        <field name="name">Appraisal List</field>
+        <field name="res_model">hr.appraisal</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_id" ref="oh_appraisal.hr_appraisal_kanban"/>
+        <field name="context">{
+             'search_default_emp_id': [active_id]}}</field>
+    </record>
+
+    <record model="ir.ui.menu" id="oh_appraisal.menu_hr_appraisal_root">
+            <field name="groups_id" eval="[(6, 0,[ref('oh_appraisal.group_appraisal_manager')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="oh_appraisal.menu_hr_appraisal">
+            <field name="groups_id" eval="[(6, 0,[ref('oh_appraisal.group_appraisal_manager')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="oh_appraisal.menu_hr_appraisal_answers">
+            <field name="groups_id" eval="[(6, 0,[ref('oh_appraisal.group_appraisal_manager')])]"/>
+    </record>
+</odoo>

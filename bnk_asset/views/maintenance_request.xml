@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="bnk_maintenance_asset_form" model="ir.ui.view">
+        <field name="name">bnk.maintenance.asset.form</field>
+        <field name="model">maintenance.request</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_request_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='equipment_id']" position="attributes">
+                <attribute name='invisible'>1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='category_id']" position="attributes">
+                <attribute name='invisible'>1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='employee_id']" position="after">
+                <field name='asset_category_id'/>
+                <field name='asset_id' domain="[('category_id','=',asset_category_id)]"/>
+                <field name='asset_location' readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="bnk_maintenance_asset_tree" model="ir.ui.view">
+        <field name="name">bnk.maintenance.asset.tree</field>
+        <field name="model">maintenance.request</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_request_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='category_id']" position="attributes">
+                <attribute name='invisible'>1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='category_id']" position="after">
+                <field name='asset_category_id'/>
+                <field name='asset_id'/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

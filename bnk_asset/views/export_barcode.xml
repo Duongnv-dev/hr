@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <report id="export_barcode_asset"
+        model="account.asset.asset"
+        string="Print Barcode"
+        report_type="xlsx"
+        name="bnk_asset.export_barcode"
+        file="bnk_asset.export_barcode"
+    />
+</odoo>

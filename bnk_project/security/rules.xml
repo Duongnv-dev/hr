@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record model="ir.rule" id="allocate_resource_pm_project_rule">
+        <field name="name">Allocate resource pm - project</field>
+        <field name="model_id" ref="project.model_project_project"/>
+        <field name="groups" eval="[(4, ref('group_allocate_resource_pm'))]"/>
+        <field name="domain_force">['|',
+                                    ('user_id', '=', user.id),
+                                    ('user_id', '=', False),
+                                    ]
+        </field>
+    </record>
+
+    <record model="ir.rule" id="allocate_resource_pm_allocate_resource_edit_lock_rule">
+        <field name="name">Allocate resource pm - allocate resource edit lock</field>
+        <field name="model_id" ref="model_allocate_resource"/>
+        <field name="groups" eval="[(4, ref('group_allocate_resource_pm'))]"/>
+        <field name="perm_read">False</field>
+        <field name="perm_write">True</field>
+        <field name="perm_create">True</field>
+        <field name="perm_unlink">True</field>
+        <field name="domain_force">[
+            ('lock', '=', False)
+                                    ]
+        </field>
+    </record>
+
+    <record model="ir.rule" id="allocate_resource_pm_allocate_resource_rule">
+        <field name="name">Allocate resource pm - allocate resource</field>
+        <field name="model_id" ref="model_allocate_resource"/>
+        <field name="groups" eval="[(4, ref('group_allocate_resource_pm'))]"/>
+        <field name="perm_read">True</field>
+        <field name="perm_write">False</field>
+        <field name="perm_create">False</field>
+        <field name="perm_unlink">False</field>
+        <field name="domain_force">[
+            ('project_id.user_id', '=', user.id)
+                                    ]
+        </field>
+    </record>
+
+    <record model="ir.rule" id="allocate_resource_sm_project_rule">
+        <field name="name">Allocate resource sm - project</field>
+        <field name="model_id" ref="project.model_project_project"/>
+        <field name="groups" eval="[(4, ref('group_allocate_resource_sm'))]"/>
+        <field name="domain_force">[(1, '=', 1)]
+        </field>
+    </record>
+
+    <record model="ir.rule" id="allocate_resource_sm_allocate_resource_rule">
+        <field name="name">Allocate resource sm - allocate resource edit lock</field>
+        <field name="model_id" ref="model_allocate_resource"/>
+        <field name="groups" eval="[(4, ref('group_allocate_resource_sm'))]"/>
+        <field name="domain_force">[(1, '=', 1)]
+        </field>
+    </record>
+
+</odoo>

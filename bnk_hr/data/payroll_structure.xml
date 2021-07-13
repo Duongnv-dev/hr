@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).-->
+
+<odoo>
+
+<!-- HR SALARY STRUCTURE -->
+    <record id="hr_payroll_salary_structure_bnk" model="hr.payroll.structure">
+        <field name="code">SALARY</field>
+        <field name="name">Cấu trúc lương</field>
+        <field name="parent_id"></field>
+        <field eval="[(6, 0, [
+            ref('bnk_hr.hr_payroll_rules_wage_base'),
+            ref('bnk_hr.hr_payroll_rules_wage_ins'),
+            ref('bnk_hr.hr_payroll_rules_wage'),
+            ref('bnk_hr.hr_payroll_rules_wage_subtract'),
+            ref('bnk_hr.hr_payroll_rules_allow'),
+            ref('bnk_hr.hr_payroll_rules_cash'),
+            ref('bnk_hr.hr_payroll_rules_early_payment'),
+            ref('bnk_hr.hr_payroll_rules_overleave'),
+            ref('bnk_hr.hr_payroll_rules_balance'),
+            ref('bnk_hr.hr_payroll_rules_oip'),
+            ref('bnk_hr.hr_payroll_rules_ot'),
+            ref('bnk_hr.hr_payroll_rules_otw'),
+            ref('bnk_hr.hr_payroll_rules_oth'),
+            ref('bnk_hr.hr_payroll_rules_ott'),
+            ref('bnk_hr.hr_payroll_rules_otnt'),
+            ref('bnk_hr.hr_payroll_rules_bhxh'),
+            ref('bnk_hr.hr_payroll_rules_bhyt'),
+            ref('bnk_hr.hr_payroll_rules_bhtn'),
+            ref('bnk_hr.hr_payroll_rules_dnbhxh'),
+            ref('bnk_hr.hr_payroll_rules_dnbhyt'),
+            ref('bnk_hr.hr_payroll_rules_dnbhtn'),
+            ref('bnk_hr.hr_payroll_rules_ttn'),
+            ref('bnk_hr.hr_payroll_rules_ttn_tax'),
+            ref('bnk_hr.hr_payroll_rules_gttcn'),
+            ref('bnk_hr.hr_payroll_rules_tntt'),
+            ref('bnk_hr.hr_payroll_rules_ttncn'),
+            ref('bnk_hr.hr_payroll_rules_pct'),
+            ref('bnk_hr.hr_payroll_rules_pcn'),
+            ref('bnk_hr.hr_payroll_rules_early_mad'),
+            ref('bnk_hr.hr_payroll_rules_tl'),
+            ref('bnk_hr.hr_payroll_rules_tl_cash'),
+            ref('bnk_hr.hr_payroll_rules_dns'),])]" name="rule_ids"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+
+</odoo>

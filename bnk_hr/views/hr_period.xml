@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hr_period_tree_view" model="ir.ui.view">
+        <field name="name">hr_period_tree_view</field>
+        <field name="model">hr.period</field>
+        <field name="arch" type="xml">
+            <tree default_order="year, month">
+                <field name="name"/>
+                <field name="period"/>
+                <field name="year"/>
+                <field name="month"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_period_form_view" model="ir.ui.view">
+        <field name="name">hr_period_form_view</field>
+        <field name="model">hr.period</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name"/>
+                </group>
+                <group>
+                    <field name="period"/>
+                </group>
+                <group>
+                    <field name="year"/>
+                </group>
+                <group>
+                    <field name="month"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hr_period" model="ir.actions.act_window">
+        <field name="name">Period</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.period</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_hr_period"
+              name="Period"
+              parent="hr_payroll.menu_hr_payroll_configuration"
+              sequence="49"
+              action="action_hr_period"/>
+</odoo>

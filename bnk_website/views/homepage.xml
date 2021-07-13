@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <template id="portal_show_sign_in" inherit_id="portal.frontend_layout">
+        <xpath expr="//a[@t-attf-href='/web/login']" position="replace"></xpath>
+<!--        <xpath expr="//li[2]" position="replace">-->
+<!--        </xpath>-->
+    </template>
+
+    <template id="s_cover" inherit_id="website.s_cover">
+        <xpath expr="//section" position="replace">
+            <section class="s_cover parallax s_parallax_is_fixed bg-black-50 cus_pt96 cus_pb96" data-scroll-background-ratio="1">
+                <t t-call="bnk_website.homepage_slider"/>
+            </section>
+        </xpath>
+    </template>
+
+</odoo>

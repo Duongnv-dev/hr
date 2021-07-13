@@ -1,0 +1,5 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_slider_config_public","slider_config_public","model_slider_config","base.group_public",1,0,0,0
+"access_slider_config_portal","slider_config_portal","model_slider_config","base.group_portal",1,0,0,0
+"access_slider_config_public","slider_config group_public","model_slider_config","base.group_public",1,0,0,0
+"access_slider_config_group_website_designer","slider_config_group_website_designer","model_slider_config","website.group_website_designer",1,1,1,1

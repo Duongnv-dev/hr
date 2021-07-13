@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--report allocate-->
+    <record id="report_allocate_resource_line_chart_form" model="ir.ui.view">
+        <field name="name">report.allocate.resource.line.chart.form</field>
+        <field name="model">report.allocate.resource.line.chart</field>
+        <field name="arch" type="xml">
+            <form create="false" delete="false">
+                <group col="6">
+                    <div col="2">
+                        <button name="previous_month" col="1" style="width: 12%%;"
+                            type="object" string="" icon="fa-step-backward"/>
+                        <field name="month" col="1" nolabel="1" style="width: 25%%;"/>
+                        <button name="next_month" type="object" string="" style="width: 12%%;"
+                                icon="fa-step-forward"/>
+                    </div>
+                    <div col="2">
+                        <label for="date_from" col="1" style="width: 28%%;"/>
+                        <field name="date_from" col="1" nolabel="1" style="width: 30%%;"/> to
+                        <field name="date_to" col="1" nolabel="1" style="width: 30%%;"/>
+                    </div>
+
+                    <div col="2">
+                        <button special="save" string="OK"
+                                class="oe_highlight" icon="fa-check-square"
+                                style="width: 20%%; max-width:100px;"/>
+                    </div>
+
+                </group>
+                <group col="8">
+                    <group col="2">
+                        <field name="project_ids" widget="many2many_tags"/>
+                        <field name="employee_ids" widget="many2many_tags"/>
+                    </group>
+                    <group col="2">
+                        <field name="site_ids" widget="many2many_tags"/>
+                        <field name="company_ids" widget="many2many_tags"/>
+                    </group>
+                    <group col="2">
+                        <field name="billable"/>
+                        <field name="ot"/>
+                    </group>
+                    <group col="2">
+                        <field name="group_by"/>
+                    </group>
+                </group>
+
+                <group>
+                    <field name="id" widget="allocate_resource_line_chart" nolabel="1"
+                           options='{"always_reload": True, "reload_on_button": True}'/>
+                </group>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="report_allocate_resource_line_chart_action" model="ir.actions.act_window">
+        <field name="name">Allocate resource line chart report</field>
+        <field name="res_model">report.allocate.resource.line.chart</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem action="report_allocate_resource_line_chart_action"
+              id="menu_report_allocate_resource_line_chart_action"
+              parent="project.menu_project_report" sequence="40"/>
+</odoo>

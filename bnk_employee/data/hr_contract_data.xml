@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="view_hr_contract_config0" model="hr.contract.config">
+            <field name="name">Contract Configure</field>
+            <field name="insurance_salary_base">0</field>
+            <field name="deduct_personal_base">0</field>
+            <field name="deduct_dependent_base">0</field>
+        </record>
+    </data>
+    <data noupdate="1">
+<!--        Deactive old type-->
+        <record id="hr_contract.hr_contract_type_emp" model="hr.contract.type">
+            <field name="active">False</field>
+        </record>
+        <record id="hr_contract.hr_contract_type_wrkr" model="hr.contract.type">
+            <field name="active">False</field>
+        </record>
+        <record id="hr_contract.hr_contract_type_sub" model="hr.contract.type">
+            <field name="active">False</field>
+        </record>
+
+<!--        Template contract type-->
+        <record id="hr_contract_type_official_6m" model="hr.contract.type">
+            <field name="name">Official (6 month)</field>
+            <field name="sequence">20</field>
+            <field name="period">6_mon</field>
+            <field name="code">official</field>
+        </record>
+        <record id="hr_contract_type_official_1y" model="hr.contract.type">
+            <field name="name">Official (1 Year)</field>
+            <field name="sequence">25</field>
+            <field name="period">1_year</field>
+            <field name="code">official</field>
+        </record>
+        <record id="hr_contract_type_official_3y" model="hr.contract.type">
+            <field name="name">Official (3 Year)</field>
+            <field name="sequence">30</field>
+            <field name="period">3_year</field>
+            <field name="code">official</field>
+        </record>
+        <record id="hr_contract_type_trial_1m" model="hr.contract.type">
+            <field name="name">Trial (1 Month)</field>
+            <field name="sequence">35</field>
+            <field name="period">1_mon</field>
+            <field name="code">trial</field>
+        </record>
+        <record id="hr_contract_type_trial_2m" model="hr.contract.type">
+            <field name="name">Trial (2 Month)</field>
+            <field name="sequence">40</field>
+            <field name="period">2_mon</field>
+            <field name="code">trial</field>
+        </record>
+        <record id="hr_contract_type_contributor" model="hr.contract.type">
+            <field name="name">Contributor (6 Month)</field>
+            <field name="sequence">45</field>
+            <field name="period">6_mon</field>
+            <field name="code">contributor</field>
+        </record>
+    </data>
+</odoo>

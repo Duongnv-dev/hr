@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="0">
+        <record id="template_send_by_email_thanks_refuse" model="mail.template">
+            <field name="name">Send By Email Thank You and Refuse</field>
+            <field name="model_id" ref="bnk_recruitment.model_hr_applicant"/>
+            <field name="email_from">noreply@bnksolution.com</field>
+            <field name="email_to">${(object.email_from)}</field>
+            <field name="reply_to">${object.contact_point.mail_contact}</field>
+            <field name="subject">[B&amp;K Software]_ Lời cảm ơn</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        <paraStyle name="terp_default_Italic" rightIndent="0.0" leftIndent="20.0"
+                                                   fontName="Helvetica-Oblique" fontSize="17.0" leading="10"
+                                                   alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+                        <para style="terp_default_Italic; font-weight:bold;">
+                        </para>
+                        <br></br>
+                        Gửi bạn
+                        % if object.partner_name:
+                            ${object.partner_name}!
+                        % else:
+                            ${object.name}!
+                        % endif
+                        <br></br>
+                        Đầu tiên, Công ty rất cảm ơn bạn vì đã dành thời gian tham gia tuyển dụng vị trí ${object.job_id.name}.
+                        <br></br>
+                        Chúng tôi ấn tượng với những kiến thức, kinh nghiệm, cũng như những chia
+                        sẻ của bạn trong suốt buổi phỏng vấn.
+                        <br></br>
+                        Tuy nhiên, vẫn còn một vài điểm chưa hoàn toàn phù hợp với tính chất và yêu cầu của vị trí mà chúng tôi đang tìm kiếm ở thời điểm hiện tại. Vì vậy chúng
+                        <br></br>
+                        tôi rất tiếc khi đi đến quyết định dành vị trí này cho một ứng viên khác phù hợp hơn.
+                        <br></br>
+                        Để đưa ra quyết định này, chúng tôi đã phải cân nhắc rất kỹ càng. Chúng tôi rất vui vì có cơ hội
+                        gặp gỡ bạn và tìm hiểu kỹ hơn về bạn. Chúng tôi tin rằng những đóng góp của bạn sẽ rất có giá trị đối với Công ty chúng tôi.
+                        Chúng tôi sẽ giữ lại hồ sơ của bạn và xin phép liên hệ lại với bạn khi có cơ hội phù hợp hơn.
+                        <br></br>
+                        Chúc bạn sức khỏe và thành công!
+                        <br></br>
+                        <para style="terp_default_Italic;">
+                            <i>Trân trọng,</i>
+                            <br></br>
+                            <i>[B&amp;K Software].</i>
+                        </para>
+                    </p>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

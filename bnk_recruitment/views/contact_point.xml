@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="contact_point_tree_view" model="ir.ui.view">
+        <field name="name">contact_point_tree_view</field>
+        <field name="model">contact.point</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="phone_number"/>
+                <field name="mail_contact"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="contact_point_form_view" model="ir.ui.view">
+        <field name="name">contact_point_form_view</field>
+        <field name="model">contact.point</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name"/>
+                </group>
+                <group>
+                    <field name="phone_number"/>
+                </group>
+
+                <group>
+                    <field name="mail_contact"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hr_contact_point" model="ir.actions.act_window">
+        <field name="name">Contact Point</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">contact.point</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_contact_point"
+              name="Contact Point"
+              parent="hr_recruitment.menu_crm_case_categ0_act_job"
+              sequence="5"
+              action="action_hr_contact_point"
+              groups="hr_recruitment.group_hr_recruitment_user"/>
+</odoo>

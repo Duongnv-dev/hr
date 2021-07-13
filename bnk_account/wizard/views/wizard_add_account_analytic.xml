@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="wizard_add_account_analytic_view_form" model="ir.ui.view">
+        <field name="name">wizard.add.account.analytic.form</field>
+        <field name="model">wizard.add.account.analytic</field>
+        <field name="arch" type="xml">
+            <form>
+                <group colspan="4">
+                    <field name="account_analytic_id" required="1"/>
+                    <field name="invoice_line_id" invisible="1"/>
+                </group>
+                <footer>
+                    <button name="confirm" type="object" string="Confirm" class="oe_highlight"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="wizard_add_account_analytic_action" model="ir.actions.act_window">
+        <field name="name">Add Account Analytic</field>
+        <field name="res_model">wizard.add.account.analytic</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context"></field>
+    </record>
+</odoo>

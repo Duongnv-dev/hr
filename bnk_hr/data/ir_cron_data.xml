@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="send_remind_expired_contract" model="ir.cron">
+        <field name="name">Send Remind Expired Contract</field>
+        <field name="model_id" ref="bnk_hr.model_hr_contract"/>
+        <field name="active">TRUE</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="state">code</field>
+        <field name="code">model.send_notify_expired_email()</field>
+    </record>
+
+    <record id="check_public_holiday" model="ir.cron">
+        <field name="name">Public Holidays Expired</field>
+        <field name="model_id" ref="bnk_hr.model_public_holiday"/>
+        <field name="active">TRUE</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">months</field>
+        <field name="numbercall">-1</field>
+        <field name="state">code</field>
+        <field name="code">model.check_public_holiday_expired()</field>
+    </record>
+
+    <record id="push_cv_too_long_to_be_interested" model="ir.cron">
+        <field name="name">Push CV too long to be interested</field>
+        <field name="model_id" ref="bnk_hr.model_hr_applicant"/>
+        <field name="active">TRUE</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="state">code</field>
+        <field name="code">model.create_schedule_activity_push_cv()</field>
+    </record>
+
+    <record id="send_mail_birthday_employee" model="ir.cron">
+        <field name="name">Send reminder mail employee's birthday</field>
+        <field name="model_id" ref="bnk_hr.model_hr_employee"/>
+        <field name="active">TRUE</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="state">code</field>
+        <field name="code">model.send_reminder_birthday_employee()</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_allowance_tree_view" model="ir.ui.view">
+        <field name="name">hr_allowance_tree_view</field>
+        <field name="model">hr.allowance</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="month"/>
+                <field name="year"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_allowance_form_view" model="ir.ui.view">
+        <field name="name">hr_allowance_form_view</field>
+        <field name="model">hr.allowance</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button string="Cancel" type="object" name="set_cancel"
+                            class="oe_highlight" states="draft" groups="hr_payroll.group_hr_payroll_manager"/>
+                    <button string="Validate" type="object" name="set_validate"
+                            class="oe_highlight" states="draft" groups="hr_payroll.group_hr_payroll_manager"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" invisible="1"/>
+                            <field name="month" required="1" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="year" required="1" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        </group>
+                        <group>
+                            <field name="date_from" invisible="1"/>
+                            <field name="date_to" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook name="allowance_line">
+                        <page string="Allowances">
+                            <field name="allowance_ids" attrs="{'readonly': [('state', '!=', 'draft')]}">
+                                <tree editable="bottom">
+                                    <field name="employee_id" required="1"/>
+                                    <field name="day_of_allowance"/>
+                                    <field name="value_per_day"/>
+                                    <field name="total"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="allowance_id"/>
+                                            <field name="day_of_allowance"/>
+                                            <field name="total"/>
+                                        </group>
+                                        <group>
+                                            <field name="employee_id"/>
+                                            <field name="value_per_day"/>
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_allowance_atc" model="ir.actions.act_window">
+        <field name="name">Hr Allowance</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.allowance</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem id="submenu_allowment"
+              name="Allowment"
+              sequence="4"
+              parent="hr.menu_hr_root"/>
+    <menuitem id="submenu_hr_allowance"
+              name="Hr Allowance"
+              action="hr_allowance_atc"
+              sequence="1"
+              parent="submenu_allowment"/>
+
+</odoo>

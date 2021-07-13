@@ -1,0 +1,931 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).-->
+
+<odoo>
+
+<!-- HR SALARY RULE CATEGORIES -->
+    <record id="hr_payroll_rule_category_gt" model="hr.salary.rule.category">
+        <field name="name">Giảm trừ thuế cá nhân</field>
+        <field name="code">GTTCN</field>
+    </record>
+    <record id="hr_payroll_rule_category_tntt" model="hr.salary.rule.category">
+        <field name="name">Thu nhập tính thuế</field>
+        <field name="code">TNTT</field>
+    </record>
+    <record id="hr_payroll_rule_category_bh" model="hr.salary.rule.category">
+        <field name="name">Bảo hiểm</field>
+        <field name="code">BH</field>
+    </record>
+    <record id="hr_payroll_rule_category_ttncn" model="hr.salary.rule.category">
+        <field name="name">Thuế thu nhập cá nhân</field>
+        <field name="code">TTNCN</field>
+    </record>
+    <record id="hr_payroll_rule_category_tl" model="hr.salary.rule.category">
+        <field name="name">Thực lĩnh</field>
+        <field name="code">TL</field>
+    </record>
+    <record id="hr_payroll_rule_category_dndbh" model="hr.salary.rule.category">
+        <field name="name">BH Doanh nghiệp đóng</field>
+        <field name="code">DNDBH</field>
+    </record>
+    <record id="hr_payroll_rule_category_wage" model="hr.salary.rule.category">
+        <field name="name">Tiền lương</field>
+        <field name="code">WAGE</field>
+    </record>
+    <record id="hr_payroll_rule_category_wage_base" model="hr.salary.rule.category">
+        <field name="name">Tiền lương gross</field>
+        <field name="code">WAGB</field>
+    </record>
+    <record id="hr_payroll_rule_category_wage_subtract" model="hr.salary.rule.category">
+        <field name="name">Tiền lương trừ</field>
+        <field name="code">WAGS</field>
+    </record>
+    <record id="hr_payroll_rule_category_pc" model="hr.salary.rule.category">
+        <field name="name">Thưởng</field>
+        <field name="code">PC</field>
+    </record>
+    <record id="hr_payroll_rule_category_ttn" model="hr.salary.rule.category">
+        <field name="name">Tổng thu nhập</field>
+        <field name="code">TTN</field>
+    </record>
+    <record id="hr_payroll_rule_category_ttn_tax" model="hr.salary.rule.category">
+        <field name="name">Tổng thu nhập chịu thuế</field>
+        <field name="code">TTNT</field>
+    </record>
+    <record id="hr_payroll_rule_category_tntt" model="hr.salary.rule.category">
+        <field name="name">Thu nhập tính thuế</field>
+        <field name="code">TNTT</field>
+    </record>
+    <record id="hr_payroll_rule_category_ttncn" model="hr.salary.rule.category">
+        <field name="name">Thuế thu nhập cá nhân</field>
+        <field name="code">TTNCN</field>
+    </record>
+    <record id="hr_payroll_rule_category_pct" model="hr.salary.rule.category">
+        <field name="name">Phụ cấp tính TTNCN</field>
+        <field name="code">PCT</field>
+    </record>
+    <record id="hr_payroll_rule_category_pcn" model="hr.salary.rule.category">
+        <field name="name">Phụ cấp không TTNCN</field>
+        <field name="code">PCN</field>
+    </record>
+    <record id="hr_payroll_rule_category_daily_allow" model="hr.salary.rule.category">
+        <field name="name">Allowment</field>
+        <field name="code">SDA</field>
+    </record>
+    <record id="hr_payroll_rule_category_early_payment" model="hr.salary.rule.category">
+        <field name="name">Tạm ứng</field>
+        <field name="code">SEP</field>
+    </record>
+    <record id="hr_payroll_rule_category_balance" model="hr.salary.rule.category">
+        <field name="name">Khấu trừ</field>
+        <field name="code">SBL</field>
+    </record>
+    <record id="hr_payroll_rule_category_overleave" model="hr.salary.rule.category">
+        <field name="name">Overleave</field>
+        <field name="code">OLD</field>
+    </record>
+    <record id="hr_payroll_rule_category_cash" model="hr.salary.rule.category">
+        <field name="name">Salary Cash</field>
+        <field name="code">SCA</field>
+    </record>
+    <record id="hr_payroll_rule_category_oip" model="hr.salary.rule.category">
+        <field name="name">Month Bonus</field>
+        <field name="code">MBN</field>
+    </record>
+    <record id="hr_payroll_rule_category_ot" model="hr.salary.rule.category">
+        <field name="name">Salary OT</field>
+        <field name="code">SOT</field>
+    </record>
+    <record id="hr_payroll_rule_category_ott" model="hr.salary.rule.category">
+        <field name="name">Salary OT Tax</field>
+        <field name="code">OTT</field>
+    </record>
+    <record id="hr_payroll_rule_category_otnt" model="hr.salary.rule.category">
+        <field name="name">Salary OT non Tax</field>
+        <field name="code">OTNT</field>
+    </record>
+    <record id="hr_payroll_rule_category_mad" model="hr.salary.rule.category">
+        <field name="name">Manual Adjustment</field>
+        <field name="code">MAD</field>
+    </record>
+
+<!--rule -->
+    <record id="hr_payroll_rules_wage_base" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll_rule_category_wage_base" />
+        <field name="name">Lương Gross (1)</field>
+        <field name="sequence">5</field>
+        <field name="code">WAGB</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = contract.wage
+        </field>
+    </record>
+    <record id="hr_payroll_rules_wage_ins" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll_rule_category_wage" />
+        <field name="name">Lương Bảo Hiểm (2)</field>
+        <field name="sequence">6</field>
+        <field name="code">WAGI</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">if contract.type_id.code == 'trial':
+    result = 0
+elif contract.type_id.code == 'contributor' and contract.contribute_tax != 'tax_progressive':
+    result = 0
+else:
+    ins1 = ins2 = ins3 = ins4 = 0
+    if worked_days.WORK100_HD1:
+        ins1 = worked_days.WORK100_HD1.contract_id.insurance_salary
+    if worked_days.WORK100_HD2:
+        ins2 = worked_days.WORK100_HD2.contract_id.insurance_salary
+    if worked_days.WORK100_HD3:
+        ins3 = worked_days.WORK100_HD3.contract_id.insurance_salary
+    if worked_days.WORK100_HD4:
+        ins4 = worked_days.WORK100_HD4.contract_id.insurance_salary
+    insurance_salary = 0
+    if ins1:
+        insurance_salary = ins1
+    elif ins2:
+        insurance_salary = ins2
+    elif ins3:
+        insurance_salary = ins3
+    elif ins4:
+        insurance_salary = ins4
+    if payslip.has_insurance:
+        result = insurance_salary
+    else:
+        result = 0
+        </field>
+    </record>
+    <record id="hr_payroll_rules_wage" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll_rule_category_wage" />
+        <field name="name">Lương Năng Suất (2+)</field>
+        <field name="sequence">7</field>
+        <field name="code">WAGE</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">day_unpaid1 = day_legal1 = day_annual1 = day_worked1 = day_sick1 = 0
+day_unpaid2 = day_legal2 = day_annual2 = day_worked2 = day_sick2 = 0
+day_unpaid3 = day_legal3 = day_annual3 = day_worked3 = day_sick3 = 0
+day_unpaid4 = day_legal4 = day_annual4 = day_worked4 = day_sick4 = 0
+gross1 = gross2 = gross3 = gross4 = 0
+salary1 = salary2 = salary3 =salary4 = 0
+ins1 = ins2 = ins3 = ins4 = 0
+
+if worked_days.UNPAID_HD1:
+    day_unpaid1 = worked_days.UNPAID_HD1.number_of_days
+if worked_days.UNPAID_HD2:
+    day_unpaid2 = worked_days.UNPAID_HD2.number_of_days
+if worked_days.UNPAID_HD3:
+    day_unpaid3 = worked_days.UNPAID_HD3.number_of_days
+if worked_days.UNPAID_HD4:
+    day_unpaid4 = worked_days.UNPAID_HD4.number_of_days
+
+if worked_days.SICK_HD1:
+    day_sick1 = worked_days.SICK_HD1.number_of_days
+if worked_days.SICK_HD2:
+    day_sick2 = worked_days.SICK_HD2.number_of_days
+if worked_days.SICK_HD3:
+    day_sick3 = worked_days.SICK_HD3.number_of_days
+if worked_days.SICK_HD4:
+    day_sick4 = worked_days.SICK_HD4.number_of_days
+
+if worked_days.LEGAL_HD1:
+    day_legal1 = worked_days.LEGAL_HD1.number_of_days
+if worked_days.LEGAL_HD2:
+    day_legal2 = worked_days.LEGAL_HD2.number_of_days
+if worked_days.LEGAL_HD3:
+    day_legal3 = worked_days.LEGAL_HD3.number_of_days
+if worked_days.LEGAL_HD4:
+    day_legal4 = worked_days.LEGAL_HD4.number_of_days
+
+if worked_days.PUBLIC_HD1:
+    day_annual1 = worked_days.PUBLIC_HD1.number_of_days
+if worked_days.PUBLIC_HD2:
+    day_annual2 = worked_days.PUBLIC_HD2.number_of_days
+if worked_days.PUBLIC_HD3:
+    day_annual3 = worked_days.PUBLIC_HD3.number_of_days
+if worked_days.PUBLIC_HD4:
+    day_annual4 = worked_days.PUBLIC_HD4.number_of_days
+
+if worked_days.WORK100_HD1:
+    day_worked1 = worked_days.WORK100_HD1.number_of_days
+    gross1 = worked_days.WORK100_HD1.contract_id.wage
+    percent = 1
+    if worked_days.WORK100_HD1.contract_id.type_id.code == 'trial':
+        percent = worked_days.WORK100_HD1.contract_id.salary_percent/100
+    salary1 = (gross1/payslip.work100) * (day_worked1 + day_annual1 + day_legal1) * percent
+    ins1 = worked_days.WORK100_HD1.contract_id.insurance_salary
+if worked_days.WORK100_HD2:
+    day_worked2 = worked_days.WORK100_HD2.number_of_days
+    gross2 = worked_days.WORK100_HD2.contract_id.wage
+    percent = 1
+    if worked_days.WORK100_HD2.contract_id.type_id.code == 'trial':
+        percent = worked_days.WORK100_HD2.contract_id.salary_percent/100
+    salary2 = (gross2/payslip.work100) * (day_worked2 + day_annual2 + day_legal2) * percent
+    ins2 = worked_days.WORK100_HD2.contract_id.insurance_salary
+if worked_days.WORK100_HD3:
+    day_worked3 = worked_days.WORK100_HD3.number_of_days
+    gross3 = worked_days.WORK100_HD3.contract_id.wage
+    percent = 1
+    if worked_days.WORK100_HD3.contract_id.type_id.code == 'trial':
+        percent = worked_days.WORK100_HD3.contract_id.salary_percent/100
+    salary3 = (gross3/payslip.work100) * (day_worked3 + day_annual3 + day_legal3) * percent
+    ins3 = worked_days.WORK100_HD3.contract_id.insurance_salary
+if worked_days.WORK100_HD4:
+    day_worked4 = worked_days.WORK100_HD4.number_of_days
+    gross4 = worked_days.WORK100_HD4.contract_id.wage
+    percent = 1
+    if worked_days.WORK100_HD4.contract_id.type_id.code == 'trial':
+        percent = worked_days.WORK100_HD4.contract_id.salary_percent/100
+    salary4 = (gross4/payslip.work100) * (day_worked4 + day_annual4 + day_legal4) * percent
+    ins4 = worked_days.WORK100_HD4.contract_id.insurance_salary
+
+insurance_salary = 0
+if ins1:
+    insurance_salary = ins1
+elif ins2:
+    insurance_salary = ins2
+elif ins3:
+    insurance_salary = ins3
+elif ins4:
+    insurance_salary = ins4
+
+if contract.type_id.code == 'contributor':
+    result = contract.salary_per_hour * worked_days.CTV.number_of_hours
+elif contract.type_id.code == 'trial':
+    result = salary1 + salary2 + salary3 + salary4
+else:
+    if payslip.has_insurance:
+        insurance_salary = insurance_salary
+    else:
+        insurance_salary = 0
+    result = salary1 + salary2 + salary3 + salary4 - insurance_salary
+        </field>
+    </record>
+    <record id="hr_payroll_rules_wage_subtract" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll_rule_category_wage_subtract" />
+        <field name="name">Lương Nghỉ Không Lương (3)</field>
+        <field name="sequence">8</field>
+        <field name="code">WAGS</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">day_unpaid1 = day_legal1 = day_annual1 = day_worked1 = day_sick1 = 0
+gross1 = gross2 = gross3 = gross4 = 0
+if worked_days.UNPAID_HD1:
+    day_unpaid1 = worked_days.UNPAID_HD1.number_of_days
+    gross1 = worked_days.UNPAID_HD1.contract_id.wage
+if worked_days.SICK_HD1:
+    day_sick1 = worked_days.SICK_HD1.number_of_days
+
+salary1 = (gross1/payslip.work100) * (day_unpaid1 + day_sick1)
+if contract.type_id.code == 'trial':
+    result = salary1 * (contract.salary_percent/100)
+elif contract.type_id.code == 'contributor':
+    result = 0
+else:
+    result = salary1
+        </field>
+    </record>
+
+    <record id="hr_payroll_rules_allow" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll_rule_category_daily_allow" />
+        <field name="name">Month Allowance (4)</field>
+        <field name="sequence">9</field>
+        <field name="code">SDA</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = payslip.mon_allowance
+        </field>
+    </record>
+
+    <record id="hr_payroll_rules_cash" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll_rule_category_cash" />
+        <field name="name">Lương tiền mặt (5)</field>
+        <field name="sequence">10</field>
+        <field name="code">SCA</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = contract.salary_cash
+        </field>
+     </record>
+
+    <record id="hr_payroll_rules_overleave" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll_rule_category_overleave" />
+        <field name="name">OverLeave Deduction</field>
+        <field name="sequence">11</field>
+        <field name="code">OLD</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">if worked_days.OverLeave:
+    result = worked_days.OverLeave.contract_id.wage / payslip.work100 * worked_days.OverLeave.number_of_days
+else:
+    result = 0
+        </field>
+    </record>
+
+
+    <record id="hr_payroll_rules_oip" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll_rule_category_oip" />
+        <field name="name">Month Bonus (6)</field>
+        <field name="sequence">12</field>
+        <field name="code">MBN</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = payslip.mon_bonus
+        </field>
+     </record>
+
+    <record id="hr_payroll_rules_bhxh" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll_rule_category_bh" />
+        <field name="name">Bảo Hiểm Xã Hội (7)</field>
+        <field name="code">BHXH</field>
+        <field name="sequence">14</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+day_worked1 = day_worked2 = day_worked3 = day_worked4 = 0
+if worked_days.WORK100_HD1:
+    day_worked1 = worked_days.WORK100_HD1.number_of_days
+if worked_days.WORK100_HD2:
+    day_worked2 = worked_days.WORK100_HD2.number_of_days
+if worked_days.WORK100_HD3:
+    day_worked3 = worked_days.WORK100_HD3.number_of_days
+if worked_days.WORK100_HD4:
+    day_worked4 = worked_days.WORK100_HD4.number_of_days
+worked_day = day_worked1 + day_worked2 + day_worked3 + day_worked4
+
+day_worked_ctv = 0
+if worked_days.CTV:
+    day_worked_ctv = worked_days.CTV.number_of_days
+if contract.type_id.code == 'trial':
+    result = 0
+elif contract.type_id.code == 'contributor' and contract.contribute_tax != 'tax_progressive':
+    result = 0
+else:
+    if payslip.has_insurance:
+        result = contract.insurance_salary* (contract.social_ins/100)
+    else:
+        result = 0
+</field>
+    </record>
+    <record id="hr_payroll_rules_bhyt" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll_rule_category_bh" />
+        <field name="name">Bảo Hiểm Y Tế (8)</field>
+        <field name="code">BHYT</field>
+        <field name="sequence">15</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+day_worked1 = day_worked2 = day_worked3 = day_worked4 = 0
+if worked_days.WORK100_HD1:
+    day_worked1 = worked_days.WORK100_HD1.number_of_days
+if worked_days.WORK100_HD2:
+    day_worked2 = worked_days.WORK100_HD2.number_of_days
+if worked_days.WORK100_HD3:
+    day_worked3 = worked_days.WORK100_HD3.number_of_days
+if worked_days.WORK100_HD4:
+    day_worked4 = worked_days.WORK100_HD4.number_of_days
+worked_day = day_worked1 + day_worked2 + day_worked3 + day_worked4
+
+day_worked_ctv = 0
+if worked_days.CTV:
+    day_worked_ctv = worked_days.CTV.number_of_days
+if contract.type_id.code == 'trial':
+    result = 0
+elif contract.type_id.code == 'contributor' and contract.contribute_tax != 'tax_progressive':
+    result = 0
+else:
+    if payslip.has_insurance:
+        result = contract.insurance_salary* (contract.health_ins/100)
+    else:
+        result = 0
+        </field>
+    </record>
+    <record id="hr_payroll_rules_bhtn" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll_rule_category_bh" />
+        <field name="name">Bảo Hiểm Thất Nghiệp (9)</field>
+        <field name="code">BHTN</field>
+        <field name="sequence">16</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+day_worked1 = day_worked2 = day_worked3 = day_worked4 = 0
+if worked_days.WORK100_HD1:
+    day_worked1 = worked_days.WORK100_HD1.number_of_days
+if worked_days.WORK100_HD2:
+    day_worked2 = worked_days.WORK100_HD2.number_of_days
+if worked_days.WORK100_HD3:
+    day_worked3 = worked_days.WORK100_HD3.number_of_days
+if worked_days.WORK100_HD4:
+    day_worked4 = worked_days.WORK100_HD4.number_of_days
+
+day_worked_ctv = 0
+if worked_days.CTV:
+    day_worked_ctv = worked_days.CTV.number_of_days
+
+worked_day = day_worked1 + day_worked2 + day_worked3 + day_worked4
+if contract.type_id.code == 'trial':
+    result = 0
+elif contract.type_id.code == 'contributor' and contract.contribute_tax != 'tax_progressive':
+    result = 0
+else:
+    if payslip.has_insurance:
+        result = contract.insurance_salary* (contract.unemployment_ins/100)
+    else:
+        result = 0
+        </field>
+    </record>
+
+    <record id="hr_payroll_rules_dnbhxh" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll_rule_category_dndbh" />
+        <field name="name">BHXH doanh nghiệp đóng (10)</field>
+        <field name="code">DNBHXH</field>
+        <field name="sequence">18</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+day_worked1 = day_worked2 = day_worked3 = day_worked4 = 0
+if worked_days.WORK100_HD1:
+    day_worked1 = worked_days.WORK100_HD1.number_of_days
+if worked_days.WORK100_HD2:
+    day_worked2 = worked_days.WORK100_HD2.number_of_days
+if worked_days.WORK100_HD3:
+    day_worked3 = worked_days.WORK100_HD3.number_of_days
+if worked_days.WORK100_HD4:
+    day_worked4 = worked_days.WORK100_HD4.number_of_days
+worked_day = day_worked1 + day_worked2 + day_worked3 + day_worked4
+
+day_worked_ctv = 0
+if worked_days.CTV:
+    day_worked_ctv = worked_days.CTV.number_of_days
+if contract.type_id.code == 'trial':
+    result = 0
+elif contract.type_id.code == 'contributor' and contract.contribute_tax != 'tax_progressive':
+    result = 0
+else:
+    if payslip.has_insurance:
+        result = contract.insurance_salary* (contract.social_ins_com/100)
+    else:
+        result = 0
+        </field>
+    </record>
+    <record id="hr_payroll_rules_dnbhyt" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll_rule_category_dndbh" />
+        <field name="name">BHYT doanh nghiệp đóng (11)</field>
+        <field name="code">DNBHYT</field>
+        <field name="sequence">19</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+day_worked1 = day_worked2 = day_worked3 = day_worked4 = 0
+if worked_days.WORK100_HD1:
+    day_worked1 = worked_days.WORK100_HD1.number_of_days
+if worked_days.WORK100_HD2:
+    day_worked2 = worked_days.WORK100_HD2.number_of_days
+if worked_days.WORK100_HD3:
+    day_worked3 = worked_days.WORK100_HD3.number_of_days
+if worked_days.WORK100_HD4:
+    day_worked4 = worked_days.WORK100_HD4.number_of_days
+worked_day = day_worked1 + day_worked2 + day_worked3 + day_worked4
+
+day_worked_ctv = 0
+if worked_days.CTV:
+    day_worked_ctv = worked_days.CTV.number_of_days
+if contract.type_id.code == 'trial':
+    result = 0
+elif contract.type_id.code == 'contributor' and contract.contribute_tax != 'tax_progressive':
+    result = 0
+else:
+    if payslip.has_insurance:
+        result = contract.insurance_salary* (contract.health_ins_com/100)
+    else:
+        result = 0
+        </field>
+    </record>
+    <record id="hr_payroll_rules_dnbhtn" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll_rule_category_dndbh" />
+        <field name="name">BHTN doanh nghiệp đóng (12)</field>
+        <field name="code">DNBHTN</field>
+        <field name="sequence">20</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+day_worked1 = day_worked2 = day_worked3 = day_worked4 = 0
+if worked_days.WORK100_HD1:
+    day_worked1 = worked_days.WORK100_HD1.number_of_days
+if worked_days.WORK100_HD2:
+    day_worked2 = worked_days.WORK100_HD2.number_of_days
+if worked_days.WORK100_HD3:
+    day_worked3 = worked_days.WORK100_HD3.number_of_days
+if worked_days.WORK100_HD4:
+    day_worked4 = worked_days.WORK100_HD4.number_of_days
+worked_day = day_worked1 + day_worked2 + day_worked3 + day_worked4
+
+day_worked_ctv = 0
+if worked_days.CTV:
+    day_worked_ctv = worked_days.CTV.number_of_days
+if contract.type_id.code == 'trial':
+    result = 0
+elif contract.type_id.code == 'contributor' and contract.contribute_tax != 'tax_progressive':
+    result = 0
+else:
+    if payslip.has_insurance:
+        result = contract.insurance_salary* (contract.unemployment_ins_com/100)
+    else:
+        result = 0
+        </field>
+    </record>
+
+    <record id="hr_payroll_rules_ot" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll_rule_category_ot" />
+        <field name="name">Lương OT Normal (13)</field>
+        <field name="sequence">22</field>
+        <field name="code">SOT</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">sot = 0
+if worked_days.OTN_HD1:
+    sot +=  (worked_days.OTN_HD1.contract_id.wage/payslip.work100)/8 * worked_days.OTN_HD1.number_of_hours * payslip.env['hr.payslip'].get_ot_nor_rate()
+if worked_days.OTN_HD2:
+    sot +=  (worked_days.OTN_HD2.contract_id.wage/payslip.work100)/8 * worked_days.OTN_HD2.number_of_hours * payslip.env['hr.payslip'].get_ot_nor_rate()
+if worked_days.OTN_HD3:
+    sot +=  (worked_days.OTN_HD3.contract_id.wage/payslip.work100)/8 * worked_days.OTN_HD3.number_of_hours * payslip.env['hr.payslip'].get_ot_nor_rate()
+if worked_days.OTN_HD4:
+    sot +=  (worked_days.OTN_HD4.contract_id.wage/payslip.work100)/8 * worked_days.OTN_HD4.number_of_hours * payslip.env['hr.payslip'].get_ot_nor_rate()
+if payslip.contract_id.type_id.code == 'trial':
+    result = sot * payslip.contract_id.salary_percent
+else:
+    result = sot
+        </field>
+    </record>
+    <record id="hr_payroll_rules_otw" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll_rule_category_ot" />
+        <field name="name">Lương OT Weekend (14)</field>
+        <field name="sequence">23</field>
+        <field name="code">OTW</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">sot = 0
+if worked_days.OTWK_HD1:
+    sot +=  (worked_days.OTWK_HD1.contract_id.wage/payslip.work100)/8 * worked_days.OTWK_HD1.number_of_hours * payslip.env['hr.payslip'].get_ot_wek_rate()
+if worked_days.OTWK_HD2:
+    sot +=  (worked_days.OTWK_HD2.contract_id.wage/payslip.work100)/8 * worked_days.OTWK_HD2.number_of_hours * payslip.env['hr.payslip'].get_ot_wek_rate()
+if worked_days.OTWK_HD3:
+    sot +=  (worked_days.OTWK_HD3.contract_id.wage/payslip.work100)/8 * worked_days.OTWK_HD3.number_of_hours * payslip.env['hr.payslip'].get_ot_wek_rate()
+if worked_days.OTWK_HD4:
+    sot +=  (worked_days.OTWK_HD4.contract_id.wage/payslip.work100)/8 * worked_days.OTWK_HD4.number_of_hours * payslip.env['hr.payslip'].get_ot_wek_rate()
+if payslip.contract_id.type_id.code == 'trial':
+    result = sot * payslip.contract_id.salary_percent
+else:
+    result = sot
+        </field>
+    </record>
+    <record id="hr_payroll_rules_oth" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll_rule_category_ot" />
+        <field name="name">Lương OT Holiday (15)</field>
+        <field name="sequence">24</field>
+        <field name="code">OTH</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">sot = 0
+if worked_days.OTH_HD1:
+    sot +=  (worked_days.OTH_HD1.contract_id.wage/payslip.work100)/8 * worked_days.OTH_HD1.number_of_hours * payslip.env['hr.payslip'].get_ot_hol_rate()
+if worked_days.OTH_HD2:
+    sot +=  (worked_days.OTH_HD2.contract_id.wage/payslip.work100)/8 * worked_days.OTH_HD2.number_of_hours * payslip.env['hr.payslip'].get_ot_hol_rate()
+if worked_days.OTH_HD3:
+    sot +=  (worked_days.OTH_HD3.contract_id.wage/payslip.work100)/8 * worked_days.OTH_HD3.number_of_hours * payslip.env['hr.payslip'].get_ot_hol_rate()
+if worked_days.OTH_HD4:
+    sot +=  (worked_days.OTH_HD4.contract_id.wage/payslip.work100)/8 * worked_days.OTH_HD4.number_of_hours * payslip.env['hr.payslip'].get_ot_hol_rate()
+if payslip.contract_id.type_id.code == 'trial':
+    result = sot * payslip.contract_id.salary_percent
+else:
+    result = sot
+        </field>
+    </record>
+
+    <record id="hr_payroll_rules_ott" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll_rule_category_ott" />
+        <field name="name">Tổng OT tính thuế (16)</field>
+        <field name="sequence">25</field>
+        <field name="code">OTT</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">sot = 0
+if worked_days.OTN_HD1:
+    if worked_days.OTN_HD1.contract_id.type_id.code == 'trial':
+        sot += (worked_days.OTN_HD1.contract_id.wage/payslip.work100)/8 * worked_days.OTN_HD1.number_of_hours * worked_days.OTN_HD1.contract_id.salary_percent
+    else:
+        sot += (worked_days.OTN_HD1.contract_id.wage/payslip.work100)/8 * worked_days.OTN_HD1.number_of_hours
+if worked_days.OTN_HD2:
+    if worked_days.OTN_HD2.contract_id.type_id.code == 'trial':
+        sot += (worked_days.OTN_HD2.contract_id.wage/payslip.work100)/8 * worked_days.OTN_HD2.number_of_hours * worked_days.OTN_HD2.contract_id.salary_percent
+    else:
+        sot += (worked_days.OTN_HD2.contract_id.wage/payslip.work100)/8 * worked_days.OTN_HD2.number_of_hours
+if worked_days.OTN_HD3:
+    if worked_days.OTN_HD3.contract_id.type_id.code == 'trial':
+        sot += (worked_days.OTN_HD3.contract_id.wage/payslip.work100)/8 * worked_days.OTN_HD3.number_of_hours * worked_days.OTN_HD3.contract_id.salary_percent
+    else:
+        sot += (worked_days.OTN_HD3.contract_id.wage/payslip.work100)/8 * worked_days.OTN_HD3.number_of_hours
+if worked_days.OTN_HD4:
+    if worked_days.OTN_HD4.contract_id.type_id.code == 'trial':
+        sot += (worked_days.OTN_HD4.contract_id.wage/payslip.work100)/8 * worked_days.OTN_HD4.number_of_hours * worked_days.OTN_HD4.contract_id.salary_percent
+    else:
+        sot += (worked_days.OTN_HD4.contract_id.wage/payslip.work100)/8 * worked_days.OTN_HD4.number_of_hours
+
+if worked_days.OTWK_HD1:
+    if worked_days.OTWK_HD1.contract_id.type_id.code == 'trial':
+        sot += (worked_days.OTWK_HD1.contract_id.wage/payslip.work100)/8 * worked_days.OTWK_HD1.number_of_hours * worked_days.OTWK_HD1.contract_id.salary_percent
+    else:
+        sot += (worked_days.OTWK_HD1.contract_id.wage/payslip.work100)/8 * worked_days.OTWK_HD1.number_of_hours
+if worked_days.OTWK_HD2:
+    if worked_days.OTWK_HD2.contract_id.type_id.code == 'trial':
+        sot += (worked_days.OTWK_HD2.contract_id.wage/payslip.work100)/8 * worked_days.OTWK_HD2.number_of_hours * worked_days.OTWK_HD2.contract_id.salary_percent
+    else:
+        sot += (worked_days.OTWK_HD2.contract_id.wage/payslip.work100)/8 * worked_days.OTWK_HD2.number_of_hours
+if worked_days.OTWK_HD3:
+    if worked_days.OTWK_HD3.contract_id.type_id.code == 'trial':
+        sot += (worked_days.OTWK_HD3.contract_id.wage/payslip.work100)/8 * worked_days.OTWK_HD3.number_of_hours * worked_days.OTWK_HD3.contract_id.salary_percent
+    else:
+        sot += (worked_days.OTWK_HD3.contract_id.wage/payslip.work100)/8 * worked_days.OTWK_HD3.number_of_hours
+if worked_days.OTWK_HD4:
+    if worked_days.OTWK_HD4.contract_id.type_id.code == 'trial':
+        sot += (worked_days.OTWK_HD4.contract_id.wage/payslip.work100)/8 * worked_days.OTWK_HD4.number_of_hours * worked_days.OTWK_HD4.contract_id.salary_percent
+    else:
+        sot += (worked_days.OTWK_HD4.contract_id.wage/payslip.work100)/8 * worked_days.OTWK_HD4.number_of_hours
+
+if worked_days.OTH_HD1:
+    if worked_days.OTH_HD1.contract_id.type_id.code == 'trial':
+        sot += (worked_days.OTH_HD1.contract_id.wage/payslip.work100)/8 * worked_days.OTH_HD1.number_of_hours * worked_days.OTH_HD1.contract_id.salary_percent
+    else:
+        sot += (worked_days.OTH_HD1.contract_id.wage/payslip.work100)/8 * worked_days.OTH_HD1.number_of_hours
+if worked_days.OTH_HD2:
+    if worked_days.OTH_HD2.contract_id.type_id.code == 'trial':
+        sot += (worked_days.OTH_HD2.contract_id.wage/payslip.work100)/8 * worked_days.OTH_HD2.number_of_hours * worked_days.OTH_HD2.contract_id.salary_percent
+    else:
+        sot += (worked_days.OTH_HD2.contract_id.wage/payslip.work100)/8 * worked_days.OTH_HD2.number_of_hours
+if worked_days.OTH_HD3:
+    if worked_days.OTH_HD3.contract_id.type_id.code == 'trial':
+        sot += (worked_days.OTH_HD3.contract_id.wage/payslip.work100)/8 * worked_days.OTH_HD3.number_of_hours * worked_days.OTH_HD3.contract_id.salary_percent
+    else:
+        sot += (worked_days.OTH_HD3.contract_id.wage/payslip.work100)/8 * worked_days.OTH_HD3.number_of_hours
+if worked_days.OTH_HD4:
+    if worked_days.OTH_HD4.contract_id.type_id.code == 'trial':
+        sot += (worked_days.OTH_HD4.contract_id.wage/payslip.work100)/8 * worked_days.OTH_HD4.number_of_hours * worked_days.OTH_HD4.contract_id.salary_percent
+    else:
+        sot += (worked_days.OTH_HD4.contract_id.wage/payslip.work100)/8 * worked_days.OTH_HD4.number_of_hours
+
+if payslip.env['hr.payslip'].get_ot_nor_rate() == 0 and payslip.env['hr.payslip'].get_ot_wek_rate() == 0 and payslip.env['hr.payslip'].get_ot_hol_rate() == 0:
+    result = 0
+else:
+    result = sot
+        </field>
+    </record>
+    <record id="hr_payroll_rules_otnt" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll_rule_category_otnt" />
+        <field name="name">Tổng OT miễn thuế (17)</field>
+        <field name="sequence">26</field>
+        <field name="code">OTNT</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">otn = 0
+if worked_days.OTN_HD1:
+    otw =  (worked_days.OTN_HD1.contract_id.wage/payslip.work100)/8 * worked_days.OTN_HD1.number_of_hours
+    otn +=  (worked_days.OTN_HD1.contract_id.wage/payslip.work100)/8 * worked_days.OTN_HD1.number_of_hours * payslip.env['hr.payslip'].get_ot_nor_rate() - otw
+if worked_days.OTN_HD2:
+    otw = (worked_days.OTN_HD2.contract_id.wage/payslip.work100)/8 * worked_days.OTN_HD2.number_of_hours
+    otn +=  (worked_days.OTN_HD2.contract_id.wage/payslip.work100)/8 * worked_days.OTN_HD2.number_of_hours * payslip.env['hr.payslip'].get_ot_nor_rate() - otw
+if worked_days.OTN_HD3:
+    otw = (worked_days.OTN_HD3.contract_id.wage/payslip.work100)/8 * worked_days.OTN_HD3.number_of_hours
+    otn +=  (worked_days.OTN_HD3.contract_id.wage/payslip.work100)/8 * worked_days.OTN_HD3.number_of_hours * payslip.env['hr.payslip'].get_ot_nor_rate() - otw
+if worked_days.OTN_HD4:
+    otw = (worked_days.OTN_HD4.contract_id.wage/payslip.work100)/8 * worked_days.OTN_HD4.number_of_hours
+    otn +=  (worked_days.OTN_HD4.contract_id.wage/payslip.work100)/8 * worked_days.OTN_HD4.number_of_hours * payslip.env['hr.payslip'].get_ot_nor_rate() - otw
+
+if worked_days.OTWK_HD1:
+    otw = (worked_days.OTWK_HD1.contract_id.wage/payslip.work100)/8 * worked_days.OTWK_HD1.number_of_hours
+    otn +=  (worked_days.OTWK_HD1.contract_id.wage/payslip.work100)/8 * worked_days.OTWK_HD1.number_of_hours * payslip.env['hr.payslip'].get_ot_wek_rate() - otw
+if worked_days.OTWK_HD2:
+    otw = (worked_days.OTWK_HD2.contract_id.wage/payslip.work100)/8 * worked_days.OTWK_HD2.number_of_hours
+    otn +=  (worked_days.OTWK_HD2.contract_id.wage/payslip.work100)/8 * worked_days.OTWK_HD2.number_of_hours * payslip.env['hr.payslip'].get_ot_wek_rate() - otw
+if worked_days.OTWK_HD3:
+    otw = (worked_days.OTWK_HD3.contract_id.wage/payslip.work100)/8 * worked_days.OTWK_HD3.number_of_hours
+    otn +=  (worked_days.OTWK_HD3.contract_id.wage/payslip.work100)/8 * worked_days.OTWK_HD3.number_of_hours * payslip.env['hr.payslip'].get_ot_wek_rate() - otw
+if worked_days.OTWK_HD4:
+    otw = (worked_days.OTWK_HD4.contract_id.wage/payslip.work100)/8 * worked_days.OTWK_HD4.number_of_hours
+    otn +=  (worked_days.OTWK_HD4.contract_id.wage/payslip.work100)/8 * worked_days.OTWK_HD4.number_of_hours * payslip.env['hr.payslip'].get_ot_wek_rate() - otw
+
+if worked_days.OTH_HD1:
+    otw = (worked_days.OTH_HD1.contract_id.wage/payslip.work100)/8 * worked_days.OTH_HD1.number_of_hours
+    otn +=  (worked_days.OTH_HD1.contract_id.wage/payslip.work100)/8 * worked_days.OTH_HD1.number_of_hours * payslip.env['hr.payslip'].get_ot_hol_rate() - otw
+if worked_days.OTH_HD2:
+    otw = (worked_days.OTH_HD2.contract_id.wage/payslip.work100)/8 * worked_days.OTH_HD2.number_of_hours
+    otn +=  (worked_days.OTH_HD2.contract_id.wage/payslip.work100)/8 * worked_days.OTH_HD2.number_of_hours * payslip.env['hr.payslip'].get_ot_hol_rate() - otw
+if worked_days.OTH_HD3:
+    otw = (worked_days.OTH_HD3.contract_id.wage/payslip.work100)/8 * worked_days.OTH_HD3.number_of_hours
+    otn +=  (worked_days.OTH_HD3.contract_id.wage/payslip.work100)/8 * worked_days.OTH_HD3.number_of_hours * payslip.env['hr.payslip'].get_ot_hol_rate() - otw
+if worked_days.OTH_HD4:
+    otw = (worked_days.OTH_HD4.contract_id.wage/payslip.work100)/8 * worked_days.OTH_HD4.number_of_hours
+    otn +=  (worked_days.OTH_HD4.contract_id.wage/payslip.work100)/8 * worked_days.OTH_HD4.number_of_hours * payslip.env['hr.payslip'].get_ot_hol_rate() - otw
+if payslip.env['hr.payslip'].get_ot_nor_rate() == 0 and payslip.env['hr.payslip'].get_ot_wek_rate() == 0 and payslip.env['hr.payslip'].get_ot_hol_rate() == 0:
+    result = 0
+elif payslip.contract_id.type_id.code == 'trial':
+    result = otn * payslip.contract_id.salary_percent
+else:
+    result = otn
+        </field>
+    </record>
+
+    <record id="hr_payroll_rules_pct" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll_rule_category_pct" />
+        <field name="name">Allowance tax (18)</field>
+        <field name="code">PCT</field>
+        <field name="sequence">27</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">if contract.type_id.code == 'contributor':
+    result = payslip.allowance_contract_tax
+else:
+    result = payslip.allowance_contract_tax</field>
+    </record>
+    <record id="hr_payroll_rules_pcn" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll_rule_category_pcn" />
+        <field name="name">Allowance non tax (19)</field>
+        <field name="code">PCN</field>
+        <field name="sequence">28</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">if contract.type_id.code == 'contributor':
+    result = payslip.allowance_contract
+else:
+    result = payslip.allowance_contract</field>
+    </record>
+
+    <record id="hr_payroll_rules_ttn" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll_rule_category_ttn" />
+        <field name="name">Tổng thu nhập (20)</field>
+        <field name="code">TTN</field>
+        <field name="sequence">29</field>
+        <field name="appears_on_payslip" eval="0"/>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = categories.WAGE + categories.PC + categories.SDA + categories.SOT + categories.PCT + categories.PCN + categories.MBN - categories.OLD</field>
+    </record>
+    <record id="hr_payroll_rules_ttn_tax" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll_rule_category_ttn_tax" />
+        <field name="name">Thu nhập chịu thuế (21)</field>
+        <field name="code">TTNT</field>
+        <field name="sequence">30</field>
+        <field name="appears_on_payslip" eval="0"/>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">if contract.type_id.code == 'contributor' and contract.contribute_tax == 'non_tax':
+    result = 0
+else:
+    result = categories.WAGE + categories.PCT + categories.OTT + categories.SDA + categories.MBN - categories.SCA - categories.BH
+        </field>
+    </record>
+    <record id="hr_payroll_rules_gttcn" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll_rule_category_gt"/>
+        <field name="name">Giảm Trừ Thuế Thu Nhập Cá Nhân (22)</field>
+        <field name="code">GTTCN</field>
+        <field name="sequence">31</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+if contract.type_id.code == 'trial':
+    result = 0
+elif contract.type_id.code == 'contributor' and contract.contribute_tax == 'tax':
+    result = 0
+else:
+    result = contract.deduct_personal + contract.deduct_dependent * employee.dependent_person</field>
+    </record>
+
+    <record id="hr_payroll_rules_tntt" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll_rule_category_tntt"/>
+        <field name="name">Thu nhập tính thuế (23)</field>
+        <field name="code">TNTT</field>
+        <field name="sequence">32</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">value = categories.TTNT - categories.GTTCN
+if contract.type_id.code == 'trial':
+    result = categories.TTNT
+elif contract.type_id.code == 'contributor' and contract.contribute_tax == 'non_tax':
+    result = 0
+elif contract.type_id.code == 'contributor' and contract.contribute_tax == 'tax':
+    if value > 0:
+        result = value
+    else:
+        result = 0
+elif value > 0:
+    result = value
+else:
+    result = 0
+        </field>
+    </record>
+
+    <record id="hr_payroll_rules_ttncn" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll_rule_category_ttncn" />
+        <field name="name">Thuế thu nhập cá nhân (24)</field>
+        <field name="code">TTNCN</field>
+        <field name="sequence">33</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+if contract.type_id.code == 'trial':
+    result = categories.TNTT * 0.1
+elif contract.type_id.code == 'contributor' and contract.contribute_tax == 'non_tax':
+    result = 0
+elif contract.type_id.code == 'contributor' and contract.contribute_tax == 'tax':
+    if categories.TNTT &#60; 2000000:
+        result = 0
+    else:
+        result = categories.TNTT * 0.1
+elif categories.TNTT > 0 and categories.TNTT &#60;&#61; 5000000:
+    result = categories.TNTT * 0.05
+elif categories.TNTT > 5000000 and categories.TNTT &#60;&#61; 10000000:
+    result = (categories.TNTT * 0.1) - 250000
+elif categories.TNTT > 10000000 and categories.TNTT &#60;&#61; 18000000:
+    result = (categories.TNTT * 0.15) - 750000
+elif categories.TNTT > 18000000 and categories.TNTT &#60;&#61; 32000000:
+    result = (categories.TNTT * 0.2) - 1650000
+elif categories.TNTT > 32000000 and categories.TNTT &#60;&#61; 52000000:
+    result = (categories.TNTT * 0.25) - 3250000
+elif categories.TNTT > 52000000 and categories.TNTT &#60;&#61; 80000000:
+    result = (categories.TNTT * 0.3) - 5850000
+elif categories.TNTT > 80000000:
+    result = (categories.TNTT * 0.35) - 9850000
+else:
+    result = 0
+        </field>
+    </record>
+
+    <record id="hr_payroll_rules_balance" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll_rule_category_balance" />
+        <field name="name">Deduction (26)</field>
+        <field name="sequence">119</field>
+        <field name="code">SBL</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = payslip.deduction
+        </field>
+    </record>
+
+    <record id="hr_payroll_rules_early_payment" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll_rule_category_early_payment" />
+        <field name="name">Reimburse (27)</field>
+        <field name="sequence">120</field>
+        <field name="code">SEP</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = payslip.reimburse
+        </field>
+    </record>
+    <record id="hr_payroll_rules_early_mad" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll_rule_category_mad" />
+        <field name="name">Manual Adjustment (28)</field>
+        <field name="sequence">121</field>
+        <field name="code">MAD</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = payslip.adjustment_manual
+        </field>
+    </record>
+
+    <record id="hr_payroll_rules_tl" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll_rule_category_tl" />
+        <field name="name">Thực Lĩnh (CK) (29)</field>
+        <field name="code">TLB</field>
+        <field name="sequence">131</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = categories.TTN - categories.SCA - categories.BH - categories.TTNCN - categories.SEP - categories.SBL + categories.MAD</field>
+    </record>
+    <record id="hr_payroll_rules_tl_cash" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll_rule_category_tl" />
+        <field name="name">Thực Lĩnh (Cash) (30)</field>
+        <field name="code">TLC</field>
+        <field name="sequence">132</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = categories.SCA</field>
+    </record>
+
+
+    <record id="hr_payroll_rules_dns" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll_rule_category_dndbh" />
+        <field name="name">Tổng chi phí (31)</field>
+        <field name="code">DNS</field>
+        <field name="sequence">150</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+if contract.type_id.code == 'trial' or contract.type_id.code == 'contributor':
+    result = categories.TTN + categories.MBN + categories.MAD
+else:
+    result = categories.TTN + categories.DNDBH - categories.SBL + categories.MAD</field>
+    </record>
+</odoo>

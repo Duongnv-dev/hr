@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="sequence_quick_appraisal_seq" model="ir.sequence">
+        <field name="name">Quick Appraisal sequence</field>
+        <field name="code">quick.appraisal</field>
+        <field name="prefix">Quick Appraisal/</field>
+        <field eval="1" name="number_next"/>
+        <field eval="1" name="number_increment"/>
+        <field name="padding">4</field>
+    </record>
+    <record id="email_remind_appraisal_template" model="mail.template">
+        <field name="name">Remind Appraisal</field>
+        <field name="model_id" ref="bnk_appraisal.model_hr_appraisal"/>
+        <field name="email_from">testzz.odoo@gmail.com</field>
+        <field name="subject">Remind Appraisal</field>
+    </record>
+    <record id="send_appraisal" model="ir.cron">
+        <field name="name">Send Remind Appraisal</field>
+        <field name="model_id" ref="bnk_appraisal.model_hr_appraisal"/>
+        <field name="active">TRUE</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="state">code</field>
+        <field name="code">model.action_remind_appraisal()</field>
+    </record>
+
+</odoo>

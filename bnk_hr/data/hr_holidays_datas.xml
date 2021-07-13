@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+<!--         <delete id="hr_holidays.holiday_status_comp" model="hr.leave.type"/>-->
+<!--         <delete id="hr_holidays.holiday_status_cl" model="hr.leave.type"/>-->
+<!--         <delete id="hr_holidays.holiday_status_sl" model="hr.leave.type"/>-->
+        <record id="hr_holidays.holiday_status_unpaid" model="hr.leave.type">
+            <field name="active" eval="False"/>
+        </record>
+        <record id="hr_holidays.holiday_status_cl" model="hr.leave.type">
+            <field name="active" eval="False"/>
+        </record>
+        <record id="hr_holidays.holiday_status_sl" model="hr.leave.type">
+            <field name="active" eval="False"/>
+        </record>
+        <record id="hr_holidays.holiday_status_comp" model="hr.leave.type">
+            <field name="active" eval="False"/>
+        </record>
+        <!-- Legal leave -->
+        <record id="legal_holiday" model="hr.leave.type">
+            <field name="name">Legal Leaves</field>
+            <field name="allocation_type">fixed</field>
+            <field name="color_name">lightcyan</field>
+            <field name="code">legal</field>
+        </record>
+
+        <!-- Puclic holiday-->
+        <record id="public_legal_holiday" model="hr.leave.type">
+            <field name="name">Public Holiday</field>
+            <field name="allocation_type">no</field>
+            <field name="color_name">lightblue</field>
+            <field name="code">annual</field>
+            <field name="validity_start" eval="time.strftime('%Y-01-01')"/>
+            <field name="validity_stop" eval="time.strftime('%Y-12-31')"/>
+        </record>
+
+        <!-- Sick leave -->
+        <record id="sick_holiday" model="hr.leave.type">
+            <field name="name">Sick Leaves</field>
+            <field name="allocation_type">no</field>
+            <field name="color_name">red</field>
+            <field name="sequence">90</field>
+            <field name="code">sick</field>
+            <field name="unpaid">True</field>
+        </record>
+
+        <!-- Unpaid Leave -->
+        <record id="unpaid_holiday" model="hr.leave.type">
+            <field name="name">Unpaid days</field>
+            <field name="allocation_type">no</field>
+            <field name="color_name">lavender</field>
+            <field name="sequence">100</field>
+            <field name="code">unpaid</field>
+            <field name="unpaid">True</field>
+        </record>
+
+    </data>
+</odoo>

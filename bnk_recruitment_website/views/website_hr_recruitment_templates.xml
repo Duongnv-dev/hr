@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="apply_extend" inherit_id="website_hr_recruitment.apply">
+        <xpath expr="//div[@class='form-group row form-field o_website_form_required_custom']"
+               position='after'>
+            <div class="form-group row form-field o_website_form_required_custom" data-type="char">
+                <div class="col-lg-3 col-md-4 text-right">
+                    <label class="col-form-label" for="dob">DOB</label>
+                </div>
+                <div class="col-lg-7 col-md-8">
+                    <input type="text" id="dob" name="dob" placeholder='dd/mm/yyyy'/>
+                </div>
+            </div>
+            <div class="form-group row form-field o_website_form_required_custom" data-type="char">
+                <div class="col-lg-3 col-md-4 text-right">
+                    <label class="col-form-label" for="applicant-skill">Skills</label>
+                </div>
+                <div class="col-lg-7 col-md-8">
+                    <select class="form-control" multiple="multiple" id="skills" name="categ_ids">
+                        <t t-foreach="categories" t-as="category">
+                            <option t-esc="category.name" t-att-value="category.id"/>
+                        </t>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row form-field o_website_form_required_custom" data-type="char">
+                <div class="col-lg-3 col-md-4 text-right">
+                    <label class="col-form-label" for="years_experience">Work Experience(Years)</label>
+                </div>
+                <div class="col-lg-7 col-md-8">
+                    <input id="years_experience" type="text" class="form-control o_website_form_input"
+                               name="years_experience" placeholder='0.00' required=""/>
+                </div>
+            </div>
+            <div class="form-group row form-field o_website_form_required_custom" data-type="char">
+                <div class="col-lg-3 col-md-4 text-right">
+                    <label class="col-form-label" for="site_id">Location (Site)</label>
+                </div>
+                <div class="col-lg-7 col-md-8">
+                    <select class="form-control" id="site_id" name="site_id">
+                        <t t-foreach="site_ids" t-as="site_id">
+                            <option t-esc="site_id.name" t-att-value="site_id.id"/>
+                        </t>
+                    </select>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

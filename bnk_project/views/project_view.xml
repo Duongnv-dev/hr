@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="allocate_resource_search" model="ir.ui.view">
+        <field name="name">allocate.resource.search</field>
+        <field name="model">allocate.resource</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="date"/>
+                <field name="employee_id"/>
+                <field name="percent"/>
+                <group>
+                    <filter name="group_billable" string="Billable"
+                            context="{'group_by': 'billable'}"/>
+                    <filter name="group_employee_id" string="Employee"
+                            context="{'group_by': 'employee_id'}"/>
+                    <filter name="group_date" string="Date"
+                            context="{'group_by': 'date'}"/>
+                    <filter name="group_ot_type" string="Ot type"
+                            context="{'group_by': 'ot_type'}"/>
+                </group>
+                <group>
+                    <filter name="lock_true" string="Lock"
+                            domain="[('lock', '=', True)]"/>
+                    <filter name="lock_false" string="Un lock"
+                            domain="[('lock', '=', False)]"/>
+                    <filter name="ot_false" string="Not OT"
+                            domain="[('ot', '=', False)]"/>
+                    <filter name="ot_true" string="OT"
+                            domain="[('ot', '=', True)]"/>
+                    <filter name="billable_billable" string="Billable"
+                            domain="[('billable', '=', 'billable')]"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="allocate_resource_tree" model="ir.ui.view">
+        <field name="name">allocate.resource.tree</field>
+        <field name="model">allocate.resource</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="project_id" attrs="{'readonly': [('editable', '=', False)]}"/>
+                <field name="date" attrs="{'readonly': [('editable', '=', False)]}"/>
+                <field name="employee_id" attrs="{'readonly': [('editable', '=', False)]}"/>
+                <field name="percent" attrs="{'readonly': [('editable', '=', False)]}"/>
+                <field name="billable" attrs="{'readonly': [('editable', '=', False)]}"/>
+                <field name="ot"/>
+                <field name="ot_type" attrs="{'required':[('ot', '=', True)]}"/>
+                <field name="lock"/>
+                <field name="editable" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="allocate_resource_not_create_tree" model="ir.ui.view">
+        <field name="name">allocate.resource.tree</field>
+        <field name="model">allocate.resource</field>
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+            <tree create="false" edit="false" delete="false">
+                <field name="project_id" attrs="{'readonly': [('editable', '=', False)]}"/>
+                <field name="date" attrs="{'readonly': [('editable', '=', False)]}"/>
+                <field name="employee_id" attrs="{'readonly': [('editable', '=', False)]}"/>
+                <field name="percent" attrs="{'readonly': [('editable', '=', False)]}"/>
+                <field name="billable" attrs="{'readonly': [('editable', '=', False)]}"/>
+                <field name="ot"/>
+                <field name="ot_type" attrs="{'required':[('ot', '=', True)]}"/>
+                <field name="lock"/>
+                <field name="editable" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="allocate_resource_form" model="ir.ui.view">
+        <field name="name">allocate.resource.form</field>
+        <field name="model">allocate.resource</field>
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="project_id" attrs="{'readonly': [('editable', '=', False)]}"/>
+                <field name="date" attrs="{'readonly': [('editable', '=', False)]}"/>
+                <field name="employee_id" attrs="{'readonly': [('editable', '=', False)]}"/>
+                <field name="percent" attrs="{'readonly': [('editable', '=', False)]}"/>
+                <field name="billable" attrs="{'readonly': [('editable', '=', False)]}"/>
+                <field name="ot"/>
+                <field name="lock"/>
+                <field name="ot_type" attrs="{'required':[('ot', '=', True)]}"/>
+                <field name="editable" invisible="1"/>
+                <footer>
+                    <button name="save" type="object" string="Save"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_allocate_resource_project">
+        <field name="name">Allocate resource</field>
+        <field name="res_model">allocate.resource</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="allocate_resource_tree"/>
+        <field name="context">{'default_project_id': active_id}</field>
+        <field name="domain">[('project_id', '=', active_id)]</field>
+    </record>
+
+    <record id="project_role_tree" model="ir.ui.view">
+        <field name="name">project_role_tree</field>
+        <field name="model">project.role</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom" delete="true">
+                <field name="name"/>
+                <field name="project_id" invisible="1"/>
+                <field name="cost" widget="monetary"/>
+                <field name="currency_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_project_role">
+        <field name="name">Add Role Project</field>
+        <field name="res_model">project.role</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+        <field name="context">{'default_project_id': active_id}</field>
+        <field name="domain">[('project_id', '=', active_id)]</field>
+        <field name="target">new</field>
+    </record>
+
+
+    <record id="edit_project_change" model="ir.ui.view">
+        <field name="name">edit.project.form</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//header" position="inside">
+                <button name="quick_allocate" type="object"
+                        string="Quick allocate"/>
+            </xpath>
+
+            <xpath expr="//div[@name='button_box']//button[2]" position="after">
+                <button class="oe_stat_button" type="action"
+                        name="%(action_allocate_resource_project)d" icon="fa-tasks">
+                    <field string="Allocate resource" name="allocate_resource_count"
+                           widget="statinfo"/>
+                </button>
+            </xpath>
+
+            <xpath expr="//div[@name='options_active']" position="inside">
+                <div>
+                    <field name="training" class="oe_inline" string="Training"/>
+                    <label for="training"/>
+                </div>
+
+                <div>
+                    <field name="available" class="oe_inline" string="Available"/>
+                    <label for="available"/>
+                </div>
+            </xpath>
+
+            <xpath expr="//notebook" position="before">
+                <div>
+                    <group>
+                        <group>
+                            <field name="id" invisible="1"/>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                        </group>
+                        <group>
+                            <field name="billable_plan"/>
+                            <field name="update_billable"/>
+                            <field name="remaining_billable"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="uptodate_effort"/>
+                            <field name="uptodate_billable"/>
+                            <label for="ee_uptodate" string="EE Uptodate"/>
+                            <div>
+                                <field name="ee_uptodate" nolable="1"/>&#160;%%
+                            </div>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="forecast_billable"/>
+                                <field name="forecast_effort"/>
+                                <label for="ee_forecast" string="EE Forecast"/>
+                                <div>
+                                    <field name="ee_forecast" nolable="1"/>&#160;%%
+                                </div>
+                            </group>
+                            <group>
+                                <div>
+                                    <field name="exceeded_effort_image" widget='image' options="{'size': [40, 40]}" readonly="1"/>
+                                </div>
+                            </group>
+                        </group>
+                    </group>
+                    <group>
+                        <button class="oe_highlight"
+                                type="action" string="Add Project Role"
+                                name="%(action_project_role)d"/>
+                    </group>
+                </div>
+            </xpath>
+            <xpath expr="//page[@name='emails']" position="after">
+                <page name="project_role" string="Project Role">
+                    <field name="project_role_ids" readonly="1">
+                        <tree editable="bottom">
+                            <field name="name"/>
+                            <field name="project_id" invisible="1"/>
+                            <field name="cost" widget="monetary"/>
+                            <field name="currency_id"/>
+                        </tree>
+                    </field>
+                </page>
+                <page name="employee" string="Members">
+                    <field name="employee_ids">
+                        <tree editable="bottom" decoration-danger="member_id==False">
+                            <field name="member_id"/>
+                            <field name="project_id" invisible="1"/>
+                            <field name="project_role_id" domain="[('project_id', '=', parent.id)]"/>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="billable"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+
+            <xpath expr="//div/field[@name='message_follower_ids']" position="after">
+                <field name="activity_ids" widget="mail_activity"/>
+                <field name="message_ids" widget="mail_thread"/>
+            </xpath>
+
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="is_sm_project_manager_project_user" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="attrs">{'readonly':[('is_sm_project_manager_project_user', '=', False)]}</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='privacy_visibility']" position="attributes">
+                <attribute name="attrs">{'readonly':[('is_sm_project_manager_project_user', '=', False)]}</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='user_id']" position="attributes">
+                <attribute name="attrs">{'readonly':[('is_sm_project_manager_project_user', '=', False)]}</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="attrs">{'readonly':[('is_sm_project_manager_project_user', '=', False)]}</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="project.open_view_project_all" model="ir.actions.act_window">
+        <field name="name">Projects</field>
+        <field name="res_model">project.project</field>
+        <field name="view_type">form</field>
+        <field name="domain">[]</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_id" ref="project.view_project_kanban"/>
+        <field name="search_view_id" ref="project.view_project_project_filter"/>
+        <field name="target">main</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new project
+            </p><p>
+                Or <a type="action" name="%(project.ir_actions_server_project_sample)d" tabindex="-1">activate a sample project</a> to play with.
+            </p>
+        </field>
+    </record>
+
+    <!--add pm to project menu-->
+    <record model="ir.ui.menu" id="project.menu_main_pm">
+        <field name="groups_id" eval="[(4,ref('group_allocate_resource_pm'))]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="project.menu_projects_config">
+        <field name="groups_id" eval="[(4,ref('group_allocate_resource_pm'))]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="project.menu_project_config">
+        <field name="groups_id" eval="[(4,ref('group_allocate_resource_pm'))]"/>
+    </record>
+
+    <!--add sm to project menu-->
+    <record model="ir.ui.menu" id="project.menu_main_pm">
+        <field name="groups_id" eval="[(4,ref('group_allocate_resource_sm'))]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="project.menu_projects_config">
+        <field name="groups_id" eval="[(4,ref('group_allocate_resource_sm'))]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="project.menu_project_config">
+        <field name="groups_id" eval="[(4,ref('group_allocate_resource_sm'))]"/>
+    </record>
+
+</odoo>

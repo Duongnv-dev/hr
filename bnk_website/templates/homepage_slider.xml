@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="homepage_slider" customize_show="True" name="Home page slider">
+        <div id="bnk_homepage_carousel" class="s_carousel carousel slide s_carousel_default" data-interval="10000"
+             data-name="Carousel">
+            <t t-set="homepage_slides" t-value="website.get_homepage_slider_data()"/>
+
+            <ol class="carousel-indicators">
+                <t t-set="slide_index" t-value="-1"/>
+                <t t-foreach="homepage_slides" t-as="homepage_slide">
+                    <t t-set="slide_index" t-value="slide_index + 1"/>
+                    <t t-if="slide_index == 0">
+                        <li data-target="#bnk_homepage_carousel" t-att-data-slide-to="slide_index" class="active"/>
+                    </t>
+                    <t t-else="">
+                        <li data-target="#bnk_homepage_carousel" t-att-data-slide-to="slide_index"/>
+                    </t>
+                </t>
+            </ol>
+
+            <div class="carousel-inner">
+                <t t-set="slide_index" t-value="-1"/>
+                <t t-foreach="homepage_slides" t-as="homepage_slide">
+                    <t t-set="slide_index" t-value="slide_index + 1"/>
+
+                    <t t-set="active_class" t-value="'active'"/>
+                    <t t-if="slide_index != 0">
+                        <t t-set="active_class" t-value="''"/>
+                    </t>
+
+                    <div t-att-class="'carousel-item oe_img_bg pt152 pb152 oe_custom_bg ' + active_class"
+                         t-att-style="'background-image: url(&quot;' + homepage_slide.image_url + '&quot;);'"
+                         data-name="Slide">
+                        <div class="container">
+                            <div class="row content">
+                                <div class="carousel-content col-lg-7">
+                                    <p class="lead">
+                                        <t t-esc="homepage_slide.name or ''"/>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </div>
+
+            <div class="carousel-control-prev" data-target="#bnk_homepage_carousel" data-slide="prev" role="img"
+                 aria-label="Previous" title="Previous">
+                <span class="carousel-control-prev-icon"/>
+                <span class="sr-only o_default_snippet_text">Previous</span>
+            </div>
+
+            <div class="carousel-control-next" data-target="#bnk_homepage_carousel" data-slide="next" role="img"
+                 aria-label="Next" title="Next">
+                <span class="carousel-control-next-icon"/>
+                <span class="sr-only o_default_snippet_text">Next</span>
+            </div>
+        </div>
+    </template>
+
+</odoo>

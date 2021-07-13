@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="asset_location_tree_view" model="ir.ui.view">
+        <field name="name">asset_location_tree_view</field>
+        <field name="model">bnk.location</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="asset_location_form_view" model="ir.ui.view">
+        <field name="name">asset_location_form_view</field>
+        <field name="model">bnk.location</field>
+        <field name="arch" type="xml">
+            <form string="Asset location">
+                <sheet>
+                    <div class="oe_title">
+                        <div class="oe_edit_only">
+                            <label for="name" string="Location Name"/>
+                        </div>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <notebook>
+                        <page string="Assets list">
+                            <field name="asset_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="category_id"/>
+                                    <field name="code"/>
+                                    <field name="partner_id"/>
+                                    <field name="employee_id"/>
+                                    <field name="location_id"/>
+                                    <field name="state" invisible="1"/>
+                               </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                 <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="asset_location_view">
+        <field name="name">Asset Location</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">bnk.location</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="asset_location_menu" name="Asset Location"
+              action="asset_location_view"
+              parent="account.menu_finance_entries_management" sequence="103"
+              groups="bnk_asset.group_asset_user"/>
+</odoo>

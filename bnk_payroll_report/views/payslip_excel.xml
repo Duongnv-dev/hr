@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="payslip_excel_wizard_form_view" model="ir.ui.view">
+        <field name="name">payslip_excel_wizard_form_view</field>
+        <field name="model">payslip.excel.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Export payslip">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="month"/>
+<!--                            <field name="payslip_batch_id" required="0"/>-->
+                        </group>
+                        <group>
+<!--                            <field name="department_id"/>-->
+                        </group>
+                        <field name="line_ids">
+                            <tree>
+                                <field name="name"/>
+                                <field name="employee_id"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="export_payroll" string="Export" class="btn-primary" type="object"/>
+                    <button special="cancel" string="Back" class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="payslip_excel_wizard_act_window" model="ir.actions.act_window">
+        <field name="name">Payslip Export</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">payslip.excel.wizard</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem name="Reports"
+              id="payslip_report_menu"
+              parent="hr_payroll.menu_hr_payroll_root"/>
+
+    <menuitem name="Payslip Export"
+              id="payslip_excel_wizard_menu"
+              parent="payslip_report_menu"
+              sequence="1"
+              groups="hr_payroll.group_hr_payroll_user"
+              action="payslip_excel_wizard_act_window"/>
+
+    <report
+        id="payslip_export_excel"
+        model="payslip.excel.wizard"
+        string="Export Excel"
+        report_type="xlsx"
+        name="bnk_payroll_report.export_payroll"
+        file="bnk_payroll_report.export_payroll"
+        />
+</odoo>

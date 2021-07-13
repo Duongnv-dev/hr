@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record model="ir.rule" id="cv_applicant_manager_record_rule">
+        <field name="name">Applicant: manager: see all</field>
+        <field name="model_id" ref="model_hr_applicant"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('hr_recruitment.group_hr_recruitment_manager'))]"/>
+    </record>
+
+    <record model="ir.rule" id="cv_applicant_user_record_rule">
+        <field name="name">Applicant: officer: see his applicant or public applicant</field>
+        <field name="model_id" ref="model_hr_applicant"/>
+        <field name="domain_force">['|', ('create_uid', '=', user.id), ('public', '=', True)]</field>
+        <field name="groups" eval="[(4, ref('hr_recruitment.group_hr_recruitment_user'))]"/>
+    </record>
+
+    <record model="ir.rule" id="rule_job_bul">
+        <field name="name">Job: BUL: see jobs in department</field>
+        <field name="model_id" ref="model_hr_job"/>
+        <field name="domain_force">[('department_id.manager_id.user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('bnk_employee.group_officer_bul'))]"/>
+    </record>
+
+    <record model="ir.rule" id="rule_applicant_bul">
+        <field name="name">Applicant: BUL: see his employee's applicant</field>
+        <field name="model_id" ref="model_hr_applicant"/>
+        <field name="domain_force">[('job_id.department_id.manager_id.user_id', '=', user.id), ('public', '=', True)]</field>
+        <field name="groups" eval="[(4, ref('bnk_employee.group_officer_bul'))]"/>
+    </record>
+
+    <record model="ir.rule" id="rule_recruitment_request_bul">
+        <field name="name">Recruitment Request: BUL: see his request</field>
+        <field name="model_id" ref="model_hr_recruitment_request"/>
+        <field name="domain_force">[('department_id.manager_id.user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('bnk_employee.group_officer_bul'))]"/>
+    </record>
+</odoo>

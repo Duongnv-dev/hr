@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="seq_request_code" model="ir.sequence">
+        <field name="name">Routing</field>
+        <field name="code">line.code</field>
+        <field name="prefix">AR/</field>
+        <field name="padding">5</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+</odoo>

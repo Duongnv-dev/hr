@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates xml:space="preserve">
+
+    <t t-name="AllocateResourceGroupTemplate">
+        <div class="allocate-resource-main">
+            <table style="border-collapse: collapse;border: 1px solid gray;"
+                   class="allocate-resource-table">
+                <tr style="border-collapse: collapse;border: 1px solid gray;">
+                    <th style="border-collapse: collapse;border: 1px solid gray;" rowspan="2">
+                    </th>
+                    <t t-foreach="groupby_label" t-as="label">
+                        <th style="border-collapse: collapse;border: 1px solid gray;"
+                            rowspan="2" class="header-table header-label">
+                            <t t-esc="label"/>
+                        </th>
+                    </t>
+
+                    <th style="border-collapse: collapse;border: 1px solid gray;"
+                        rowspan="2" class="header-table">
+                        Skill
+                    </th>
+
+                    <th style="border-collapse: collapse;border: 1px solid gray;"
+                        rowspan="2" class="header-table">
+                        Place
+                    </th>
+
+                    <th style="border-collapse: collapse;border: 1px solid gray;"
+                        class="total-class header-table" rowspan="2">
+                        Total
+                    </th>
+
+                    <th style="border-collapse: collapse;border: 1px solid gray;"
+                        class="total-billable-class header-table" rowspan="2">
+                        Billable total
+                    </th>
+
+                    <th style="border-collapse: collapse;border: 1px solid gray;"
+                        class="unallocate-total-class header-table" rowspan="2">
+                        Un allocate total
+                    </th>
+
+                    <!--header month-->
+                     <t t-foreach="month_list" t-as="month_item">
+                        <th style="border-collapse: collapse;border: 1px solid gray;"
+                            t-att-colspan="month_item['num_day']">
+                            <t t-esc="month_item['month']"/>
+                        </th>
+                     </t>
+                </tr>
+
+                <!--header date-->
+                <tr style="border-collapse: collapse;border: 1px solid gray;">
+                    <t t-foreach="date_list" t-as="date_item">
+                        <t t-set="holiday_class" t-value="''"/>
+                        <t t-if="public_holiday_list.indexOf(date_item) &gt;= 0">
+                            <t t-set="holiday_class" t-value="'public-holiday-column'"/>
+                        </t>
+                        <t t-if="holiday_list.indexOf(date_item) &gt;= 0">
+                            <t t-set="holiday_class" t-value="'holiday-column'"/>
+                        </t>
+
+                        <th style="border-collapse: collapse;border: 1px solid gray;"
+                            t-att-class="holiday_class + ' header-table'">
+                            <t t-esc="date_item.split('-')[2]"/>
+                        </th>
+
+                    </t>
+                </tr>
+                <!--sum line-->
+                <tr style="border-collapse: collapse;border: 1px solid gray;" class="sum-line">
+                    <td style="border-collapse: collapse;border: 1px solid gray; text-align: center;">
+                    </td>
+                    <td style="border-collapse: collapse;border: 1px solid gray;"
+                        class="one-line header-table"
+                        t-att-colspan="groupby_label.length + 2">
+                        Sum
+                    </td>
+
+                    <td style="border-collapse: collapse;border: 1px solid gray;">
+                        <t t-esc="sum_line['total']"/>
+                    </td>
+                    <td style="border-collapse: collapse;border: 1px solid gray;">
+                        <t t-esc="sum_line['billable_total']"/>
+                    </td>
+                    <td style="border-collapse: collapse;border: 1px solid gray;">
+                        <t t-esc="sum_line['unallocate_total']"/>
+                    </td>
+
+                    <t t-foreach="date_list" t-as="date_item">
+                        <t t-set="holiday_class" t-value="''"/>
+                        <!--<t t-if="public_holiday_list.indexOf(date_item) &gt;= 0">-->
+                            <!--<t t-set="holiday_class" t-value="'public-holiday-column'"/>-->
+                        <!--</t>-->
+                        <!--<t t-if="holiday_list.indexOf(date_item) &gt;= 0">-->
+                            <!--<t t-set="holiday_class" t-value="'holiday-column'"/>-->
+                        <!--</t>-->
+
+                        <td style="border-collapse: collapse;border: 1px solid gray;"
+                            t-att-class="holiday_class">
+                            <div>
+                                <t t-if="sum_line[date_item] > 0">
+                                    <t t-esc="sum_line[date_item]"/>
+                                </t>
+                            </div>
+                        </td>
+                    </t>
+
+                </tr>
+
+                <!--main line-->
+                <t t-set="even_line" t-value="true"/>
+                <t t-foreach="grid" t-as="line">
+                    <t t-set="even_line" t-value="!even_line"/>
+                    <t t-set="even_class" t-value="''"/>
+                    <t t-if="even_line">
+                        <t t-set="even_class" t-value="'even-line'"/>
+                    </t>
+
+                    <tr style="border-collapse: collapse;border: 1px solid gray;"
+                        class="parent-line">
+                        <td style="border-collapse: collapse;border: 1px solid gray; text-align: center;"
+                            t-att-class="even_class">
+                            <i class="fa fa-envelope-open-o open-button click-effect"
+                               t-att-data-line-id="line['key']"></i>
+                            <i class="fa fa-close close-button hide-element click-effect"
+                               t-att-data-line-id="line['key']"></i>
+                        </td>
+
+                        <t t-foreach="line['label']" t-as="label">
+                            <td style="border-collapse: collapse;border: 1px solid gray;"
+                                t-att-class="even_class + ' one-line'">
+                                <t t-esc="label"/>
+                            </td>
+                        </t>
+
+                        <td style="border-collapse: collapse;border: 1px solid gray;"
+                            t-att-class="even_class + ' one-line'">
+                            <t t-esc="line['skill']"/>
+                        </td>
+
+                        <td style="border-collapse: collapse;border: 1px solid gray;"
+                            t-att-class="even_class + ' one-line'">
+                            <t t-esc="line['place']"/>
+                        </td>
+
+                        <td style="border-collapse: collapse;border: 1px solid gray;" class="total-class">
+                            <t t-esc="line['total']"/>
+                        </td>
+                        <td style="border-collapse: collapse;border: 1px solid gray;" class="total-billable-class">
+                            <t t-esc="line['billable_total']"/>
+                        </td>
+                        <td style="border-collapse: collapse;border: 1px solid gray;" class="unallocate-total-class">
+                            <t t-esc="line['unallocate_total']"/>
+                        </td>
+
+                        <!--date body-->
+                        <t t-foreach="date_list" t-as="date_item">
+                            <t t-set="holiday_class" t-value="''"/>
+                            <t t-if="public_holiday_list.indexOf(date_item) &gt;= 0">
+                                <t t-set="holiday_class" t-value="'public-holiday-column'"/>
+                            </t>
+                            <t t-if="holiday_list.indexOf(date_item) &gt;= 0">
+                                <t t-set="holiday_class" t-value="'holiday-column'"/>
+                            </t>
+
+                            <t t-set="billable_class" t-value="''"/>
+
+                            <t t-if="line['date'][date_item]['total_percent'] > 0">
+                                <t t-set="billable_class" t-value="'none-billable-class'"/>
+                            </t>
+
+                            <t t-if="line['date'][date_item]['billable']">
+                                <t t-set="billable_class" t-value="'billable-class'"/>
+                            </t>
+
+                            <t t-set="over_class" t-value="''"/>
+
+                            <t t-if="line['date'][date_item]['total_percent'] > 100">
+                                <t t-set="over_class" t-value="'over-percent-class'"/>
+                            </t>
+
+                            <t t-if="line['date'][date_item]['un_ot_total'] > 100">
+                                <t t-set="over_class" t-value="'over-not-ot-percent-class'"/>
+                            </t>
+
+                            <t t-if="line['date'][date_item]['total_percent'] &lt; 100">
+                                <t t-set="over_class" t-value="'not-enough-class'"/>
+                            </t>
+
+                            <t t-set="working_time_class" t-value="''"/>
+                            <t t-if="!line['date'][date_item]['working_time']">
+                                <t t-set="working_time_class" t-value="'working-time-class'"/>
+                            </t>
+
+                            <td style="border-collapse: collapse;border: 1px solid gray;"
+                                t-att-class="billable_class + ' ' + over_class + ' ' + holiday_class + ' ' + working_time_class">
+                                <div class="allocate-total">
+                                    <t t-if="line['date'][date_item]['total_percent'] > 0">
+                                        <t t-esc="line['date'][date_item]['total_percent']"/>
+                                    </t>
+                                </div>
+                            </td>
+                        </t>
+                    </tr>
+
+                    <!--sub line-->
+                    <t t-foreach="line['sub_group_by']" t-as="sub_key">
+                        <t t-set="even_line" t-value="!even_line"/>
+                        <t t-set="even_class" t-value="''"/>
+                        <t t-if="even_line">
+                            <t t-set="even_class" t-value="'even-line'"/>
+                        </t>
+
+                        <t t-set="sub_line" t-value="line['sub_group_by'][sub_key]"/>
+                        <tr style="border-collapse: collapse;border: 1px solid #e4ebe6;"
+                            t-att-parent-line-id="line['key']" class="sub-line sub-line-border hide-element">
+                            <td t-att-class="even_class + ' sub-line-border'">
+
+                            </td>
+                            <td t-att-class="even_class + ' sub-line-border'">
+                                <t t-esc="sub_line['label']"/>
+                            </td>
+
+                            <td t-att-class="even_class + ' sub-line-border'">
+                                <t t-esc="sub_line['skill']"/>
+                            </td>
+
+                            <td t-att-class="even_class + ' sub-line-border'">
+                                <t t-esc="sub_line['place']"/>
+                            </td>
+
+                            <td class="sub-line-border">
+                                <t t-esc="sub_line['total']"/>
+                            </td>
+                            <td class="total-billable-class sub-line-border">
+                                <t t-esc="sub_line['billable_total']"/>
+                            </td>
+                            <td class="unallocate-total-class sub-line-border">
+                                <t t-esc="sub_line['unallocate_total']"/>
+                            </td>
+
+                            <!--date sub line-->
+                            <t t-foreach="date_list" t-as="date_item">
+                                <t t-set="holiday_class" t-value="''"/>
+                                <t t-if="public_holiday_list.indexOf(date_item) &gt;= 0">
+                                    <t t-set="holiday_class" t-value="'public-holiday-column'"/>
+                                </t>
+                                <t t-if="holiday_list.indexOf(date_item) &gt;= 0">
+                                    <t t-set="holiday_class" t-value="'holiday-column'"/>
+                                </t>
+
+                                <t t-set="billable_class" t-value="''"/>
+
+                                <t t-if="sub_line['date'][date_item]['total_percent'] > 0">
+                                    <t t-set="billable_class" t-value="'none-billable-class'"/>
+                                </t>
+
+                                <t t-if="sub_line['date'][date_item]['billable']">
+                                    <t t-set="billable_class" t-value="'billable-class'"/>
+                                </t>
+
+                                <t t-set="over_class" t-value="''"/>
+
+                                <t t-if="sub_line['date'][date_item]['total_percent'] > 100">
+                                    <t t-set="over_class" t-value="'over-percent-class'"/>
+                                </t>
+
+                                <t t-if="sub_line['date'][date_item]['un_ot_total'] > 100">
+                                    <t t-set="over_class" t-value="'over-not-ot-percent-class'"/>
+                                </t>
+
+                                <t t-if="sub_line['date'][date_item]['total_percent'] &lt; 100">
+                                    <t t-set="over_class" t-value="'not-enough-class'"/>
+                                </t>
+
+                                <t t-set="working_time_class" t-value="''"/>
+                                <t t-if="!sub_line['date'][date_item]['working_time']">
+                                    <t t-set="working_time_class" t-value="'working-time-class'"/>
+                                </t>
+
+                                <td t-att-class="billable_class + ' ' + over_class + ' ' + holiday_class + ' sub-line-border ' + working_time_class">
+                                    <div class="allocate-total">
+                                        <t t-if="sub_line['date'][date_item]['total_percent'] > 0">
+                                            <t t-esc="sub_line['date'][date_item]['total_percent']"/>
+                                        </t>
+                                    </div>
+
+                                </td>
+                            </t>
+
+                        </tr>
+                    </t>
+                </t>
+            </table>
+        </div>
+    </t>
+
+</templates>

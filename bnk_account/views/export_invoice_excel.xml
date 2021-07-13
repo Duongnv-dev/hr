@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        id="export_invoice_xlsx"
+        model="account.invoice"
+        string="Print Invoice Excel"
+        report_type="xlsx"
+        name="bnk_invoice.export_invoice"
+        file="bnk_invoice.export_invoice"
+        />
+</odoo>

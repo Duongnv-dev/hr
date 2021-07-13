@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+asset_project_project_group_allocate_resource_pm,project_project_group_allocate_resource_pm,project.model_project_project,group_allocate_resource_pm,1,1,0,0
+asset_allocate_resource_group_allocate_resource_pm,allocate_resource_group_allocate_resource_pm,model_allocate_resource,group_allocate_resource_pm,1,1,1,1
+
+asset_project_project_group_allocate_resource_sm,project_project_group_allocate_resource_sm,project.model_project_project,group_allocate_resource_sm,1,1,1,1
+asset_allocate_resource_group_allocate_resource_sm,allocate_resource_group_allocate_resource_sm,model_allocate_resource,group_allocate_resource_sm,1,1,1,1
+
+asset_project_role_all,project_role_all,model_project_role,,1,1,1,1
+asset_project_member_all,project_member_all,model_project_member,,1,1,1,1
+
+asset_hr_site_all,hr_site_all,model_hr_site,,1,0,0,0
+asset_hr_site_group_hr_manager,hr_site_group_hr_manager,model_hr_site,hr.group_hr_manager,1,1,1
+
+asset_project_lock_date_all,asset_project_lock_date_all,model_project_lock_date,,1,1,1,1

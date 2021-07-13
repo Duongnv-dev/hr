@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="bnk allocate resource assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" href="/bnk_allocate_resource_widget/static/src/css/allocate_resource_widget.css"></link>
+            <link rel="stylesheet" href="/bnk_allocate_resource_widget/static/src/css/allocate_resource_line_chart_widget.css"></link>
+            <link rel="stylesheet" href="/bnk_allocate_resource_widget/static/src/css/general_delivery_allocate_resource.css"></link>
+
+            <script type="text/javascript" src="/bnk_allocate_resource_widget/static/src/js/allocate_resource_widget.js"></script>
+            <script type="text/javascript" src="/bnk_allocate_resource_widget/static/src/js/allocate_resource_group_widget.js"></script>
+
+            <script type="text/javascript"
+                src="/bnk_allocate_resource_widget/static/src/js/Chart.js-2.7.2/Chart.bundle.js"></script>
+            <script type="text/javascript"
+                src="/bnk_allocate_resource_widget/static/src/js/Chart.js-2.7.2/Chart.bundle.min.js"></script>
+            <script type="text/javascript"
+                src="/bnk_allocate_resource_widget/static/src/js/Chart.js-2.7.2/Chart.js"></script>
+            <script type="text/javascript"
+                src="/bnk_allocate_resource_widget/static/src/js/Chart.js-2.7.2/Chart.min.js"></script>
+
+            <script type="text/javascript" src="/bnk_allocate_resource_widget/static/src/js/allocate_resource_line_chart_widget.js"></script>
+            <script type="text/javascript" src="/bnk_allocate_resource_widget/static/src/js/general_delivery_allocate_resource.js"></script>
+
+        </xpath>
+    </template>
+
+</odoo>

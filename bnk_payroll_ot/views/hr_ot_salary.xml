@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_ot_tree_view" model="ir.ui.view">
+        <field name="name">hr_ot_tree</field>
+        <field name="model">hr.ot</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="manager_id"/>
+                <field name="project_id"/>
+                <field name="month"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_hr_ot_form2" model="ir.ui.view">
+        <field name="name">view_hr_ot_form2</field>
+        <field name="model">hr.ot</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button string="Submit" type="object" name="action_submit"
+                            class="oe_highlight" states="draft"/>
+                    <button string="Approve" type="object" name="action_approve" class="btn btn-success"
+                            attrs="{'invisible': ['|',('is_pm', '=', False), ('state', '!=', 'wait')]}"/>
+                    <button string="Refused" type="object" name="action_refused" class="btn btn-danger"
+                            attrs="{'invisible': ['|',('is_pm', '=', False), ('state', '!=', 'wait')]}"/>
+                    <button string="Cancel" type="object" name="action_cancel"
+                            class="btn btn-warning" states="wait"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,wait,approved"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="is_pm" invisible="1"/>
+                            <field name="name" required="1"/>
+                            <field name="multi_employee" required="1" widget="radio" options="{'horizontal': true}" invisible="1"/>
+                            <field name="employee_id" attrs="{'required': [('multi_employee', '=', 'one')], 'invisible': [('multi_employee', '=', 'multi')], 'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="employee_ids" attrs="{'required': [('multi_employee', '=', 'multi')], 'invisible': [('multi_employee', '=', 'one')], 'readonly': [('state', '!=', 'draft')]}"
+                                   widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <field name="month" attrs="{'readonly': [('state', 'not in', ['draft', 'wait'])], 'required': [('state', '!=', 'draft')]}"/>
+                            <field name="manager_id" required="1" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="project_id" required="0" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        </group>
+                        <field name="note" placeholder="Note ......."/>
+                        <field name="parent_id" invisible="1"/>
+                    </group>
+                    <notebook>
+                        <page name="details" string="Details">
+                            <field name="ot_lines" attrs="{'readonly': [('state', 'not in', ['draft', 'wait'])]}">
+                                <tree editable="bottom">
+                                    <field name="date" required="1"/>
+                                    <field name="employee_id" invisible="1"/>
+                                    <field name="type_day" invisible="1"/>
+                                    <field name="ot_hour"/>
+                                    <field name="salary_ot" invisible="0" string="Value" readonly="1"/>
+                                    <field name="salary_ot_tax" invisible="1"/>
+                                    <field name="salary_ot_non_tax" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="Multi Overtime" string="Multi" attrs="{'invisible': [('multi_employee', '=', 'one')]}">
+                            <field name="child_ids">
+                                <tree create="false" edit="false" delete="false">
+                                    <field name="name"/>
+                                    <field name="employee_id"/>
+                                    <field name="manager_id"/>
+                                    <field name="project_id"/>
+                                    <field name="month"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_salary_ot" model="ir.actions.act_window">
+        <field name="name">Overtimes Salary</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.ot</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem id="menu_salary_ot"
+              name="Overtimes Salary"
+              action="action_salary_ot"
+              sequence="5"
+              groups="hr.group_hr_user"
+              parent="bnk_hr.menu_hr_payroll_addition_salary"/>
+</odoo>

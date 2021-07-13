@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<odoo>
+    <record id="view_hr_contract_form3" model="ir.ui.view">
+        <field name="name">view_hr_contract_form3</field>
+        <field name="model">hr.contract</field>
+        <field name="priority" eval="20"/>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='main_info']" position="inside">
+                <group string="Allowance Income">
+                    <label for="eat_inc"/>
+                    <div class="o_setting_right_pane">
+                        <field name="is_eat_inc"/>
+                        <div class="o_row" name="eat_inc">
+                            <field name="eat_inc" widget="monetary" nolabel="1"/>
+                            <span>/ month</span>
+                        </div>
+                    </div>
+
+                    <label for="phone_inc"/>
+                    <div class="o_setting_right_pane">
+                        <field name="is_phone_inc"/>
+                        <div class="o_row" name="phone_inc">
+                            <field name="phone_inc" widget="monetary"/>
+                            <span>/ month</span>
+                        </div>
+                    </div>
+
+                    <label for="work_allo_inc"/>
+                    <div class="o_setting_right_pane">
+                        <field name="is_work_allo_inc"/>
+                        <div class="o_row" name="work_allo_inc">
+                            <field name="work_allo_inc" widget="monetary"/>
+                            <span>/ month</span>
+                        </div>
+                    </div>
+
+                    <label for="ins_inc"/>
+                    <div class="o_setting_right_pane">
+                        <field name="is_ins_inc"/>
+                        <div class="o_row" name="ins_inc">
+                            <field name="ins_inc" widget="monetary"/>
+                        </div>
+                    </div>
+
+                    <label for="uni_inc"/>
+                    <div class="o_setting_right_pane">
+                        <field name="is_uni_inc"/>
+                        <div class="o_row" name="uni_inc">
+                            <field name="uni_inc" widget="monetary" nolabel="1"/>
+                            <span>/ year</span>
+                        </div>
+                    </div>
+
+                    <label for="poison_inc"/>
+                    <div class="o_setting_right_pane">
+                        <field name="is_poison_inc"/>
+                        <div class="o_row" name="poison_inc">
+                            <field name="poison_inc" widget="monetary"/>
+                            <span>/ month</span>
+                        </div>
+                    </div>
+
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_hr_contract_form_salary_tab_group_string" model="ir.ui.view">
+        <field name="name">view_hr_contract_form_salary_tab_group_string</field>
+        <field name="model">hr.contract</field>
+        <field name="priority" eval="20"/>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='information']/group/group" position="attributes">
+                <group name="salary_and_advantages">
+                    <attribute name="string">Salary Information</attribute>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

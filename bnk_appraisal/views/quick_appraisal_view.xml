@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="quick_appraisal_form_view" model="ir.ui.view">
+        <field name="name">quick.appraisal.form.view</field>
+        <field name="model">quick.appraisal</field>
+        <field name="arch" type="xml">
+            <form string="Quick Appraisal">
+                <header>
+                    <field name="state" widget="statusbar"/>
+                    <button name="start_quick_appraisal" string="Start Quick Appraisal" type="object"
+                            attrs="{'invisible':[('check_draft','!=',True)]}"/>
+                </header>
+                <sheet>
+                    <label for="department_id"/>
+                    <h4>
+
+                        <field name="department_id" string="Department"
+                               attrs="{'readonly':[('check_draft','!=',True)]}"/>
+                    </h4>
+
+                    <group>
+                        <group>
+                            <field name="emp_ids" class="oe_inline" placeholder="Employee's Names"
+                                   attrs="{'readonly':[('check_draft','!=',True)]}"
+                                   widget="many2many_tags"/>
+                            <field name="appraisal_deadline" attrs="{'readonly':[('check_draft','!=', True)]}"/>
+                        </group>
+                        <group>
+                            <field name="type_review"
+                                   groups="oh_appraisal.group_appraisal_manager"
+                                   attrs="{'readonly':[('check_draft','!=',True)]}"/>
+                            <field name="partial_number"
+                                   attrs="{'invisible':[('type_review', '=', 'full')],
+                                           'readonly':[('check_draft','!=',True)]}"
+                                   groups="oh_appraisal.group_appraisal_manager"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Plan">
+                            <group col="4">
+                                <field name="hr_manager" attrs="{'readonly':[('check_draft','!=',True)]}"/>
+                                <field name="hr_manager_id" widget="many2many_tags"
+                                       placeholder="Select Appraisal Reviewer" nolabel="1"
+                                       attrs="{'invisible': [('hr_manager','=', False)], 'readonly':[('check_draft','!=', True)]}"/>
+                                <field name="manager_survey_id"
+                                       placeholder="Appraisal Form" nolabel="1"
+                                       attrs="{'invisible': [('hr_manager','=', False)],
+                                               'readonly':[('check_draft','!=', True)],
+                                               'required':[('hr_manager','=',True)]}"/>
+                                <field name="hr_emp" attrs="{'readonly':[('check_draft','!=', True)]}"/>
+                                <seperator/>
+                                <field name="emp_survey_id"
+                                       placeholder="Appraisal Form" nolabel="1"
+                                       attrs="{'invisible': [('hr_emp','=', False)],
+                                           'readonly':[('check_draft','!=', True)],
+                                           'required':[('hr_emp','=',True)]}"/>
+                                <field name="hr_colleague" attrs="{'readonly':[('check_draft','!=', True)]}"/>
+                                <field name="hr_colleague_id" widget="many2many_tags"
+                                       placeholder="Select Appraisal Reviewer" nolabel="1"
+                                       attrs="{'invisible': [('hr_colleague','=', False)],
+                                               'readonly':[('type_review', '=', 'partial')]}" force_save="1"/>
+                                <field name="colleague_survey_id"
+                                       placeholder="Appraisal Form" nolabel="1"
+                                       attrs="{'invisible': [('hr_colleague','=', False)],
+                                               'required':[('hr_colleague','=',True)],
+                                               'readonly':[('check_draft','!=', True)]
+                                           }"/>
+                                <field name="hr_collaborator" attrs="{'readonly':[('check_draft','!=', True)]}"/>
+                                <field name="hr_collaborator_id" widget="many2many_tags"
+                                       placeholder="Select Appraisal Reviewer" nolabel="1"
+                                       attrs="{'invisible': [('hr_collaborator','=', False)],
+                                           'readonly':[('check_draft','!=', True)]}"/>
+                                <field name="collaborator_survey_id"
+                                       placeholder="Appraisal Form" nolabel="1"
+                                       attrs="{'invisible': [('hr_collaborator','=', False)],
+                                           'readonly':[('check_draft','!=', True)],
+                                           'required':[('hr_collaborator','=',True)]}"/>
+                            </group>
+                            <group>
+                                <field name="check_draft" invisible="1"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="quick_appraisal_tree_view" model="ir.ui.view">
+        <field name="name">quick.appraisal.tree.view</field>
+        <field name="model">quick.appraisal</field>
+        <field name="arch" type="xml">
+            <tree string="Quick Appraisal">
+                <field name="code"/>
+                <field name="department_id"/>
+                <field name="appraisal_deadline"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="quick_appraisal_search_view" model="ir.ui.view">
+        <field name="name">quick.appraisal.search</field>
+        <field name="model">quick.appraisal</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="code"/>
+                <field name="department_id"/>
+                <field name="appraisal_deadline"/>
+                <field name="state"/>
+                <group string="Group By Department">
+                    <filter name="group_by_department" string="Department"
+                            context="{'group_by': 'department_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="bnk_appraisal_users_input_inherit" model="ir.ui.view">
+        <field name="name">Appraisal User Input</field>
+        <field name="inherit_id" ref="survey.survey_user_input_form"/>
+        <field name="model">survey.user_input</field>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_survey_results']" position="replace">
+                <button name="action_appraisal_results" string="View Results Appraisal" type="object" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_quick_appraisal_views" model="ir.actions.act_window">
+        <field name="name">Quick Appraisal</field>
+        <field name="res_model">quick.appraisal</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+            action="action_quick_appraisal_views" id="menu_quick_appraisal"
+            name="Quick Appraisal"
+            parent="oh_appraisal.menu_hr_appraisal_root"
+            groups="oh_appraisal.group_appraisal_manager"
+            sequence="10"
+    />
+</odoo>

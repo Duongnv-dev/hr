@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="project_leave_data" model="project.project">
+            <field name="name">Leaves</field>
+            <field name="privacy_visibility">employees</field>
+        </record>
+    </data>
+</odoo>

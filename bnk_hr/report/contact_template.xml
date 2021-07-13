@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--NDA-->
+    <template id="template_bnk_nda">
+        <body>
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout">
+                        <link rel="stylesheet" href="/bnk_hr/static/src/css/list_style_type_property.css"/>
+
+                        <div class="page" style="color: black;font-size: 21px;font-family: Times New Roman;text-align:justify;">
+                            <link rel="stylesheet" type="text/css" href="/bnk_hr/static/src/css/list_style_type_property.css"/>
+                            <div class="row">
+                                <div class="col-6">
+                                    <p class="text-center">
+                                        <b><span>CÔNG TY TNHH PHẦN MỀM B&amp;K</span></b>
+                                    </p>
+                                </div>
+                                <div class="col-6">
+                                    <div class="text-center">
+                                        <b><span>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</span></b><br/>
+                                        <i><span>Độc lập - Tự do - Hạnh phúc</span></i><br/>
+                                        <span>------o0o------</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="col-3">
+                                </div>
+                                <div class="col-6">
+                                    <div class="text-center">
+                                        <b><span style="font-size: 28px !important;">CAM KẾT BẢO MẬT THÔNG TIN</span></b>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="col-12">
+                                    <p>
+                                        Bản cam kết này được ký kết nhằm đảm bảo các thông tin cần được bảo mật thuộc sở hữu của Công ty TNHH Phần mềm B&amp;K (dưới đây gọi là Công ty) được bảo vệ, không bị thất thoát, tiết lộ cho bất cứ một bên thứ Ba nào. Theo đó, tôi, người có tên dưới đây:
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-7">
+                                    <span>Họ Tên: </span><b><t t-if="doc.employee_id.name"><t t-esc="doc.employee_id.name"/></t></b>
+                                </div>
+                                <div class="col-5">
+                                    <span>Ngày sinh: </span><b><t t-if="doc.employee_id.birthday"><t t-esc="doc.employee_id.get_birth_day_report()"/></t></b>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <span>Nghề nghiệp: </span><b><t t-if="doc.employee_id.job_title"><t t-esc="doc.employee_id.job_title"/></t></b>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <span>Số CMND: </span><b><t t-if="doc.employee_id.identification_id"><t t-esc="doc.employee_id.identification_id"/></t></b>
+                                </div>
+                                <div class="col-3">
+                                    <span>Cấp ngày: </span><b><t t-if="doc.employee_id.identification_date"><t t-esc="doc.employee_id.get_identification_date_report()"/></t></b>
+                                </div>
+                                <div class="col-5">
+                                    <span>Tại: </span><b><t t-if="doc.employee_id.issued_by"><t t-esc="doc.employee_id.issued_by"/></t></b>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <span>Địa chỉ thường chú: </span>
+                                    <b>
+                                        <t t-if="doc.employee_id.address_home_id">
+                                            <span>
+                                                <t t-if="doc.employee_id.address_home_id.street"><span t-field="doc.employee_id.address_home_id.street"/></t>
+                                                <t t-if="doc.employee_id.address_home_id.street2 and doc.employee_id.address_home_id.street">/</t>
+                                                <t t-if="doc.employee_id.address_home_id.street2"><span t-field="doc.employee_id.address_home_id.street2"/></t>
+                                                <t t-if="doc.employee_id.address_home_id.city and doc.employee_id.address_home_id.street2 or doc.employee_id.address_home_id.city and doc.employee_id.address_home_id.street">-</t>
+                                                <t t-if="doc.employee_id.address_home_id.city"><span t-field="doc.employee_id.address_home_id.city"/></t>
+                                                <t t-if="doc.employee_id.address_home_id.state_id and doc.employee_id.address_home_id.city or doc.employee_id.address_home_id.state_id and doc.employee_id.address_home_id.street2 or doc.employee_id.address_home_id.state_id and doc.employee_id.address_home_id.street">-</t>
+                                                <t t-if="doc.employee_id.address_home_id.state_id"><span t-field="doc.employee_id.address_home_id.state_id.name"/></t>
+                                                <t t-if="doc.employee_id.address_home_id.country_id and doc.employee_id.address_home_id.state_id or doc.employee_id.address_home_id.country_id and doc.employee_id.address_home_id.city or doc.employee_id.address_home_id.country_id and doc.employee_id.address_home_id.street2 or doc.employee_id.address_home_id.country_id and doc.employee_id.address_home_id.street">-</t>
+                                                <t t-if="doc.employee_id.address_home_id.country_id"><span t-field="doc.employee_id.address_home_id.country_id.name"/></t>
+                                            </span>
+                                        </t>
+                                    </b>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <span>Chức vụ: </span><b><t t-if="doc.employee_id.job_title"><t t-esc="doc.employee_id.job_title"/></t></b>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <p>
+                                        Đã đọc, hiểu và cam kết thực hiện các điều khoản sau đây:
+                                    </p>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <ol>
+                                        <li><b>Các khái niệm:</b>
+                                            <ol>
+                                                <li><b>Thông tin được bảo mật</b>
+                                                    <p><b>Thông tin cần được bảo mật:</b> Là những thông tin liên quan đến sản phẩm sở hữu trí tuệ và bí mật kinh doanh của Công ty; các sản phẩm trí tuệ và các bí mật kinh doanh của khách hàng/đối tác được tiết lộ trong quá trinhg giao dịch kinh doanh với Công ty.
+                                                        Trong quy định này, “những sản phẩm trí tuệ của khách hàng/đối tác” chỉ hạn chế ở những sản phẩm trí tuệ được tiết lộ với Công ty trong quá trình giao dịch. Phạm vi áp dụng bao gồm và không hạn chế ở:</p>
+                                                    <ul class="dashed">
+                                                        <li>Các sản phẩm phần mềm của Công ty và của khách hàng/đối tác, bao gồm:
+                                                            <ul class="a">
+                                                                <li>Tài liệu khảo sát, phân tích thiết kế bước đầu.</li>
+                                                                <li>Tài liệu thiết kế, module sản phẩm.</li>
+                                                                <li>Cơ sở dữ liệu, các chường trình máy tính bao gồm mã nguồn, mã đối tượng.</li>
+                                                                <li>Các phương tiện xây dựng phần mềm như cơ sở dữ liệu, ngôn ngữ lập trình, chương trình dịch, chương trình bổ trợ,…</li>
+                                                                <li>Sản phẩm phần mềm trọn gói, hướng dẫn sử dụng.</li>
+                                                                <li>Nguyên bản các giao diện của sản phẩm phần mềm, bao gồm cả các trang web của Công ty và của Công ty thiết kế cho khách hàng/đối tác,..</li>
+                                                            </ul>
+                                                        </li>
+                                                        <li>Các thiết kế/giải pháp, các quy trình cài đặt/triển khai cho từng dòng sản phẩm công nghệ thông tin hoặc cho từng khách hàng/đối tác và các tài liệu liên quan.</li>
+                                                        <li>Các giải pháp tích hợp hệ thống thông tin, giải pháp công nghệ triển khai cho Công ty, khách hàng/đối tác.</li>
+                                                        <li>Các tài liệu báo cáo hoặc tổng kết về giải pháp/thiết kế do Công ty nghiên cứu, phát triển.</li>
+                                                        <li>Các thông tin bí mật về thị trường, khách hàng, tài chính,… đã được Công ty phân tích, khai thác và phát triển mang tính đặc thù.</li>
+                                                        <li>Các thông tin/tài liệu liên quan đến hợp đồng và các thông tin/tài liệu có liên quan đến công việc được giao.</li>
+                                                        <li>Các quy trình sản xuất bao gồm tất cả các tài liệu cấu thành như mô tả quá trình, mô tả sản phẩm, biểu mẫu,…</li>
+                                                        <li>Các thông tin được thể hiện bằng văn bản giấy tờ hoặc văn bản điện tử được đánh dấu là “Tài liệu mật” hoặc “Tài liệu tối mật” hoặc “Sử dụng nội bộ” hoặc một hình thức tương đương.</li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <b>Đối tác của Công ty:</b>
+                                                    Là những cá nhân, tập thể, tổ chức có hoạt động sản xuất kinh doanh các sản phẩm/dịch vụ giống hoặc tương tự với sản phẩm của Công ty, cùng hướng tới đối tượng khách hàng, đối tác như của Công ty và chia sẻ lợi ích với Công ty.
+                                                </li>
+                                                <li>
+                                                    <b>Khách hàng của Công ty:</b>
+                                                    Là những cá nhân, tập thể, tổ chức mua dịch vụ/sản phẩm của Công ty.
+                                                </li>
+                                                <li>
+                                                    <b>Bên thứ ba:</b>
+                                                    Là bất kỳ một cá nhân, tập thể, tổ chức nào ngoài Công ty và bản thân CBNV nắm giữ thông tin cần được bảo mật.
+                                                </li>
+                                            </ol>
+                                        </li>
+                                        <li><b>Cam kết bảo mật thông tin</b>
+                                            <ol>
+                                                <li>Tuyệt đối tuân thủ quy định về Bảo mật thông tin của Công ty.</li>
+                                                <li>Sử dụng thông tin: Chỉ sử dụng thông tin cần được bảo mật cho mục đích công việc liên quan đến hoạt động sản xuất kinh doanh của Công ty.</li>
+                                                <li>
+                                                    Không được:
+                                                    <ul class="dashed">
+                                                        <li>Tiết lộ cho bất kỳ bên thứ Ba nào những thông tin cần được bảo mật hoặc bất kỳ các thông tin nào của Công ty/ Khách hàng/ Đối tác của Công ty được đánh dấu là “Tài liệu mật” hoặc “Tài liệu tối mật” hoặc “Sử dụng nội bộ” hoặc bằng hình thức tương tự, mà tôi được biết một cách chính thức hoặc không chính thức mà không có sự đồng ý bằng văn bản của Lãnh đạo Trung tâm/ Ban của mình.</li>
+                                                        <li>Sử dụng thông tin cần được bảo mật cho bất kỳ mục đích cá nhân nào (lập hồ sơ xin việc, chia sẻ thông tin với bạn bè, người than,…)</li>
+                                                        <li>Sao chép các thông tin cần được bảo mật vì bất cứ lý do gì khi chưa được người có thẩm quyền đồng ý.</li>
+                                                    </ul>
+
+                                                </li>
+                                                <p>Trong thời gian Bản cam kết này có hiệu lực, nếu Tôi vi phạm bất kỳ quy định nào của Bản cam kết này, Tôi xin hoàn toàn chịu trách nhiệm theo quy định về Bảo mật thông tin của Công ty và Công ty có quyền khởi kiện Tôi ra tòa án cấp có thẩm quyền để giải quyết theo quy định của Pháp luật. Ngoài ra, trong trường hợp vi phạm cam kết này, mà vì lý do khách quan Công ty chưa đánh giá được mức độ thiệt hại và sự ảnh hưởng đến quyền lợi hợp pháp của Công ty – thì tùy theo mức độ vi phạm, Tôi đồng ý sẽ bị xử lý kỷ luật lao động đến mức cao nhất là sa thải (theo quy định trong Nội quy lao động) và phải có trách nhiệm bồi thường toàn bộ thiệt hại do mình gây ra cho Công ty – theo qui định của pháp luật.</p>
+                                            </ol>
+                                        </li>
+                                        <li>
+                                            <b>Hiệu lực của Bản cam kết:</b>
+                                            <p>Cam kết này có hiệu lực kể từ ngày ký và tiếp tục có hiệu lực kể cả khi hợp đồng giữa Công ty và Tôi đã chấm dứt.</p>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                </div>
+                                <div class="col-6 text-center">
+                                    <p>................., ngày........tháng........năm 20.....</p>
+                                    <p><b>NGƯỜI KÝ CAM KẾT</b></p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </body>
+    </template>
+
+    <record id="paperformat_A4" model="report.paperformat">
+        <field name="name">European A4</field>
+        <field name="default" eval="True" />
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">10</field>
+        <field name="margin_bottom">12</field>
+        <field name="margin_left">10</field>
+        <field name="margin_right">10</field>
+        <field name="header_line" eval="False" />
+        <field name="header_spacing">30</field>
+        <field name="dpi">120</field>
+    </record>
+
+    <report
+        id="report_bnk_nda"
+        model="hr.contract"
+        string="NDA"
+        report_type="qweb-pdf"
+        name="bnk_hr.template_bnk_nda"
+        file="bnk_hr.template_bnk_nda"
+        paperformat="paperformat_A4"
+        attachment_use="False"
+        menu="True"
+    />
+</odoo>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.form.hr.recruitment.inherit</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="hr_recruitment.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='recruitment_process_div']" position="after">
+                <h2>Interval notify push CV</h2>
+                  <div class="row mt16 o_settings_container" name="notify_push_cv_interval_div">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Interval notify(days)</span>
+                            <div class="text-muted">
+                                Setting interval notify push CV (days)
+                            </div>
+                            <div class="text-muted">
+                                <field name="notify_push_cv_interval"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

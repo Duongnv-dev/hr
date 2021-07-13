@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_employee_form_bnk_inherit" model="ir.ui.view">
+        <field name="name">view.employee.form.bnk.inherit</field>
+        <field name="model">hr.employee</field>
+        <field name="priority" eval="30"/>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='hr_settings']" position="after">
+                <page string="Attached Files" name="attached_files">
+                    <field name="emp_attachment_ids" widget="many2many_binary"/>
+                </page>
+            </xpath>
+            <xpath expr="//button[@name='toggle_active']" position="before">
+                <button icon="fa-file-text-o" type="action" name="%(bnk_appraisal.appraisal_button_count_view)d"
+                        class="oe_stat_button" groups="oh_appraisal.group_appraisal_manager">
+                    <field name="appraisal_count" widget="statinfo" string="Appraisal"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>

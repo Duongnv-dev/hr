@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data noupdate="0">
+        <!--Email template -->
+        <record id="email_template_job_interview_invitation" model="mail.template">
+            <field name="name">Job Interview Invitation: Send by email</field>
+            <field name="model_id" ref="bnk_recruitment.model_hr_applicant"/>
+            <field name="email_from">${(object.user_id.email_formatted or user.email_formatted) |safe}</field>
+            <field name="email_to">${object.email_from}</field>
+            <field name="subject">Job Interview Invitation (Ref ${object.name or 'n/a'})</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear
+                        % if object.partner_name:
+                            ${object.partner_name},
+                        % else:
+                            ${object.name},
+                        % endif
+                        <br /><br />
+                        Thank you for your application to the ${object.job_id.name} role.
+                        We would like to invite you to interview for the role ${object.job_id.name}.
+                        Please reply to this email directly with your availability during the following date and time:
+                        ${object.time_interview_schedule}
+                        <br /><br />
+                        We look forward to speaking with you.
+                        <br /><br />
+                        Sincerely,
+                    </p>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record id="remind_birthday_employee_template" model="mail.template">
+            <field name="name">Remind Birthday Employee</field>
+            <field name="model_id" ref="bnk_employee.model_hr_employee"></field>
+            <field name="email_from"></field>
+            <field name="subject">Remind Birthday Employee</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p>
+                        <strong>Dear Mr(s).--receiver name--</strong>
+                    </p>
+                    <p>Your employee --employee name-- has birthday at --birthday--</p>
+                    <p>Remember to greet --employee name-- a happy birthday.</p>
+                    <p>BnK Solution</p>
+
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="bnk_asset_inherit_account_asset_form" model="ir.ui.view">
+        <field name="name">bnk.asset.inherit.account.asset.form</field>
+        <field name="model">account.asset.asset</field>
+        <field name="inherit_id" ref="account_asset.view_account_asset_asset_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_id']" position="attributes">
+                <attribute name='invisible'>1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name='invisible'>1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_id']" position="after">
+                <field name='employee_id'/>
+                <field name='location_id' required="1"/>
+                <field name='borrowed_asset'/>
+                <field name='owner' attrs="{'invisible':[('borrowed_asset','=',False)]}"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Maintenance Request">
+                    <field name="maintenance_request_id">
+                        <tree>
+                            <field name='name'/>
+                            <field name='description'/>
+                            <field name='asset_id'/>
+                            <field name='user_id' string="Responsible"/>
+                            <field name='request_date'/>
+                            <field name='priority'/>
+                        </tree>
+                    </field>
+                </page>
+                <page string="Warranty Information">
+                    <group>
+                        <group>
+                            <field name='start_date'/>
+                            <field name='end_date'/>
+                        </group>
+                        <group>
+                            <field name='partner_id' string="Vendor" domain="[('supplier','=',True)]"/>
+                            <field name='invoice_id' string="Invoice"/>
+                        </group>
+                    </group>
+                </page>
+                <page string="Barcode" attrs="{'invisible': [('id_barcode', '=', False)]}">
+                    <group>
+                        <group>
+                            <field name="id_barcode" widget="image"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+            <xpath expr="//field[@name='code']" position="after">
+                <field name="id_asset"/>
+            </xpath>
+            <xpath expr="//field[@name='code']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="bnk_asset_inherit_account_asset_tree" model="ir.ui.view">
+        <field name="name">bnk.asset.inherit.account.asset.tree</field>
+        <field name="model">account.asset.asset</field>
+        <field name="inherit_id" ref="account_asset.view_account_asset_asset_purchase_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="decoration-danger">employee_id == False</attribute>
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name='employee_id'/>
+                <field name='location_id'/>
+            </xpath>
+            <xpath expr="//field[@name='category_id']" position="after">
+                <field name="id_asset"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="bnk_asset_inherit_view_account_asset_search" model="ir.ui.view">
+        <field name="name">bnk.asset.inherit.view.account.asset_.earch</field>
+        <field name="model">account.asset.asset</field>
+        <field name="inherit_id" ref="account_asset.view_account_asset_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='category']" position="after">
+                <filter string="Location" name="location" domain="[]" context="{'group_by':'location_id'}"/>
+                <filter string="Employee" name="employee" domain="[]" context="{'group_by':'employee_id'}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

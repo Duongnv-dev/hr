@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates xml:space="preserve">
+
+    <t t-name="GeneralDeliverReportTemplate">
+        <div>
+            <table class="delivery-report-table">
+                <tr class="header-delivery-report-tr">
+                    <th class="first-col">
+                        KPI
+                    </th>
+                    <th>
+                        Total
+                    </th>
+                    <th>
+                        Jan
+                    </th>
+                    <th>
+                        Fed
+                    </th>
+                    <th>
+                        Mar
+                    </th>
+                    <th>
+                        Apr
+                    </th>
+                    <th>
+                        May
+                    </th>
+                    <th>
+                        Jun
+                    </th>
+                    <th>
+                        July
+                    </th>
+                    <th>
+                        Aug
+                    </th>
+                    <th>
+                        Sep
+                    </th>
+                    <th>
+                        Oct
+                    </th>
+                    <th>
+                        Nov
+                    </th>
+                    <th>
+                        Dec
+                    </th>
+                </tr>
+
+               <tr class="even-tr">
+                   <td class="employee-td">
+                       Headcount
+                   </td>
+                   <td class="employee-td">
+                       <t t-esc="head_count_dict['total']"/>
+                   </td>
+                   <t t-foreach="full_month_list" t-as="m">
+                       <t t-set="td_class" t-value="'not-employee-td'"/>
+                       <t t-if="year_month_list.includes(m)">
+                           <t t-set="td_class" t-value="'open-employee-td'"/>
+                       </t>
+                       <td t-att-employee="head_count_dict[m]['employee']" t-att-class="td_class" open="0">
+                           <t t-esc="head_count_dict[m]['total']"/>
+                       </td>
+                   </t>
+               </tr>
+
+                <tr class="odd-tr">
+                   <td class="employee-td">
+                       Billable
+                   </td>
+                   <td class="employee-td">
+                       <t t-esc="billable_dict['total']"/>
+                   </td>
+                   <t t-foreach="full_month_list" t-as="m">
+                       <t t-set="td_class" t-value="'not-employee-td'"/>
+                       <t t-if="year_month_list.includes(m)">
+                           <t t-set="td_class" t-value="'employee-td'"/>
+                       </t>
+                       <td t-att-class="td_class">
+                           <t t-esc="billable_dict[m]"/>
+                       </td>
+                   </t>
+               </tr>
+
+                <tr class="even-tr">
+                   <td class="employee-td">
+                       Unbillable
+                   </td>
+                   <td class="employee-td">
+                       <t t-esc="unbillable_dict['total']"/>
+                   </td>
+                   <t t-foreach="full_month_list" t-as="m">
+                       <t t-set="td_class" t-value="'not-employee-td'"/>
+                       <t t-if="year_month_list.includes(m)">
+                           <t t-set="td_class" t-value="'employee-td'"/>
+                       </t>
+                       <td t-att-class="td_class">
+                           <t t-esc="unbillable_dict[m]"/>
+                       </td>
+                   </t>
+               </tr>
+
+                <tr class="odd-tr">
+                   <td class="employee-td">
+                       Training
+                   </td>
+                   <td class="employee-td">
+                       <t t-esc="training_dict['total']"/>
+                   </td>
+                   <t t-foreach="full_month_list" t-as="m">
+                       <t t-set="td_class" t-value="'not-employee-td'"/>
+                       <t t-if="year_month_list.includes(m)">
+                           <t t-set="td_class" t-value="'employee-td'"/>
+                       </t>
+                       <td t-att-class="td_class">
+                           <t t-esc="training_dict[m]"/>
+                       </td>
+                   </t>
+               </tr>
+
+                <tr class="even-tr">
+                   <td class="employee-td">
+                       Available
+                   </td>
+                   <td class="employee-td">
+                       <t t-esc="available_dict['total']"/>
+                   </td>
+                   <t t-foreach="full_month_list" t-as="m">
+                       <t t-set="td_class" t-value="'not-employee-td'"/>
+                       <t t-if="year_month_list.includes(m)">
+                           <t t-set="td_class" t-value="'open-employee-td'"/>
+                       </t>
+                       <td t-att-employee="available_dict[m]['employee']" t-att-class="td_class" open="0">
+                           <t t-esc="available_dict[m]['percent']"/>
+                       </td>
+                   </t>
+               </tr>
+
+                <tr class="odd-tr">
+                   <td class="employee-td">
+                       EE
+                   </td>
+                   <td class="employee-td">
+                   </td>
+                   <t t-foreach="full_month_list" t-as="m">
+                       <t t-set="td_class" t-value="'not-employee-td'"/>
+                       <t t-if="year_month_list.includes(m)">
+                           <t t-set="td_class" t-value="'employee-td'"/>
+                       </t>
+                       <td t-att-class="td_class">
+                           <t t-esc="ee_dict[m]"/>
+                       </td>
+                   </t>
+               </tr>
+
+                <tr class="even-tr">
+                   <td class="employee-td">
+                       Un-Allocated
+                   </td>
+                   <td class="employee-td">
+                   </td>
+                   <t t-foreach="full_month_list" t-as="m">
+                       <t t-set="td_class" t-value="'not-employee-td'"/>
+                       <t t-if="year_month_list.includes(m)">
+                           <t t-set="td_class" t-value="'open-employee-td'"/>
+                       </t>
+                       <td t-att-employee="un_allocated[m]['employee']" t-att-class="td_class" open="0">
+                           <t t-esc="un_allocated[m]['percent']"/>
+                       </td>
+                   </t>
+               </tr>
+
+            </table>
+        </div>
+    </t>
+
+</templates>

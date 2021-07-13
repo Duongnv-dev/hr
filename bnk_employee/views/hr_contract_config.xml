@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_contract_config" model="ir.ui.view">
+        <field name="name">view_hr_contract_config</field>
+        <field name="model">hr.contract.config</field>
+        <field name="arch" type="xml">
+            <form string="Configure Contract Param" create="false" delete="false">
+                <sheet>
+                <header>
+                    <button name="update_multi" string="Update Multi-Contracts" type="object" class="btn btn-success"/>
+                </header>
+                <group>
+                    <group string="Insurance Information">
+                        <field name="insurance_salary_base"/>
+                        <field name="deduct_personal_base"/>
+                        <field name="deduct_dependent_base"/>
+                    </group>
+                    <group string="Allowance Income">
+                        <label for="eat_inc"/>
+                            <div class="o_setting_right_pane">
+                                <field name="is_eat_inc"/>
+                                <div class="o_row" name="eat_inc">
+                                    <field name="eat_inc" widget="monetary" nolabel="1"/>
+                                    <span>/ month</span>
+                                </div>
+                            </div>
+
+                            <label for="phone_inc"/>
+                            <div class="o_setting_right_pane">
+                                <field name="is_phone_inc"/>
+                                <div class="o_row" name="phone_inc">
+                                    <field name="phone_inc" widget="monetary"/>
+                                    <span>/ month</span>
+                                </div>
+                            </div>
+
+                            <label for="work_allo_inc"/>
+                            <div class="o_setting_right_pane">
+                                <field name="is_work_allo_inc"/>
+                                <div class="o_row" name="work_allo_inc">
+                                    <field name="work_allo_inc" widget="monetary"/>
+                                    <span>/ month</span>
+                                </div>
+                            </div>
+
+                            <label for="ins_inc"/>
+                            <div class="o_setting_right_pane">
+                                <field name="is_ins_inc"/>
+                                <div class="o_row" name="ins_inc">
+                                    <field name="ins_inc" widget="monetary"/>
+                                </div>
+                            </div>
+
+                            <label for="uni_inc"/>
+                            <div class="o_setting_right_pane">
+                                <field name="is_uni_inc"/>
+                                <div class="o_row" name="uni_inc">
+                                    <field name="uni_inc" widget="monetary" nolabel="1"/>
+                                    <span>/ year</span>
+                                </div>
+                            </div>
+
+                            <label for="poison_inc"/>
+                            <div class="o_setting_right_pane">
+                                <field name="is_poison_inc"/>
+                                <div class="o_row" name="poison_inc">
+                                    <field name="poison_inc" widget="monetary"/>
+                                    <span>/ month</span>
+                                </div>
+                            </div>
+                    </group>
+                    <group string="Salary Insurance">
+                        <field name="social_ins"/>
+                        <field name="health_ins"/>
+                        <field name="unemployment_ins"/>
+                        <field name="social_ins_com"/>
+                        <field name="health_ins_com"/>
+                        <field name="unemployment_ins_com"/>
+                    </group>
+                </group>
+                <group>
+                    <notebook>
+                        <page string="Contracts">
+                            <field name="contract_ids" widget="many2many">
+                                <tree editable="bottom">
+                                    <field name="name" readonly="True"/>
+                                    <field name="employee_id" readonly="True"/>
+                                    <field name="insurance_salary" readonly="True"/>
+                                    <field name="deduct_personal" readonly="True"/>
+                                    <field name="deduct_dependent" readonly="True"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hr_contract_config" model="ir.actions.act_window">
+        <field name="name">Configure Contract Param</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.contract.config</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="res_id" ref="view_hr_contract_config0"/>
+    </record>
+
+    <menuitem id="menu_hr_contract_config" name="Configure Contract Param"
+              parent="hr.menu_human_resources_configuration"
+              sequence="5" action="action_hr_contract_config"
+              groups="hr.group_hr_manager"/>
+
+</odoo>

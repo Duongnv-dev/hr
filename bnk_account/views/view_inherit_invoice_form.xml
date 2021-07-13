@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_inherit_invoice_form" model="ir.ui.view">
+        <field name="name">view.inherit.invoice.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group//group[2]" position="after">
+                <group>
+
+                </group>
+                <group >
+                    <field name="description_of_goods" attrs="{'readonly': [('state', 'in', ['paid', 'cancel'])]}"/>
+                </group>
+            </xpath>
+            <xpath expr="//page[@name='other_info']/group/group[2]" position="after">
+                <group >
+                    <field name="contract_no" attrs="{'readonly': [('state', 'in', ['paid', 'cancel'])]}"/>
+                    <field name="contract_date" attrs="{'readonly': [('state', 'in', ['paid', 'cancel'])]}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_invoice_form_inherit" model="ir.ui.view">
+        <field name="name">	account.invoice.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='account_analytic_id']" position="after">
+                <button name="%(bnk_account.wizard_add_account_analytic_action)d" string="Add acount analytic"  type="action" groups="analytic.group_analytic_accounting" icon="fa-plus-square" options='{"warn": true}'/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_res_partner_bank_form_inherit" model="ir.ui.view">
+        <field name="name">view.res.partner.bank.form.inherit</field>
+        <field name="model">res.partner.bank</field>
+        <field name="inherit_id" ref="base.view_partner_bank_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='acc_holder_name']" position="after">
+                <field name="swift_code"/>
+            </xpath>
+        </field>
+    </record>
+
+     <record id="view_account_invoice_filter" model="ir.ui.view">
+        <field name="name">account.invoice.select</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='paid']" position="after">
+                <filter name="uncancel" string="Not Cancel" domain="[('state', '!=', 'cancel')]"/>
+            </xpath>
+        </field>
+    </record>
+
+      <record id="account.action_invoice_tree1" model="ir.actions.act_window">
+            <field name="context">{'type':'out_invoice', 'journal_type': 'sale','search_default_uncancel':1}</field>
+    </record>
+</odoo>

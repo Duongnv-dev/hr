@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_contract_type_view_form_inherit" model="ir.ui.view">
+        <field name="name">hr.contract.type.view.form.inherit</field>
+        <field name="model">hr.contract.type</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_type_view_form"/>
+        <field name="arch" type="xml">
+            <group col="4">
+                <field name="code" required="1" colspan="4"/>
+                <field name="period" required="1" colspan="4"/>
+                <field colspan="4" name="notify_expire_contract_before"/>
+                <field colspan="4" name="item_check_category_id"/>
+            </group>
+            <xpath expr="//form/group[1]" position="before">
+                <div class="oe_button_box" name="button_box">
+                    <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-check">
+                        <field name="active" widget="boolean_button" options='{"terminology": "active"}'/>
+                    </button>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_contract_type_view_tree_inherit" model="ir.ui.view">
+        <field name="name">hr.contract.type.view.tree.inherit</field>
+        <field name="model">hr.contract.type</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_type_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="code"/>
+                <field name="notify_expire_contract_before"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_hr_contract_form2" model="ir.ui.view">
+        <field name="name">view_hr_contract_form2</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='main_info']/group[@name='salary_and_advantages']" position="after">
+                <group string="Insurance Information">
+                    <field name="insurance_salary" widget="monetary"
+                           attrs="{'invisible': [('sub_type', 'in', ['contributor','trial']), ('contribute_tax', 'in', ['tax', 'non_tax'])]}"/>
+                    <field name="deduct_personal" widget="monetary"
+                           attrs="{'invisible': [('sub_type', 'in', ['contributor','trial']), ('contribute_tax', 'in', ['tax', 'non_tax'])]}"/>
+                    <field name="deduct_dependent" widget="monetary"
+                           attrs="{'invisible': [('sub_type', 'in', ['contributor','trial']), ('contribute_tax', 'in', ['tax', 'non_tax'])]}"/>
+                </group>
+                <group string="Employees Percent"
+                       attrs="{'invisible': [('sub_type', 'in', ['contributor','trial']), ('contribute_tax', 'in', ['tax', 'non_tax'])]}">
+                    <field name="social_ins"/>
+                    <field name="health_ins"/>
+                    <field name="unemployment_ins"/>
+                </group>
+                <group string="Company Percent"
+                       attrs="{'invisible': [('sub_type', 'in', ['contributor','trial']), ('contribute_tax', 'in', ['tax', 'non_tax'])]}">
+                    <field name="social_ins_com"/>
+                    <field name="health_ins_com"/>
+                    <field name="unemployment_ins_com"/>
+                </group>
+            </xpath>
+            <xpath expr="//group[@name='main_info']/group[@name='salary_and_advantages']/field[@name='advantages']"
+                   position="before">
+                <field name="sub_type" invisible="1"/>
+                <field name="salary_per_hour" attrs="{'invisible': [('sub_type', '!=', 'contributor')]}"/>
+                <field name="contribute_tax" attrs="{'invisible': [('sub_type', '!=', 'contributor')]}" required="[('sub_type', '=', 'contributor')]"/>
+                <field name="salary_cash" widget="monetary"/>
+                <field name="salary_contract" widget="monetary"/>
+                <field name="salary_percent" attrs="{'invisible': [('sub_type', '!=', 'trial')]}"/>
+            </xpath>
+<!--            <xpath expr="//field[@name='state']" position="before">-->
+<!--                <button name="print_nda" type="object" groups="hr.group_hr_manager"-->
+<!--                        string="Print NDA" class="btn-primary"/>-->
+<!--                <button name="print_contract" type="object" groups="hr.group_hr_manager"-->
+<!--                        string="Print Contract" class="btn-primary"/>-->
+<!--            </xpath>-->
+            <xpath expr="//page[@name='information']" position="after">
+                <page string="Attached Files" name="attached_files">
+                    <field name="contract_attachment_ids" widget="many2many_binary"/>
+                </page>
+            </xpath>
+            <xpath expr="//page[@name='other']//group[2]" position="attributes">
+                <attribute name="groups">hr_contract.group_hr_contract_manager</attribute>
+                <attribute name="string">Internal Notes</attribute>
+            </xpath>
+            <xpath expr="//page[@name='other']" position="inside">
+                <group string="External Notes">
+                    <field name="external_note" nolabel="1"/>
+                </group>
+            </xpath>
+            <xpath expr="//field[@name='trial_date_end']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='date_end']" position="attributes">
+                <attribute name="attrs">{'required': [('sub_type', '=', 'trial')]}</attribute>
+            </xpath>
+            <xpath expr="//label[@for='wage']" position="attributes">
+                <attribute name="string">Salary Gross (Cash + Contract)</attribute>
+                <attribute name="attrs">{'invisible': [('sub_type', '=', 'contributor')]}</attribute>
+            </xpath>
+            <xpath expr="//page[@name='information']/group/group/div[@name='wage']" position="attributes">
+                <attribute name="attrs">{'invisible': [('sub_type', '=', 'contributor')]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='job_id']" position="after">
+                <field name="period" invisible="1"/>
+            </xpath>
+
+<!--            permission active button-->
+            <xpath expr="//sheet/div[@name='button_box']" position="attributes">
+                <attribute name="groups">hr.group_hr_manager</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='employee_id']" position="after">
+                <field name="dependent_person"/>
+            </xpath>
+
+<!--            add new field parent/child contract-->
+            <xpath expr="//field[@name='type_id']" position="before">
+                <field name="is_origin_contract"/>
+                <field name="parent_contract" options="{'no_create': True, 'no_edit': True}"
+                       domain="[('employee_id', '=', employee_id), ('id', '!=', id), ('is_origin_contract', '=', True)]"
+                       attrs="{'invisible': [('is_origin_contract', '=', True)]}"/>
+            </xpath>
+            <xpath expr="//page[@name='information']" position="after">
+                <page name="child_contract" string="Salary History">
+                    <field name="child_contracts">
+                        <tree>
+                            <field name="employee_id"/>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="type_id"/>
+                            <field name="wage"/>
+                        </tree>
+                        <form>
+                            <group>
+                                <group>
+                                    <field name="employee_id"/>
+                                    <field name="date_start"/>
+                                    <field name="date_end"/>
+                                </group>
+                                <group>
+                                    <field name="type_id"/>
+                                    <field name="salary_cash"/>
+                                    <field name="salary_contract"/>
+                                    <field name="wage"/>
+                                </group>
+                            </group>
+                        </form>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+<!--    add default filter-->
+    <record id="hr_contract_view_search_extend" model="ir.ui.view">
+        <field name="name">hr_contract_view_search_extend</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search/field[@name='state']" position="after">
+                <field name="is_origin_contract"/>
+            </xpath>
+            <xpath expr="//search/filter[@name='to_renew']" position="after">
+                <filter string="Origin Contracts" name="origin_contract" domain="[('is_origin_contract', '=', True)]"/>
+                <separator />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_contract.action_hr_contract" model="ir.actions.act_window">
+        <field name="context">{'search_default_current':1, 'search_default_group_by_state': 1, 'search_default_origin_contract': 1}</field>
+    </record>
+
+</odoo>

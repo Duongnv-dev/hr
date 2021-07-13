@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="auto_create_period" model="ir.cron">
+        <field name="name">Auto Create Period</field>
+        <field name="model_id" ref="bnk_hr.model_auto_create_period"/>
+        <field name="state">code</field>
+        <field name="code">model._auto_create_period()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">months</field>
+        <field name="numbercall">-1</field>
+        <field name="active" eval="True"/>
+        <field name="doall" eval="False"/>
+    </record>
+</odoo>
